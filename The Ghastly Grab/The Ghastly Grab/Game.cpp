@@ -151,13 +151,26 @@ void Game::render()
 
 	if (Menus.currentScreen() == "MainMenu")
 	{
+		m_window.draw(Menus.getGameTitle());
 		m_window.draw(Menus.getMainPlay());
 		m_window.draw(Menus.getMainSound());
 		m_window.draw(Menus.getMainHelp());
 		m_window.draw(Menus.getMainCredits());
+
+		// Temp
+		m_window.draw(Menus.getPlayText());
+		m_window.draw(Menus.getSoundText());
+		m_window.draw(Menus.getHelpText());
+		m_window.draw(Menus.getCreditsText());
+		//
 	}
 
-	m_window.draw(Menus.getGameTitle());
+	if (Menus.currentScreen() == "Help")
+	{
+		m_window.draw(Menus.getHelpReturn());
+		m_window.draw(Menus.getHelpInfo());
+		m_window.draw(Menus.getReturnText());
+	}
 
 	m_window.draw(m_player.getBody());
 
