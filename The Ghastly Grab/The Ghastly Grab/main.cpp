@@ -14,17 +14,14 @@
 #pragma comment(lib,"sfml-network.lib") 
 #endif 
 
-
 #include "Game.h"
 
-/// <summary>
-/// main enrtry point
-/// </summary>
-/// <returns>success or failure</returns>
+//main enrtry point
+//<returns>success or failure</returns>
 int main()
 {
 	Game game;
 	game.run();
 
-	return 1; // success
+	return 1; //success
 }

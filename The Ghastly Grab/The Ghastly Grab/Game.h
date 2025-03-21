@@ -1,25 +1,32 @@
 //author team_8 - [5xWinners]
+
 #ifndef GAME_HPP
 #define GAME_HPP
-/// <summary>
-/// include guards used so we don't process this file twice
-/// same as #pragma once
-/// Don't forget the endif at the bottom
-/// </summary>
+
+//include guards used so we don't process this file twice
+//same as #pragma once
+//Don't forget the endif at the bottom
+
+#include "Player.h" //include Player header file
+#include "Globals.h" //include Global header file
+#include "Riches.h"
+#include "Menus.h"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "Riches.h"
-#include "Globals.h"
+
+
 
 class Game
 {
+	Player m_player;
+
 public:
 	Game();
 	~Game();
-	/// <summary>
-	/// main method for game
-	/// </summary>
+	//main method for game
+
 	void run();
 
 private:
@@ -29,9 +36,6 @@ private:
 	void processMouse(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
-	
-	void setupSprite();
-	void setupAudio();
 
 	void checkClick();
 
@@ -42,7 +46,14 @@ private:
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
 
-	sf::Music m_bgMusic;	// BG Music		
+	bool bounaryCheck();
+
+	void setUp();
+	void setupAudio();
+
+	Menus Menus;
+
+	sf::Music m_bgMusic;	// BG Music	
 
 	sf::Vector2f m_mousePressed;
 
@@ -50,5 +61,5 @@ private:
 
 };
 
-#endif // !GAME_HPP
+#endif //!GAME_HPP
 
