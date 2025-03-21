@@ -1,9 +1,6 @@
-/// <summary>
-/// simple game loop for SFML[2.6.1]
-/// 
-/// author Pete Lowe May 2022
-/// you need to change the above line or lose marks
-/// </summary>
+//simple game loop for SFML[2.6.1]
+//author team_8 - [5xWinners]
+//you need to change the above line or lose marks
 
 #ifdef _DEBUG 
 #pragma comment(lib,"sfml-graphics-d.lib") 
@@ -19,17 +16,14 @@
 #pragma comment(lib,"sfml-network.lib") 
 #endif 
 
-
 #include "Game.h"
 
-/// <summary>
-/// main enrtry point
-/// </summary>
-/// <returns>success or failure</returns>
+//main enrtry point
+//<returns>success or failure</returns>
 int main()
 {
 	Game game;
 	game.run();
 
-	return 1; // success
+	return 1; //success
 }
