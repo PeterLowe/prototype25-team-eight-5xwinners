@@ -1,6 +1,5 @@
 /// <summary>
-/// author Pete Lowe May 2022
-/// you need to change the above line or lose marks
+/// Daemon Medeiros - March 2025
 /// </summary>
 #ifndef GAME_HPP
 #define GAME_HPP
@@ -10,6 +9,7 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 #include <SFML/Graphics.hpp>
+#include "Menus.h"
 
 class Game
 {
@@ -37,6 +37,8 @@ private:
 	sf::Texture m_logoTexture; // texture used for sfml logo
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
+
+	Menus Menus;
 
 };
 

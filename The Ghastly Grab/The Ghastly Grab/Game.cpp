@@ -1,6 +1,5 @@
 /// <summary>
-/// author Pete Lowe May 2022
-/// you need to change the above line or lose marks
+/// Daemon Medeiros - March 2025
 /// </summary>
 
 #include "Game.h"
@@ -117,8 +116,18 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-	m_window.draw(m_welcomeMessage);
-	m_window.draw(m_logoSprite);
+	// m_window.draw(m_welcomeMessage);
+	// m_window.draw(m_logoSprite);
+
+	if (Menus.currentScreen() == "MainMenu")
+	{
+		m_window.draw(Menus.getMainPlay());
+		m_window.draw(Menus.getMainSound());
+		m_window.draw(Menus.getMainHelp());
+		m_window.draw(Menus.getMainCredits());
+	}
+
+	m_window.draw(Menus.getGameTitle());
 	m_window.display();
 }
 
