@@ -36,6 +36,7 @@ private:
 	
 	bool bounaryCheck();
 
+	void setUp();
 	void setupAudio();
 
 	sf::RenderWindow m_window; //main SFML window
