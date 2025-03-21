@@ -1,7 +1,4 @@
-/// <summary>
-/// author Pete Lowe May 2022
-/// you need to change the above line or lose marks
-/// </summary>
+//author team_8 - [5xWinners]
 #ifndef GAME_HPP
 #define GAME_HPP
 /// <summary>
@@ -11,6 +8,9 @@
 /// </summary>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
+#include "Riches.h"
+#include "Globals.h"
 
 class Game
 {
@@ -26,12 +26,14 @@ private:
 
 	void processEvents();
 	void processKeys(sf::Event t_event);
+	void processMouse(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 	
-	void setupFontAndText();
 	void setupSprite();
 	void setupAudio();
+
+	void checkClick();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -41,6 +43,10 @@ private:
 	bool m_exitGame; // control exiting game
 
 	sf::Music m_bgMusic;	// BG Music		
+
+	sf::Vector2f m_mousePressed;
+
+	Riches riches[MAX_RICHES];
 
 };
 

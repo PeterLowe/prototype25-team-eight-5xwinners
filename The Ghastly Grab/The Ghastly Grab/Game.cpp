@@ -1,7 +1,4 @@
-/// <summary>
-/// author Pete Lowe May 2022
-/// you need to change the above line or lose marks
-/// </summary>
+//author team_8 - [5xWinners]
 
 #include "Game.h"
 #include <iostream>
@@ -18,7 +15,6 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 {
-	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	setupAudio();	// setup Audio
 }
@@ -80,6 +76,10 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		if (sf::Event::MouseButtonPressed == newEvent.type)	// user pressed mouse button
+		{
+			processMouse(newEvent);
+		}
 	}
 }
 
@@ -95,6 +95,21 @@ void Game::processKeys(sf::Event t_event)
 		m_exitGame = true;
 	}
 }
+
+/// <summary>
+/// deal with mouses presses from the user
+/// </summary>
+/// <param name="t_event">key press event</param>
+void Game::processMouse(sf::Event t_event)
+{
+
+	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
+	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
+
+	checkClick();
+}
+
+
 
 /// <summary>
 /// Update the game world
@@ -119,45 +134,28 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 	m_window.draw(m_welcomeMessage);
-	m_window.draw(m_logoSprite);
+	if (!riches[0].getClicked())
+	{
+		m_window.draw(riches[0].getBody());
+	}
+
 	m_window.display();
 }
 
 /// <summary>
 /// load the font and setup the text message for screen
 /// </summary>
-void Game::setupFontAndText()
-{
-	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
-	{
-		std::cout << "problem loading arial black font" << std::endl;
-	}
-	m_welcomeMessage.setFont(m_ArialBlackfont);
-	m_welcomeMessage.setString("SFML Game");
-	m_welcomeMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
-	m_welcomeMessage.setPosition(40.0f, 40.0f);
-	m_welcomeMessage.setCharacterSize(80U);
-	m_welcomeMessage.setOutlineColor(sf::Color::Red);
-	m_welcomeMessage.setFillColor(sf::Color::Black);
-	m_welcomeMessage.setOutlineThickness(3.0f);
-
-}
-
-/// <summary>
-/// load the texture and setup the sprite for the logo
-/// </summary>
 void Game::setupSprite()
 {
-	if (!m_logoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
-	{
-		// simple error message if previous call fails
-		std::cout << "problem loading logo" << std::endl;
-	}
-	m_logoSprite.setTexture(m_logoTexture);
-	m_logoSprite.setPosition(300.0f, 180.0f);
+	riches[0].setupSprite();
 }
 
 
+
+
+/// <summary>
+/// load the background music which is to be played constantly
+/// </summary>
 void Game::setupAudio()
 {
 	{
@@ -169,6 +167,16 @@ void Game::setupAudio()
 		m_bgMusic.setVolume(20.f);
 		m_bgMusic.setLoop(true);
 		m_bgMusic.play();
+	}
+}
+
+
+void Game::checkClick()
+{
+	sf::FloatRect bounds = riches[0].getBody().getGlobalBounds();
+	if (bounds.contains(m_mousePressed))
+	{
+		riches[0].onClick();
 	}
 
 }

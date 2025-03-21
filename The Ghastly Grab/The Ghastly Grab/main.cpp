@@ -1,9 +1,4 @@
-/// <summary>
-/// simple game loop for SFML[2.6.1]
-/// 
-/// author Pete Lowe May 2022
-/// you need to change the above line or lose marks
-/// </summary>
+//author team_8 - [5xWinners]
 
 #ifdef _DEBUG 
 #pragma comment(lib,"sfml-graphics-d.lib") 
