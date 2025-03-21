@@ -137,7 +137,7 @@ bool Game::bounaryCheck()
 		pos = { pos.x, 0.0f };
 		m_player.setPoosition(pos);
 	}
-	if (pos.y > SCREEN_HEIGHT)
+	if (pos.y > SCREEN_HEIGHT - 32)
 	{
 		move = false;
 		pos = { pos.x,(SCREEN_HEIGHT - 32) };
@@ -149,7 +149,7 @@ bool Game::bounaryCheck()
 		pos = { 0.0f, pos.y };
 		m_player.setPoosition(pos);
 	}
-	if (pos.x > SCREEN_WIDTH)
+	if (pos.x > SCREEN_WIDTH - 32)
 	{
 		move = false;
 		pos = { (SCREEN_WIDTH - 32), pos.y };
