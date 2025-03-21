@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 //author team_8 - [5xWinners]
-=======
-/// <summary>
-/// Daemon Medeiros - March 2025
-/// </summary>
->>>>>>> main
 
 #include "Game.h"
 #include <iostream>
@@ -17,12 +11,6 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 {
-<<<<<<< HEAD
-=======
-	setupFontAndText(); // load font 
-	setupSprite(); // load texture
-	setupAudio();	// setup Audio
->>>>>>> main
 }
 
 //default destructor we didn't dynamically allocate anything
@@ -133,12 +121,6 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-<<<<<<< HEAD
-	m_window.draw(m_player.getBody());
-=======
-	// m_window.draw(m_welcomeMessage);
-	// m_window.draw(m_logoSprite);
-
 	if (Menus.currentScreen() == "MainMenu")
 	{
 		m_window.draw(Menus.getMainPlay());
@@ -148,7 +130,8 @@ void Game::render()
 	}
 
 	m_window.draw(Menus.getGameTitle());
->>>>>>> main
+
+	m_window.draw(m_player.getBody());
 	m_window.display();
 }
 
@@ -164,7 +147,6 @@ bool Game::bounaryCheck()
 		pos = { pos.x, 0.0f };
 		m_player.setPoosition(pos);
 	}
-<<<<<<< HEAD
 	if (pos.y > SCREEN_HEIGHT)
 	{
 		move = false;
@@ -183,14 +165,9 @@ bool Game::bounaryCheck()
 		pos = { (SCREEN_WIDTH - 32), pos.y };
 		m_player.setPoosition(pos);
 	}
-
-	return move;
-}
-=======
 	m_logoSprite.setTexture(m_logoTexture);
 	m_logoSprite.setPosition(300.0f, 180.0f);
 }
-
 
 void Game::setupAudio()
 {
@@ -206,4 +183,3 @@ void Game::setupAudio()
 	}
 
 }
->>>>>>> main

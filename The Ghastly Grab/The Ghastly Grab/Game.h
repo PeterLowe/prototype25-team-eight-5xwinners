@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 //author team_8 - [5xWinners]
 
-=======
-/// <summary>
-/// Daemon Medeiros - March 2025
-/// </summary>
->>>>>>> main
 #ifndef GAME_HPP
 #define GAME_HPP
 
@@ -40,13 +34,9 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 	
-<<<<<<< HEAD
 	bool bounaryCheck();
-=======
-	void setupFontAndText();
-	void setupSprite();
+
 	void setupAudio();
->>>>>>> main
 
 	sf::RenderWindow m_window; //main SFML window
 	sf::Font m_ArialBlackfont; //font used by message

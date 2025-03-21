@@ -1,14 +1,5 @@
-<<<<<<< HEAD
 //simple game loop for SFML[2.6.1]
 //author team_8 - [5xWinners]
-//you need to change the above line or lose marks
-=======
-/// <summary>
-/// simple game loop for SFML[2.6.1]
-/// 
-/// Daemon Medeiros - March 2025
-/// </summary>
->>>>>>> main
 
 #ifdef _DEBUG 
 #pragma comment(lib,"sfml-graphics-d.lib") 
