@@ -19,6 +19,7 @@ Game::Game() :
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+	setupAudio();	// setup Audio
 }
 
 /// <summary>
@@ -163,4 +164,20 @@ void Game::setupSprite()
 	}
 	m_logoSprite.setTexture(m_logoTexture);
 	m_logoSprite.setPosition(300.0f, 180.0f);
+}
+
+
+void Game::setupAudio()
+{
+	{
+		if (!m_bgMusic.openFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
+		{
+			std::cout << "Music no load"; // error
+		}
+
+		m_bgMusic.setVolume(20.f);
+		m_bgMusic.setLoop(true);
+		m_bgMusic.play();
+	}
+
 }
