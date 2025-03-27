@@ -1,7 +1,6 @@
 //author team_8 - [5xWinners]
 
 #include "Riches.h"
-#include <iostream>
 
 
 /// <summary>

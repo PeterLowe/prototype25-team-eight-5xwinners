@@ -1,14 +1,13 @@
 //author team_8 - [5xWinners]
 
 #include "Game.h"
-#include <iostream>
 
 //default constructor
 //setup the window properties
 //load and setup the text 
 ///oad and setup thne image
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ SCREEN_WIDTH, SCREEN_HEIGHT, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 {
 	setUp();
@@ -144,9 +143,9 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	if (!riches[0].getClicked())
+	if (!m_riches[0].getClicked())
 	{
-		m_window.draw(riches[0].getBody());
+		m_window.draw(m_riches[0].getBody());
 	}
 
 	if (Menus.currentScreen() == "MainMenu")
@@ -173,6 +172,8 @@ void Game::render()
 	}
 
 	m_window.draw(m_player.getBody());
+	
+	m_window.draw(m_meter.getBody());
 
 	m_window.display();
 }
@@ -216,7 +217,8 @@ bool Game::bounaryCheck()
 void Game::setUp()
 {
 	setupAudio();
-	riches[0].setupSprite();
+	m_riches[0].setupSprite();
+	m_meter.setupSprite();
 }
 
 
@@ -241,9 +243,13 @@ void Game::setupAudio()
 
 void Game::checkClick()
 {
-	sf::FloatRect bounds = riches[0].getBody().getGlobalBounds();
+	sf::FloatRect bounds = m_riches[0].getBody().getGlobalBounds();
 	if (bounds.contains(m_mousePressed))
 	{
-		riches[0].onClick();
+		m_riches[0].onClick();
+	}
+	else 
+	{
+		m_meter.onClick();
 	}
 }

@@ -11,6 +11,7 @@
 #include "Globals.h" //include Global header file
 #include "Riches.h"
 #include "Menus.h"
+#include "Meter.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -57,7 +58,9 @@ private:
 
 	sf::Vector2f m_mousePressed;
 
-	Riches riches[MAX_RICHES];
+	Riches m_riches[MAX_RICHES];
+
+	Meter m_meter;
 
 };
 
