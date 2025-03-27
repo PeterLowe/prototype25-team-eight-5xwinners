@@ -8,7 +8,7 @@
 //load and setup the text 
 ///oad and setup thne image
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1000U, 800U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 {
 	setUp();
