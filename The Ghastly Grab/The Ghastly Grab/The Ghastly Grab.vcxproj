@@ -19,22 +19,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Covers.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hud.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Meter.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Riches.cpp" />
+    <ClCompile Include="Rooms.cpp" />
+    <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Covers.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Hud.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Meter.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Riches.h" />
+    <ClInclude Include="Rooms.h" />
+    <ClInclude Include="Tools.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="ASSETS\IMAGES\SFML-LOGO.png">
