@@ -43,6 +43,7 @@ public:
 	void setupText();
 	void on();
 	void off();
+	void itemObtained(int t_itemNum);
 	bool display();
 	sf::RectangleShape getBackground();
 	sf::Text getItem1();

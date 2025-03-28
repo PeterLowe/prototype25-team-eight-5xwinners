@@ -277,6 +277,14 @@ void Game::checkClick()
 	if (bounds.contains(m_mousePressed))
 	{
 		m_riches[0].onClick();
+
+		for (int i = 0; i < MAX_RICHES; i++)
+		{
+			if (m_riches[i].getClicked())
+			{
+				Hud.itemObtained(i+1);
+			}
+		}
 	}
 	else 
 	{

@@ -100,6 +100,41 @@ void Hud::setupText()
 }
 
 
+void Hud::itemObtained(int t_itemNum)
+{
+	switch (t_itemNum)
+	{
+	case 1:
+		m_item1.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 2:
+		m_item2.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 3:
+		m_item3.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 4:
+		m_item4.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 5:
+		m_item5.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 6:
+		m_item6.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 7:
+		m_item7.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 8:
+		m_item8.setFillColor(sf::Color(150, 150, 150));
+		break;
+	case 9:
+		m_item9.setFillColor(sf::Color(150, 150, 150));
+		break;
+	}
+}
+
+
 void Hud::on()
 {
 	m_hudDisplay = true;
