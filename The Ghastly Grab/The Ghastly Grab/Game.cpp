@@ -82,6 +82,23 @@ void Game::processKeys(sf::Event t_event)
 		m_exitGame = true;
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) // Main Menu
+	{
+		Menus.chooseScreen(1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) // Gameplay Screen
+	{
+		Menus.chooseScreen(2);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) // Inventory Screen
+	{
+		Menus.chooseScreen(3);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) // Help Screen
+	{
+		Menus.chooseScreen(4);
+	}
+
 	if (bounaryCheck()) //check bounds before moving
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -188,24 +205,18 @@ void Game::render()
 	}
 	if (Menus.currentScreen() == "Gameplay")
 	{
-		/*m_window.draw(Menus.getItemList());
-		m_window.draw(Menus.getBagIcon());*/
-
-		if (Hud.display())
-		{
-			m_window.draw(Menus.getItemList());
-			m_window.draw(Menus.getBagIcon());
-			m_window.draw(Hud.getBackground());
-			m_window.draw(Hud.getItem1());
-			m_window.draw(Hud.getItem2());
-			m_window.draw(Hud.getItem3());
-			m_window.draw(Hud.getItem4());
-			m_window.draw(Hud.getItem5());
-			m_window.draw(Hud.getItem6());
-			m_window.draw(Hud.getItem7());
-			m_window.draw(Hud.getItem8());
-			m_window.draw(Hud.getItem9());
-		}
+		m_window.draw(Menus.getItemList());
+		m_window.draw(Menus.getBagIcon());
+		m_window.draw(Hud.getBackground());
+		m_window.draw(Hud.getItem1());
+		m_window.draw(Hud.getItem2());
+		m_window.draw(Hud.getItem3());
+		m_window.draw(Hud.getItem4());
+		m_window.draw(Hud.getItem5());
+		m_window.draw(Hud.getItem6());
+		m_window.draw(Hud.getItem7());
+		m_window.draw(Hud.getItem8());
+		m_window.draw(Hud.getItem9());
 	}
 	m_window.draw(m_player.getBody());
 	

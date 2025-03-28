@@ -23,19 +23,19 @@ void Menus::chooseScreen(int t_screen)
 		m_currentScreen = "MainMenu";
 		break;
 	case 2:
-		m_currentScreen = "SoundSettings";
-		break;
-	case 3:
-		m_currentScreen = "Help";
-		break;
-	case 4:
-		m_currentScreen = "Credits";
-		break;
-	case 5:
 		m_currentScreen = "Gameplay";
 		break;
-	case 6:
+	case 3:
 		m_currentScreen = "Inventory";
+		break;
+	case 4:
+		m_currentScreen = "Help";
+		break;
+	case 5:
+		m_currentScreen = "SoundSettings";
+		break;
+	case 6:
+		m_currentScreen = "Credits";
 	}
 }
 

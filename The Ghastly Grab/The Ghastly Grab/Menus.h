@@ -49,7 +49,7 @@ public:
 
 private:
 
-	std::string m_currentScreen = "Gameplay";
+	std::string m_currentScreen = "MainMenu";
 
 	const int BUT_WIDTH = 192; // Button width
 	const int BUT_HEIGHT = 64; // Button height
