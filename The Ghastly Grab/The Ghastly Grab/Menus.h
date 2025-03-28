@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "SFML/Graphics.hpp"
+#include "Globals.h"
 
 class Menus
 {
@@ -38,7 +39,7 @@ public:
 
 private:
 
-	std::string m_currentScreen = "";
+	std::string m_currentScreen = "Help";
 
 	// MainMenu
 	sf::Texture m_menuBack; // Background graphic with game title
@@ -64,11 +65,11 @@ private:
 	sf::RectangleShape m_helpDef; // Default button shape
 	sf::RectangleShape m_creditsDef; // Default button shape
 
-	sf::Vector2f m_titlePos{ 400.0f,100.0f }; // Game title position
-	sf::Vector2f m_playPos{ 400.0f,250.0f }; // Play button position
-	sf::Vector2f m_soundPos{ 400.0f,332.0f }; // Sound Button Position
-	sf::Vector2f m_helpPos{ 400.0f,414.0f }; // Help button position
-	sf::Vector2f m_creditsPos{ 400.0f,496.0f }; // Credits button position
+	sf::Vector2f m_titlePos{ SCREEN_WIDTH / 2,150.0f }; // Game title position
+	sf::Vector2f m_playPos{ SCREEN_WIDTH / 2,300.0f }; // Play button position
+	sf::Vector2f m_soundPos{ SCREEN_WIDTH / 2,382.0f }; // Sound Button Position
+	sf::Vector2f m_helpPos{ SCREEN_WIDTH / 2,464.0f }; // Help button position
+	sf::Vector2f m_creditsPos{ SCREEN_WIDTH / 2,546.0f }; // Credits button position
 
 	const int BUT_WIDTH = 192; // Button width
 	const int BUT_HEIGHT = 64; // Button height

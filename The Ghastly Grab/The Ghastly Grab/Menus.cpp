@@ -163,7 +163,7 @@ void Menus::helpMenuShapes()
 	m_helpReturn.setPosition(25, 25);
 
 	m_helpInfo.setFillColor(sf::Color::Cyan);
-	m_helpInfo.setSize(sf::Vector2f{ 558.0f, 372.0f });
+	m_helpInfo.setSize(sf::Vector2f{ 758.0f, 600.0f });
 	m_helpInfo.setPosition(121, 114);
 
 	m_return.setFont(m_ArialBlackfont);
