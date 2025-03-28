@@ -179,16 +179,22 @@ void Game::render()
 		m_window.draw(Menus.getHelpInfo());
 		m_window.draw(Menus.getReturnText());
 	}
-	if (Menus.currentScreen() == "GameplayScreen")
+
+	if (Menus.currentScreen() == "Inventory")
 	{
-
-
-
-		m_window.draw(Menus.getItemList());
-		m_window.draw(Menus.getBagIcon());
+		m_window.draw(Menus.getInvWindow());
+		m_window.draw(Menus.getInvReturn());
+		m_window.draw(Menus.getInvReturnText());
+	}
+	if (Menus.currentScreen() == "Gameplay")
+	{
+		/*m_window.draw(Menus.getItemList());
+		m_window.draw(Menus.getBagIcon());*/
 
 		if (Hud.display())
 		{
+			m_window.draw(Menus.getItemList());
+			m_window.draw(Menus.getBagIcon());
 			m_window.draw(Hud.getBackground());
 			m_window.draw(Hud.getItem1());
 			m_window.draw(Hud.getItem2());

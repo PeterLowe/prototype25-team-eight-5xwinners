@@ -36,14 +36,20 @@ public:
 	sf::RectangleShape getHelpInfo();
 	sf::Text getReturnText();
 
-	// Gameplay Screen
+	// Gameplay
 	void gameplayScreen();
 	sf::RectangleShape getItemList();
 	sf::RectangleShape getBagIcon();
 
+	// Inventory
+	void inventoryScreen();
+	sf::RectangleShape getInvWindow();
+	sf::RectangleShape getInvReturn();
+	sf::Text getInvReturnText();
+
 private:
 
-	std::string m_currentScreen = "GameplayScreen";
+	std::string m_currentScreen = "Gameplay";
 
 	const int BUT_WIDTH = 192; // Button width
 	const int BUT_HEIGHT = 64; // Button height
@@ -85,4 +91,11 @@ private:
 	// Gameplay Screen
 	sf::RectangleShape m_itemList;
 	sf::RectangleShape m_bagIcon;
+
+	// Inventory Screen
+
+	sf::RectangleShape m_invWindow;
+	sf::RectangleShape m_invReturnShape;
+	sf::Text m_invReturnText;
+	sf::FloatRect m_invReturnSize;
 };
