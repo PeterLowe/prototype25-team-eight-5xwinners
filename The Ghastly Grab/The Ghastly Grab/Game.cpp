@@ -139,85 +139,70 @@ void Game::update(sf::Time t_deltaTime)
 }
 
 //draw the frame and then switch buffers
+//void Game::render()
+//{
+//	m_window.clear(sf::Color::White);
+//
+//	if (!m_riches[0].getClicked())
+//	{
+//		m_window.draw(m_riches[0].getBody());
+//	}
+//
+//	if (Menus.currentScreen() == "MainMenu")
+//	{
+//		m_window.draw(Menus.getGameTitle());
+//		m_window.draw(Menus.getMainPlay());
+//		m_window.draw(Menus.getMainSound());
+//		m_window.draw(Menus.getMainHelp());
+//		m_window.draw(Menus.getMainCredits());
+//
+//		// Temp
+//		m_window.draw(Menus.getPlayText());
+//		m_window.draw(Menus.getSoundText());
+//		m_window.draw(Menus.getHelpText());
+//		m_window.draw(Menus.getCreditsText());
+//		//
+//	}
+//
+//	if (Menus.currentScreen() == "Help")
+//	{
+//		m_window.draw(Menus.getHelpReturn());
+//		m_window.draw(Menus.getHelpInfo());
+//		m_window.draw(Menus.getReturnText());
+//	}
+//
+//	if (Menus.currentScreen() == "GameplayScreen")
+//	{
+//		m_window.draw(Menus.getItemList());
+//		m_window.draw(Menus.getBagIcon());
+//	}
+//
+//	m_window.draw(m_player.getBody());
+//	
+//	m_window.draw(m_meter.getBody());
+//
+//	m_window.display();
+//}
+
+
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	if (!m_riches[0].getClicked())
-	{
-		m_window.draw(m_riches[0].getBody());
-	}
+	
+	m_window.draw(m_bgSprite);
 
-	if (Menus.currentScreen() == "MainMenu")
-	{
-		m_window.draw(Menus.getGameTitle());
-		m_window.draw(Menus.getMainPlay());
-		m_window.draw(Menus.getMainSound());
-		m_window.draw(Menus.getMainHelp());
-		m_window.draw(Menus.getMainCredits());
 
-		// Temp
-		m_window.draw(Menus.getPlayText());
-		m_window.draw(Menus.getSoundText());
-		m_window.draw(Menus.getHelpText());
-		m_window.draw(Menus.getCreditsText());
-		//
-	}
+	m_window.draw(invis);
+	m_window.draw(diagonal1);
+	m_window.draw(diagonal2);
+	m_window.draw(floor);
 
-	if (Menus.currentScreen() == "Help")
-	{
-		m_window.draw(Menus.getHelpReturn());
-		m_window.draw(Menus.getHelpInfo());
-		m_window.draw(Menus.getReturnText());
-	}
 
-	if (Menus.currentScreen() == "GameplayScreen")
-	{
-		m_window.draw(Menus.getItemList());
-		m_window.draw(Menus.getBagIcon());
-	}
 
 	m_window.draw(m_player.getBody());
-	
-	m_window.draw(m_meter.getBody());
 
 	m_window.display();
-}
-
-bool Game::bounaryCheck()
-//stops player from moving out the gameplay bounds
-{
-	bool move = true;
-	sf::Vector2f pos = m_player.getPosition();
-
-	if (pos.y < 0.0f)
-	{
-		move = false;
-		pos = { pos.x, 0.0f };
-		m_player.setPoosition(pos);
-	}
-	if (pos.y > SCREEN_HEIGHT - 32)
-	{
-		move = false;
-		pos = { pos.x,(SCREEN_HEIGHT - 32) };
-		m_player.setPoosition(pos);
-	}
-	if (pos.x < 0.0f)
-	{
-		move = false;
-		pos = { 0.0f, pos.y };
-		m_player.setPoosition(pos);
-	}
-	if (pos.x > SCREEN_WIDTH - 32)
-	{
-		move = false;
-		pos = { (SCREEN_WIDTH - 32), pos.y };
-		m_player.setPoosition(pos);
-	}
-	m_logoSprite.setTexture(m_logoTexture);
-	m_logoSprite.setPosition(300.0f, 180.0f);
-
-	return move;
 }
 
 void Game::setUp()
@@ -225,6 +210,15 @@ void Game::setUp()
 	setupAudio();
 	m_riches[0].setupSprite();
 	m_meter.setupSprite();
+
+	if (!m_bgTexture.loadFromFile("ASSETS/IMAGES/BG.png"))
+	{
+		std::cout << "Error with BG" << std::endl;
+	}
+
+	m_bgSprite.setTexture(m_bgTexture);
+
+	setupBounds();
 }
 
 
@@ -258,4 +252,48 @@ void Game::checkClick()
 	{
 		m_meter.onClick();
 	}
+}
+
+
+bool Game::bounaryCheck()
+//stops player from moving out the gameplay bounds
+// Arceus bless me in what I am about to do
+{
+	bool move = true;
+
+	sf::Vector2f playerPos = m_player.getPosition();
+
+	// legs - rect on player's leg, d1 - diagonal on left side, d2 - diagonal on right side, invis - rect below floor that's covered by HUD, floor, rect of visible floor.
+
+
+
+
+
+
+
+	return move;
+}
+
+
+void Game::setupBounds()
+{
+	diagonal1.setPosition({ 128.0f,335.0f });
+	diagonal1.setSize({ 110.0f, 250.0f });
+	diagonal1.setRotation(31);
+	diagonal1.setFillColor(sf::Color::Yellow);
+
+	diagonal2.setPosition({ 780.5f,391.0f });
+	diagonal2.setSize({ 110.0f, 250.0f });
+	diagonal2.setRotation(330);
+	diagonal2.setFillColor(sf::Color::Red);
+
+	floor.setPosition({ 128.0f,337.0f });
+	floor.setSize({ 747.0f , 211.0f });
+	floor.setFillColor(sf::Color::Green);
+
+	invis.setPosition({ 0.0f,548.0f });
+	invis.setSize({1000.0f , 100.0f });
+	invis.setFillColor(sf::Color::Blue);
+
+
 }

@@ -15,6 +15,7 @@ void Player::loadImage()
 		std::cout << "error with player image file";
 	}
 
+	m_sprite.setScale(0.7f, 0.7f);
 	m_sprite.setTexture(m_texture);
 }
 
@@ -57,3 +58,7 @@ sf::Sprite Player::getBody()
 {
 	return m_sprite;
 }
+
+
+
+
