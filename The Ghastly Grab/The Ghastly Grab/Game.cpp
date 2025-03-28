@@ -104,6 +104,15 @@ void Game::processKeys(sf::Event t_event)
 			facing = RIGHT;
 			m_player.movement(facing);
 		}
+		//temp
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		{
+			Hud.on();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		{
+			Hud.off();
+		}
 	}
 }
 
@@ -170,6 +179,22 @@ void Game::render()
 		m_window.draw(Menus.getHelpInfo());
 		m_window.draw(Menus.getReturnText());
 	}
+
+	//temp...ish
+	if (Hud.display())
+	{
+		m_window.draw(Hud.getBackground());
+		m_window.draw(Hud.getItem1());
+		m_window.draw(Hud.getItem2());
+		m_window.draw(Hud.getItem3());
+		m_window.draw(Hud.getItem4());
+		m_window.draw(Hud.getItem5());
+		m_window.draw(Hud.getItem6());
+		m_window.draw(Hud.getItem7());
+		m_window.draw(Hud.getItem8());
+		m_window.draw(Hud.getItem9());
+	}
+
 
 	m_window.draw(m_player.getBody());
 	

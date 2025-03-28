@@ -12,6 +12,7 @@
 #include "Riches.h"
 #include "Menus.h"
 #include "Meter.h"
+#include "Hud.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -61,6 +62,8 @@ private:
 	Riches m_riches[MAX_RICHES];
 
 	Meter m_meter;
+
+	Hud Hud;
 
 };
 
