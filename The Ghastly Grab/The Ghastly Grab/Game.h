@@ -12,6 +12,7 @@
 #include "Riches.h"
 #include "Menus.h"
 #include "Meter.h"
+#include "Inventory.h" //include Inventory header file
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -37,6 +38,7 @@ private:
 	void processMouse(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
+	void drawInventory();
 
 	void checkClick();
 
@@ -53,6 +55,8 @@ private:
 	void setupAudio();
 
 	Menus Menus;
+
+	Inventory m_inventory;
 
 	sf::Music m_bgMusic;	// BG Music	
 

@@ -171,11 +171,28 @@ void Game::render()
 		m_window.draw(Menus.getReturnText());
 	}
 
+	m_window.draw(m_inventory.returnButton());
+
 	m_window.draw(m_player.getBody());
 	
 	m_window.draw(m_meter.getBody());
 
+	if (m_inventory.getOpen())
+	{
+		drawInventory();
+	}
+
 	m_window.display();
+}
+
+void Game::drawInventory()
+{
+	m_window.draw(m_inventory.returnBackground());
+
+	for (int index = 0; index < MAX_TOOLS; index++)
+	{
+		m_window.draw(m_inventory.returnItems(index));
+	}
 }
 
 bool Game::bounaryCheck()
@@ -244,9 +261,14 @@ void Game::setupAudio()
 void Game::checkClick()
 {
 	sf::FloatRect bounds = m_riches[0].getBody().getGlobalBounds();
+	sf::FloatRect inventoryBounds = m_inventory.returnButton().getGlobalBounds();
 	if (bounds.contains(m_mousePressed))
 	{
 		m_riches[0].onClick();
+	}
+	else if (inventoryBounds.contains(m_mousePressed))
+	{
+		m_inventory.changeOpen();
 	}
 	else 
 	{
