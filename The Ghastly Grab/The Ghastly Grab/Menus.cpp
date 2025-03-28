@@ -7,6 +7,8 @@ Menus::Menus() // Default constructor
 	mainMenuText();
 
 	helpMenuShapes();
+
+	gameplayScreen();
 }
 
 /// <summary>
@@ -27,6 +29,9 @@ void Menus::chooseScreen(int t_screen)
 		break;
 	case 4:
 		m_currentScreen = "Credits";
+		break;
+	case 5:
+		m_currentScreen = "GameplayScreen";
 		break;
 	}
 }
@@ -188,4 +193,27 @@ sf::RectangleShape Menus::getHelpInfo()
 sf::Text Menus::getReturnText()
 {
 	return m_return;
+}
+
+void Menus::gameplayScreen()
+{
+	m_itemList.setFillColor(sf::Color(210, 180, 140));
+	m_itemList.setSize(sf::Vector2f(750, 250));
+	m_itemList.setOrigin(0, 200);
+	m_itemList.setPosition(0, 800);
+
+	m_bagIcon.setFillColor(sf::Color(131, 105, 83));
+	m_bagIcon.setSize(sf::Vector2f(250, 250));
+	m_bagIcon.setOrigin(0, 200);
+	m_bagIcon.setPosition(750,800);
+}
+
+sf::RectangleShape Menus::getItemList()
+{
+	return m_itemList;
+}
+
+sf::RectangleShape Menus::getBagIcon()
+{
+	return m_bagIcon;
 }

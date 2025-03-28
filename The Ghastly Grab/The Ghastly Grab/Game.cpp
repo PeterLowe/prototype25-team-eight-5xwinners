@@ -171,6 +171,12 @@ void Game::render()
 		m_window.draw(Menus.getReturnText());
 	}
 
+	if (Menus.currentScreen() == "GameplayScreen")
+	{
+		m_window.draw(Menus.getItemList());
+		m_window.draw(Menus.getBagIcon());
+	}
+
 	m_window.draw(m_player.getBody());
 	
 	m_window.draw(m_meter.getBody());
