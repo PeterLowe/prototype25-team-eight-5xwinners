@@ -143,6 +143,9 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
+	sf::Vector2f clickPos(m_mousePressed.x, m_mousePressed.y);
+	Menus.checkClick(clickPos);
+
 	checkClick();
 }
 

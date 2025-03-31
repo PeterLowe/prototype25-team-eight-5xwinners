@@ -16,6 +16,7 @@ public:
 
 	// Main Menu
 	void mainMenuShapes();
+	void checkClick(sf::Vector2f t_clickPos);
 	sf::RectangleShape getMainPlay();
 	sf::RectangleShape getMainSound();
 	sf::RectangleShape getMainHelp();

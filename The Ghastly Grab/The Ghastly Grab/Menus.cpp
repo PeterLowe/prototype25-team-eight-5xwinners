@@ -254,3 +254,15 @@ sf::Text Menus::getInvReturnText()
 {
 	return m_invReturnText;
 }
+
+
+void Menus::checkClick(sf::Vector2f t_clickPos)
+{
+	sf::FloatRect playBounds = m_playDef.getGlobalBounds();
+
+	if (playBounds.contains(t_clickPos))
+	{
+		chooseScreen(2);
+	}
+	
+}
