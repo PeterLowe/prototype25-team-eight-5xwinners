@@ -13,9 +13,20 @@ public:
 	void loadImage();
 
 	void changeOpen();
-	sf::Sprite returnButton();
-	sf::Sprite returnBackground();
-	sf::Sprite returnItems(int t_index);
+	void haveKey();
+	void haveNote();
+	void haveShovel();
+	void haveCrowBar();
+	void radioAnimate();
+	void keyEffect();
+	void noteEffect();
+	void shovelEffect();
+	void crowBarEffect();
+
+	sf::Sprite getButton();
+	sf::Sprite getRadio();
+	sf::Sprite getBackground();
+	sf::Sprite getItems(int t_index);
 
 	bool getOpen();
 
@@ -24,6 +35,13 @@ private:
 
 	sf::Texture m_buttonTexture;
 	sf::Sprite m_button;
+
+	sf::Texture m_radioTexture;
+	sf::Sprite m_radio;
+	int m_radioFrame{ -1 }; //change immediatly
+	const int m_RADIO_FRAMES = 3; //amount of frames
+	float m_radioFrameCount = 0.0f;
+	float m_radioFrameIncrement = 0.1f; //added to frame count every clock tick
 
 	sf::Texture m_backgroundTexture;
 	sf::Sprite m_background;

@@ -40,7 +40,8 @@ private:
 	void render();
 	void drawInventory();
 
-	void checkClick();
+	void gamePlayClick();
+	void inventoryClick();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
