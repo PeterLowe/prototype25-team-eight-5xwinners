@@ -17,6 +17,7 @@ void Player::loadImage()
 
 	m_sprite.setScale(0.7f, 0.7f);
 	m_sprite.setTexture(m_texture);
+	m_sprite.setPosition({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 });
 }
 
 void Player::movement(int t_facing)

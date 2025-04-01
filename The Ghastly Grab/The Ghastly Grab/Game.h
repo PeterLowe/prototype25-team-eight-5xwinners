@@ -41,10 +41,11 @@ private:
 	void checkClick();
 
 
-	bool bounaryCheck();
+	void bounaryCheck(int t_facing);
 	void setupBounds();
-	sf::FloatRect legs;
-	sf::RectangleShape diagonal1, diagonal2, invis, floor;
+	bool inclusionCheck();
+	sf::RectangleShape diagonal1, diagonal2, invis, floor;			// Rects for bounds
+	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
 
 
 	sf::RenderWindow m_window; // main SFML window

@@ -82,29 +82,33 @@ void Game::processKeys(sf::Event t_event)
 		m_exitGame = true;
 	}
 
-	if (bounaryCheck()) //check bounds before moving
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			facing = UP;
-			m_player.movement(facing);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			facing = DOWN;
-			m_player.movement(facing);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			facing = LEFT;
-			m_player.movement(facing);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			facing = RIGHT;
-			m_player.movement(facing);
-		}
+		facing = UP;
+		m_player.movement(facing);
+		m_legsRect.move(0, -5);
 	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		facing = DOWN;
+		m_player.movement(facing);
+		m_legsRect.move(0, 5);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		facing = LEFT;
+		m_player.movement(facing);
+		m_legsRect.move(-5, 0);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		facing = RIGHT;
+		m_player.movement(facing);
+		m_legsRect.move(5, 0);
+	}
+
+	bounaryCheck(facing);
+
 }
 
 /// <summary>
@@ -186,6 +190,7 @@ void Game::update(sf::Time t_deltaTime)
 
 
 void Game::render()
+// render function for testing bounds
 {
 	m_window.clear(sf::Color::White);
 
@@ -194,13 +199,15 @@ void Game::render()
 
 
 	m_window.draw(invis);
+
+	m_window.draw(floor);
 	m_window.draw(diagonal1);
 	m_window.draw(diagonal2);
-	m_window.draw(floor);
 
 
 
 	m_window.draw(m_player.getBody());
+	m_window.draw(m_legsRect);
 
 	m_window.display();
 }
@@ -252,48 +259,86 @@ void Game::checkClick()
 	{
 		m_meter.onClick();
 	}
+
 }
 
-
-bool Game::bounaryCheck()
+void Game::bounaryCheck(int t_facing)
 //stops player from moving out the gameplay bounds
-// Arceus bless me in what I am about to do
 {
-	bool move = true;
+	if (!inclusionCheck())
+		// resetting last move if that movement caused player to go out of bounds
+	{
+		if (t_facing == UP)
+		{
+			t_facing = DOWN;
+			m_player.movement(t_facing);
+			m_legsRect.move(0, 5);
+		}
+		else if (t_facing == DOWN)
+		{
+			t_facing = UP;
+			m_player.movement(t_facing);
+			m_legsRect.move(0, -5);
+		}
+		else if (t_facing == LEFT)
+		{
+			t_facing = RIGHT;
+			m_player.movement(t_facing);
+			m_legsRect.move(5, 0);
+		}
+		else if (t_facing == RIGHT)
+		{
+			t_facing = LEFT;
+			m_player.movement(t_facing);
+			m_legsRect.move(-5, 0);
+		}
+	}
+	
+}
 
-	sf::Vector2f playerPos = m_player.getPosition();
-
-	// legs - rect on player's leg, d1 - diagonal on left side, d2 - diagonal on right side, invis - rect below floor that's covered by HUD, floor, rect of visible floor.
-
-
+bool Game::inclusionCheck()
+{
+	bool included = true;	// check for if legs included in bounds
 
 
+	if (!diagonal1.getGlobalBounds().intersects(m_legsRect.getGlobalBounds())	&&
+		!diagonal2.getGlobalBounds().intersects(m_legsRect.getGlobalBounds())	&&
+		!floor.getGlobalBounds().intersects(m_legsRect.getGlobalBounds())		&&
+		!invis.getGlobalBounds().intersects(m_legsRect.getGlobalBounds()))
+	{
+		included = false;
+	}
 
-
-
-	return move;
+	return included;
 }
 
 
 void Game::setupBounds()
 {
-	diagonal1.setPosition({ 128.0f,335.0f });
+	// Yellow Diagonal on left side
+	diagonal1.setPosition({ 128.0f + LEG_WIDTH,335.0f });
 	diagonal1.setSize({ 110.0f, 250.0f });
 	diagonal1.setRotation(31);
 	diagonal1.setFillColor(sf::Color::Yellow);
 
-	diagonal2.setPosition({ 780.5f,391.0f });
+	// Red diagonal on right side
+	diagonal2.setPosition({ 780.5f - LEG_WIDTH,391.0f });
 	diagonal2.setSize({ 110.0f, 250.0f });
 	diagonal2.setRotation(330);
 	diagonal2.setFillColor(sf::Color::Red);
 
-	floor.setPosition({ 128.0f,337.0f });
-	floor.setSize({ 747.0f , 211.0f });
+	// Floor that is visible as floor in gameplay (green rect)
+	floor.setPosition({ 128.0f + LEG_WIDTH ,337.0f});
+	floor.setSize({ 747.0f - (2*LEG_WIDTH), 211.0f });
 	floor.setFillColor(sf::Color::Green);
 
-	invis.setPosition({ 0.0f,548.0f });
-	invis.setSize({1000.0f , 100.0f });
+	// invisible area of movement (not visible in gameplay (blue rect)
+	invis.setPosition({ 0.0f  + LEG_WIDTH,548.0f });
+	invis.setSize({1000.0f - (2 * LEG_WIDTH) , 100.0f });
 	invis.setFillColor(sf::Color::Blue);
 
-
+	// Rect for legs
+	m_legsRect.setFillColor(sf::Color::Yellow);
+	m_legsRect.setOutlineColor(sf::Color::Black);
+	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG);
 }
