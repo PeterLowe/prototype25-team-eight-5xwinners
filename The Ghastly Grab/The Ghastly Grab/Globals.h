@@ -28,3 +28,5 @@ static const int INVENTORY = 3;
 static const int HELP = 4;
 static const int SOUND = 5;
 static const int CREDITS = 6;
+static const int LOSING = 7;
+static const int WINNING = 8;

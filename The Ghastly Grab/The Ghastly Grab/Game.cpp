@@ -82,22 +82,7 @@ void Game::processKeys(sf::Event t_event)
 		m_exitGame = true;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) // Main Menu
-	{
-		m_screen = MAIN;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) // Gameplay Screen
-	{
-		m_screen = GAMEPLAY;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) // Inventory Screen
-	{
-		m_screen = INVENTORY;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) // Help Screen
-	{
-		m_screen = HELP;
-	}
+	screenSwitchKeys();
 
 	if (bounaryCheck()) //check bounds before moving
 	{
@@ -243,7 +228,9 @@ void Game::setupAudio()
 	}
 }
 
-
+/// <summary>
+/// Draws objects from Menu class to screen
+/// </summary>
 void Game::renderScreens()
 {
 	if (m_screen == MAIN)
@@ -289,6 +276,65 @@ void Game::renderScreens()
 		m_window.draw(Hud.getItem7());
 		m_window.draw(Hud.getItem8());
 		m_window.draw(Hud.getItem9());
+	}
+
+	if (m_screen == SOUND)
+	{
+
+	}
+
+	if (m_screen == CREDITS)
+	{
+
+	}
+
+	if (m_screen == LOSING)
+	{
+
+	}
+
+	if (m_screen == WINNING)
+	{
+
+	}
+}
+
+/// <summary>
+/// Switch between gameplay screens using numerical key press
+/// </summary>
+void Game::screenSwitchKeys()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) // Main Menu
+	{
+		m_screen = MAIN;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) // Gameplay
+	{
+		m_screen = GAMEPLAY;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) // Inventory
+	{
+		m_screen = INVENTORY;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) // Help
+	{
+		m_screen = HELP;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) // Sound
+	{
+		m_screen = SOUND;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) // Credits
+	{
+		m_screen = CREDITS;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) // Losing
+	{
+		m_screen = LOSING;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) // Winning
+	{
+		m_screen = WINNING;
 	}
 }
 

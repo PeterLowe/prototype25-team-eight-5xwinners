@@ -40,6 +40,7 @@ private:
 	void render();
 
 	void renderScreens();
+	void screenSwitchKeys();
 	void checkClick();
 
 	sf::RenderWindow m_window; // main SFML window
