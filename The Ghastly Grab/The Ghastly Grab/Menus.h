@@ -48,6 +48,7 @@ public:
 	// Clicking Buttons
 	int clickMenu(sf::Vector2f t_clickPos);
 	int clickGame(sf::Vector2f t_clickPos);
+	int clickInv(sf::Vector2f t_clickPos);
 
 private:
 

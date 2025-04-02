@@ -310,6 +310,10 @@ void Game::screenSwitchButtons()
 	{
 		m_screen = Menus.clickGame(m_mousePressed);
 	}
+	else if (m_screen == INVENTORY)
+	{
+		m_screen = Menus.clickInv(m_mousePressed);
+	}
 }
 
 /// <summary>
