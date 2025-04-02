@@ -143,74 +143,56 @@ void Game::update(sf::Time t_deltaTime)
 }
 
 //draw the frame and then switch buffers
-//void Game::render()
-//{
-//	m_window.clear(sf::Color::White);
-//
-//	if (!m_riches[0].getClicked())
-//	{
-//		m_window.draw(m_riches[0].getBody());
-//	}
-//
-//	if (Menus.currentScreen() == "MainMenu")
-//	{
-//		m_window.draw(Menus.getGameTitle());
-//		m_window.draw(Menus.getMainPlay());
-//		m_window.draw(Menus.getMainSound());
-//		m_window.draw(Menus.getMainHelp());
-//		m_window.draw(Menus.getMainCredits());
-//
-//		// Temp
-//		m_window.draw(Menus.getPlayText());
-//		m_window.draw(Menus.getSoundText());
-//		m_window.draw(Menus.getHelpText());
-//		m_window.draw(Menus.getCreditsText());
-//		//
-//	}
-//
-//	if (Menus.currentScreen() == "Help")
-//	{
-//		m_window.draw(Menus.getHelpReturn());
-//		m_window.draw(Menus.getHelpInfo());
-//		m_window.draw(Menus.getReturnText());
-//	}
-//
-//	if (Menus.currentScreen() == "GameplayScreen")
-//	{
-//		m_window.draw(Menus.getItemList());
-//		m_window.draw(Menus.getBagIcon());
-//	}
-//
-//	m_window.draw(m_player.getBody());
-//	
-//	m_window.draw(m_meter.getBody());
-//
-//	m_window.display();
-//}
-
-
 void Game::render()
-// render function for testing bounds
 {
 	m_window.clear(sf::Color::White);
 
+	if (!m_riches[0].getClicked())
+	{
+		m_window.draw(m_riches[0].getBody());
+	}
+
+	if (Menus.currentScreen() == "MainMenu")
+	{
+		m_window.draw(Menus.getGameTitle());
+		m_window.draw(Menus.getMainPlay());
+		m_window.draw(Menus.getMainSound());
+		m_window.draw(Menus.getMainHelp());
+		m_window.draw(Menus.getMainCredits());
+
+		// Temp
+		m_window.draw(Menus.getPlayText());
+		m_window.draw(Menus.getSoundText());
+		m_window.draw(Menus.getHelpText());
+		m_window.draw(Menus.getCreditsText());
+		//
+	}
+
+	if (Menus.currentScreen() == "Help")
+	{
+		m_window.draw(Menus.getHelpReturn());
+		m_window.draw(Menus.getHelpInfo());
+		m_window.draw(Menus.getReturnText());
+	}
+
+	if (Menus.currentScreen() == "GameplayScreen")
+	{
+		m_window.draw(Menus.getItemList());
+		m_window.draw(Menus.getBagIcon());
+	}
+
+
 	
+	m_window.draw(m_meter.getBody());
+
 	m_window.draw(m_bgSprite);
-
-
-	m_window.draw(invis);
-
-	m_window.draw(floor);
-	m_window.draw(diagonal1);
-	m_window.draw(diagonal2);
-
-
 
 	m_window.draw(m_player.getBody());
 	m_window.draw(m_legsRect);
 
 	m_window.display();
 }
+
 
 void Game::setUp()
 {
@@ -225,7 +207,11 @@ void Game::setUp()
 
 	m_bgSprite.setTexture(m_bgTexture);
 
-	setupBounds();
+	// Rect for legs
+	m_legsRect.setFillColor(sf::Color::Yellow);
+	m_legsRect.setOutlineColor(sf::Color::Black);
+	m_legsRect.setOrigin(LEG_WIDTH / 2, LEG_HEIGHT / 2);
+	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG);
 }
 
 
@@ -264,81 +250,86 @@ void Game::checkClick()
 
 void Game::bounaryCheck(int t_facing)
 //stops player from moving out the gameplay bounds
+// Arceus bless me in what I am to do
 {
-	if (!inclusionCheck())
-		// resetting last move if that movement caused player to go out of bounds
+	float legY, legX;
+	legY = m_legsRect.getOrigin().y;
+
+	legX = m_legsRect.getOrigin().x;
+
+	//float legValue(legY * 1.706 + 337);
+
+	//if (legY > 337 && legY < 550)
+	//{
+	//	if (legX < 126)
+	//	{
+	//		if (legY < legX * 1.706 + 337)
+	//		{
+	//			legX+= 5;
+	//			m_legsRect.setPosition({ legX,legY });
+	//		}
+	//		else if (false)
+	//		{
+	//			//m_legsRect.setPosition({ legX--, legY });
+	//		}
+	//	}
+	//	else if (legX > 876)
+	//	{
+
+	//	}
+	//}
+
+	if (legX < 126)
 	{
-		if (t_facing == UP)
+		if (legY < 15)
 		{
-			t_facing = DOWN;
-			m_player.movement(t_facing);
-			m_legsRect.move(0, 5);
+			legX+= 5;
+			legY += 5;
+			m_legsRect.setPosition({ legX,legY });
 		}
-		else if (t_facing == DOWN)
+		else if (legY < 30)
 		{
-			t_facing = UP;
-			m_player.movement(t_facing);
-			m_legsRect.move(0, -5);
+			legX += 5;
+			legY += 4.5;
+			m_legsRect.setPosition({ legX,legY });
 		}
-		else if (t_facing == LEFT)
+		else if (legY < 45)
 		{
-			t_facing = RIGHT;
-			m_player.movement(t_facing);
-			m_legsRect.move(5, 0);
+			legX += 5;
+			legY += 4;
+			m_legsRect.setPosition({ legX,legY });
 		}
-		else if (t_facing == RIGHT)
+		else if (legY < 60)
 		{
-			t_facing = LEFT;
-			m_player.movement(t_facing);
-			m_legsRect.move(-5, 0);
+			legX += 5;
+			legY += 3.5;
+			m_legsRect.setPosition({ legX,legY });
+		}
+		else if (legY < 75)
+		{
+			legX += 5;
+			legY += 3;
+			m_legsRect.setPosition({ legX,legY });
+		}
+		else if (legY < 90)
+		{
+			legX += 5;
+			legY += 2.5;
+			m_legsRect.setPosition({ legX,legY });
+		}
+		else if (legY < 105)
+		{
+			legX += 5;
+			legY += 2;
+			m_legsRect.setPosition({ legX,legY });
+		}
+		else if (legY < 120)
+		{
+			legX += 5;
+			legY += 1.5;
+			m_legsRect.setPosition({ legX,legY });
 		}
 	}
-	
-}
-
-bool Game::inclusionCheck()
-{
-	bool included = true;	// check for if legs included in bounds
 
 
-	if (!diagonal1.getGlobalBounds().intersects(m_legsRect.getGlobalBounds())	&&
-		!diagonal2.getGlobalBounds().intersects(m_legsRect.getGlobalBounds())	&&
-		!floor.getGlobalBounds().intersects(m_legsRect.getGlobalBounds())		&&
-		!invis.getGlobalBounds().intersects(m_legsRect.getGlobalBounds()))
-	{
-		included = false;
-	}
-
-	return included;
-}
-
-
-void Game::setupBounds()
-{
-	// Yellow Diagonal on left side
-	diagonal1.setPosition({ 128.0f + LEG_WIDTH,335.0f });
-	diagonal1.setSize({ 110.0f, 250.0f });
-	diagonal1.setRotation(31);
-	diagonal1.setFillColor(sf::Color::Yellow);
-
-	// Red diagonal on right side
-	diagonal2.setPosition({ 780.5f - LEG_WIDTH,391.0f });
-	diagonal2.setSize({ 110.0f, 250.0f });
-	diagonal2.setRotation(330);
-	diagonal2.setFillColor(sf::Color::Red);
-
-	// Floor that is visible as floor in gameplay (green rect)
-	floor.setPosition({ 128.0f + LEG_WIDTH ,337.0f});
-	floor.setSize({ 747.0f - (2*LEG_WIDTH), 211.0f });
-	floor.setFillColor(sf::Color::Green);
-
-	// invisible area of movement (not visible in gameplay (blue rect)
-	invis.setPosition({ 0.0f  + LEG_WIDTH,548.0f });
-	invis.setSize({1000.0f - (2 * LEG_WIDTH) , 100.0f });
-	invis.setFillColor(sf::Color::Blue);
-
-	// Rect for legs
-	m_legsRect.setFillColor(sf::Color::Yellow);
-	m_legsRect.setOutlineColor(sf::Color::Black);
-	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG);
 }

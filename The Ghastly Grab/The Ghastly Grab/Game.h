@@ -42,9 +42,6 @@ private:
 
 
 	void bounaryCheck(int t_facing);
-	void setupBounds();
-	bool inclusionCheck();
-	sf::RectangleShape diagonal1, diagonal2, invis, floor;			// Rects for bounds
 	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
 
 
