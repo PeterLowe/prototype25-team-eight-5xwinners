@@ -20,3 +20,11 @@ const int SCREEN_HEIGHT = 800U;
 
 //METER CONSTS
 const int SCARE = 0;
+
+// Screens
+static const int MAIN = 1;
+static const int GAMEPLAY = 2;
+static const int INVENTORY = 3;
+static const int HELP = 4;
+static const int SOUND = 5;
+static const int CREDITS = 6;

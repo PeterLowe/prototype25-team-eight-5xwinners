@@ -11,9 +11,6 @@ public:
 
 	Menus();
 
-	void chooseScreen(int t_screen);
-	std::string currentScreen();
-
 	// Main Menu
 	void mainMenuShapes();
 	sf::RectangleShape getMainPlay();

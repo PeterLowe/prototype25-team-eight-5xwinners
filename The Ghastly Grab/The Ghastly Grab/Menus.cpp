@@ -13,41 +13,6 @@ Menus::Menus() // Default constructor
 }
 
 /// <summary>
-///  This function toggles between active screens based on integer value.
-/// </summary>
-void Menus::chooseScreen(int t_screen)
-{
-	switch (t_screen)
-	{
-	case 1:
-		m_currentScreen = "MainMenu";
-		break;
-	case 2:
-		m_currentScreen = "Gameplay";
-		break;
-	case 3:
-		m_currentScreen = "Inventory";
-		break;
-	case 4:
-		m_currentScreen = "Help";
-		break;
-	case 5:
-		m_currentScreen = "SoundSettings";
-		break;
-	case 6:
-		m_currentScreen = "Credits";
-	}
-}
-
-/// <summary>
-/// Returns current screen name as a string.
-/// </summary>
-std::string Menus::currentScreen()
-{
-	return m_currentScreen;
-}
-
-/// <summary>
 /// Sets up graphics and bounding boxs for buttons
 /// </summary>
 void Menus::mainMenuShapes()

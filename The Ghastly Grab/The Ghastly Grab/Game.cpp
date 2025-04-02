@@ -84,19 +84,19 @@ void Game::processKeys(sf::Event t_event)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) // Main Menu
 	{
-		Menus.chooseScreen(1);
+		m_screen = MAIN;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) // Gameplay Screen
 	{
-		Menus.chooseScreen(2);
+		m_screen = GAMEPLAY;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) // Inventory Screen
 	{
-		Menus.chooseScreen(3);
+		m_screen = INVENTORY;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) // Help Screen
 	{
-		Menus.chooseScreen(4);
+		m_screen = HELP;
 	}
 
 	if (bounaryCheck()) //check bounds before moving
@@ -174,50 +174,8 @@ void Game::render()
 		m_window.draw(m_riches[0].getBody());
 	}
 
-	if (Menus.currentScreen() == "MainMenu")
-	{
-		m_window.draw(Menus.getGameTitle());
-		m_window.draw(Menus.getMainPlay());
-		m_window.draw(Menus.getMainSound());
-		m_window.draw(Menus.getMainHelp());
-		m_window.draw(Menus.getMainCredits());
+	renderScreens();
 
-		// Temp
-		m_window.draw(Menus.getPlayText());
-		m_window.draw(Menus.getSoundText());
-		m_window.draw(Menus.getHelpText());
-		m_window.draw(Menus.getCreditsText());
-		//
-	}
-
-	if (Menus.currentScreen() == "Help")
-	{
-		m_window.draw(Menus.getHelpReturn());
-		m_window.draw(Menus.getHelpInfo());
-		m_window.draw(Menus.getReturnText());
-	}
-
-	if (Menus.currentScreen() == "Inventory")
-	{
-		m_window.draw(Menus.getInvWindow());
-		m_window.draw(Menus.getInvReturn());
-		m_window.draw(Menus.getInvReturnText());
-	}
-	if (Menus.currentScreen() == "Gameplay")
-	{
-		m_window.draw(Menus.getItemList());
-		m_window.draw(Menus.getBagIcon());
-		m_window.draw(Hud.getBackground());
-		m_window.draw(Hud.getItem1());
-		m_window.draw(Hud.getItem2());
-		m_window.draw(Hud.getItem3());
-		m_window.draw(Hud.getItem4());
-		m_window.draw(Hud.getItem5());
-		m_window.draw(Hud.getItem6());
-		m_window.draw(Hud.getItem7());
-		m_window.draw(Hud.getItem8());
-		m_window.draw(Hud.getItem9());
-	}
 	m_window.draw(m_player.getBody());
 	
 	m_window.draw(m_meter.getBody());
@@ -268,8 +226,6 @@ void Game::setUp()
 	m_meter.setupSprite();
 }
 
-
-
 /// <summary>
 /// load the background music which is to be played constantly
 /// </summary>
@@ -287,6 +243,54 @@ void Game::setupAudio()
 	}
 }
 
+
+void Game::renderScreens()
+{
+	if (m_screen == MAIN)
+	{
+		m_window.draw(Menus.getGameTitle());
+		m_window.draw(Menus.getMainPlay());
+		m_window.draw(Menus.getMainSound());
+		m_window.draw(Menus.getMainHelp());
+		m_window.draw(Menus.getMainCredits());
+
+		// Temp
+		m_window.draw(Menus.getPlayText());
+		m_window.draw(Menus.getSoundText());
+		m_window.draw(Menus.getHelpText());
+		m_window.draw(Menus.getCreditsText());
+		//
+	}
+
+	if (m_screen == HELP)
+	{
+		m_window.draw(Menus.getHelpReturn());
+		m_window.draw(Menus.getHelpInfo());
+		m_window.draw(Menus.getReturnText());
+	}
+
+	if (m_screen == INVENTORY)
+	{
+		m_window.draw(Menus.getInvWindow());
+		m_window.draw(Menus.getInvReturn());
+		m_window.draw(Menus.getInvReturnText());
+	}
+	if (m_screen == GAMEPLAY)
+	{
+		m_window.draw(Menus.getItemList());
+		m_window.draw(Menus.getBagIcon());
+		m_window.draw(Hud.getBackground());
+		m_window.draw(Hud.getItem1());
+		m_window.draw(Hud.getItem2());
+		m_window.draw(Hud.getItem3());
+		m_window.draw(Hud.getItem4());
+		m_window.draw(Hud.getItem5());
+		m_window.draw(Hud.getItem6());
+		m_window.draw(Hud.getItem7());
+		m_window.draw(Hud.getItem8());
+		m_window.draw(Hud.getItem9());
+	}
+}
 
 void Game::checkClick()
 {

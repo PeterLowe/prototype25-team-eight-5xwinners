@@ -39,6 +39,7 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 
+	void renderScreens();
 	void checkClick();
 
 	sf::RenderWindow m_window; // main SFML window
@@ -64,6 +65,8 @@ private:
 	Meter m_meter;
 
 	Hud Hud;
+
+	int m_screen = MAIN;
 
 };
 
