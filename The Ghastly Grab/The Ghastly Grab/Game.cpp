@@ -128,13 +128,14 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
-	if (m_inventory.getOpen())
+	if (m_screen == GAMEPLAY)
+	{
+		gamePlayClick();
+	}
+	else if (m_screen == INVENTORY)
 	{
 		inventoryClick();
 	}
-
-	gamePlayClick();
-
 }
 
 
@@ -171,13 +172,16 @@ void Game::render()
 
 	renderScreens();
 
-	m_window.draw(m_inventory.getButton());
+	if (m_screen == GAMEPLAY)
+	{
+		m_window.draw(m_inventory.getButton());
+	}
 
 	m_window.draw(m_player.getBody());
 	
 	m_window.draw(m_meter.getBody());
 
-	if (m_inventory.getOpen())
+	if (m_screen == INVENTORY)
 	{
 		renderInventory();
 	}
@@ -412,7 +416,7 @@ void Game::gamePlayClick()
 	}
 	else if (inventoryButton.contains(m_mousePressed))
 	{
-		m_inventory.changeOpen();
+		m_screen = INVENTORY;
 	}
 	else 
 	{
@@ -430,7 +434,7 @@ void Game::inventoryClick()
 
 	if (exitBounds.contains(m_mousePressed))
 	{
-		m_inventory.changeOpen();
+		m_screen = GAMEPLAY;
 	}
 	else if (key.contains(m_mousePressed))
 	{
