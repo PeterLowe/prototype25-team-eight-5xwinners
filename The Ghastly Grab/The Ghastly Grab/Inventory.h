@@ -11,13 +11,17 @@ class Inventory
 public:
 	Inventory();
 	void loadImage();
+	void setupFontAndText();
 
 	void changeOpen();
+
 	void haveKey();
 	void haveNote();
 	void haveShovel();
 	void haveCrowBar();
+
 	void radioAnimate();
+
 	void keyEffect();
 	void noteEffect();
 	void shovelEffect();
@@ -27,6 +31,10 @@ public:
 	sf::Sprite getRadio();
 	sf::Sprite getBackground();
 	sf::Sprite getItems(int t_index);
+	sf::Text getKeyText();
+	sf::Text getNoteText();
+	sf::Text getShovelText();
+	sf::Text getCrowBarText();
 
 	bool getOpen();
 
@@ -51,5 +59,15 @@ private:
 	sf::Sprite m_note;
 	sf::Sprite m_shovel;
 	sf::Sprite m_crowBar;
+
+	sf::Font m_ArialBlackfont;
+	sf::Text m_keyText;
+	std::string m_keyString;
+	sf::Text m_noteText;
+	std::string m_noteString;
+	sf::Text m_shovelText;
+	std::string m_shovelString;
+	sf::Text m_crowBarText;
+	std::string m_crowBarString;
 };
 

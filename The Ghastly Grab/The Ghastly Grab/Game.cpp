@@ -205,6 +205,11 @@ void Game::drawInventory()
 	{
 		m_window.draw(m_inventory.getItems(index));
 	}
+
+	m_window.draw(m_inventory.getKeyText());
+	m_window.draw(m_inventory.getNoteText());
+	m_window.draw(m_inventory.getShovelText());
+	m_window.draw(m_inventory.getCrowBarText());
 }
 
 bool Game::bounaryCheck()

@@ -5,7 +5,13 @@ Inventory::Inventory()
 {
 	inventoryOpen = false;
 
+	m_keyString = "Turn over every...";
+	m_noteString = "Not a recipe!";
+	m_shovelString = "Whatever would you \nuse this for?";
+	m_crowBarString = "Put away amongst \nthe fauna...";
+
 	loadImage();
+	setupFontAndText();
 }
 
 void Inventory::loadImage()
@@ -44,18 +50,55 @@ void Inventory::loadImage()
 		std::cout << "error with iventory items image file";
 	}
 
+	//key text
 	m_key.setTexture(m_itemsTexture);
 	m_key.setTextureRect(sf::IntRect{ 0, 0, 141, 141 });
 	m_key.setPosition(100.0f, 220.0f);
+	//note text
 	m_note.setTexture(m_itemsTexture);
 	m_note.setTextureRect(sf::IntRect{ 0, 141, 141, 141 });
 	m_note.setPosition(100.0f, 450.0f);
+	//shovel text
 	m_shovel.setTexture(m_itemsTexture);
 	m_shovel.setTextureRect(sf::IntRect{ 0, 282, 141, 141 });
 	m_shovel.setPosition(472.66f, 220.0f);
+	//crowBar text
 	m_crowBar.setTexture(m_itemsTexture);
 	m_crowBar.setTextureRect(sf::IntRect{ 0, 423, 141, 141 });
 	m_crowBar.setPosition(472.66f, 450.0f);
+}
+
+void Inventory::setupFontAndText()
+{
+	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
+	{
+		std::cout << "problem loading arial black font" << std::endl;
+	}
+
+	//key text
+	m_keyText.setCharacterSize(20U);
+	m_keyText.setPosition(250.0f, 220.0f);
+	m_keyText.setFillColor(sf::Color::Black);
+	m_keyText.setFont(m_ArialBlackfont);
+	m_keyText.setString(m_keyString);
+	//note text
+	m_noteText.setCharacterSize(20U);
+	m_noteText.setPosition(250.0f, 450.0f);
+	m_noteText.setFillColor(sf::Color::Black);
+	m_noteText.setFont(m_ArialBlackfont);
+	m_noteText.setString(m_noteString);
+	//shovel text
+	m_shovelText.setCharacterSize(20U);
+	m_shovelText.setPosition(622.66f, 220.0f);
+	m_shovelText.setFillColor(sf::Color::Black);
+	m_shovelText.setFont(m_ArialBlackfont);
+	m_shovelText.setString(m_shovelString);
+	//crowBar text
+	m_crowBarText.setCharacterSize(20U);
+	m_crowBarText.setPosition(622.66f, 450.0f);
+	m_crowBarText.setFillColor(sf::Color::Black);
+	m_crowBarText.setFont(m_ArialBlackfont);
+	m_crowBarText.setString(m_crowBarString);
 }
 
 void Inventory::keyEffect()
@@ -83,27 +126,35 @@ void Inventory::crowBarEffect()
 }
 
 void Inventory::haveKey()
-//changes sprite appearance
+//changes sprite and text appearance
 {
 	m_key.setTextureRect(sf::IntRect{ 141, 0, 141, 141 });
+	m_keyString = "My my my \nwhat a lovely door \nyouve got!";
+	m_keyText.setString(m_keyString);
 }
 
 void Inventory::haveNote()
-//changes sprite appearance
+//changes sprite and text appearance
 {
 	m_note.setTextureRect(sf::IntRect{ 141, 141, 141, 141 });
+	m_noteString = "A combination?";
+	m_noteText.setString(m_noteString);
 }
 
 void Inventory::haveShovel()
-//changes sprite appearance
+//changes sprite and text appearance
 {
 	m_shovel.setTextureRect(sf::IntRect{ 141, 282, 141, 141 });
+	m_shovelString = "Whatever would you \nuse this for? ;)";
+	m_shovelText.setString(m_shovelString);
 }
 
 void Inventory::haveCrowBar()
-//changes sprite appearance
+//changes sprite and text appearance
 {
 	m_crowBar.setTextureRect(sf::IntRect{ 141, 423, 141, 141 });
+	m_crowBarString = "You could ply \nsomething of a wall \nwith this thing...";
+	m_crowBarText.setString(m_crowBarString);
 }
 
 void Inventory::radioAnimate()
@@ -188,4 +239,28 @@ sf::Sprite Inventory::getItems(int t_index)
 	}
 
 	return sprite;
+}
+
+sf::Text Inventory::getKeyText()
+//returns text
+{
+	return m_keyText;
+}
+
+sf::Text Inventory::getNoteText()
+//returns text
+{
+	return m_noteText;
+}
+
+sf::Text Inventory::getShovelText()
+//returns text
+{
+	return m_shovelText;
+}
+
+sf::Text Inventory::getCrowBarText()
+//returns text
+{
+	return m_crowBarText;
 }
