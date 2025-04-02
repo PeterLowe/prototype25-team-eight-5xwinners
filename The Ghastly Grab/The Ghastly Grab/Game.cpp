@@ -129,6 +129,7 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
 	checkClick();
+	screenSwitchButtons();
 }
 
 
@@ -299,6 +300,18 @@ void Game::renderScreens()
 	}
 }
 
+void Game::screenSwitchButtons()
+{
+	if (m_screen == MAIN)
+	{
+		m_screen = Menus.clickMenu(m_mousePressed);
+	}
+	else if (m_screen == GAMEPLAY)
+	{
+		m_screen = Menus.clickGame(m_mousePressed);
+	}
+}
+
 /// <summary>
 /// Switch between gameplay screens using numerical key press
 /// </summary>
@@ -353,6 +366,7 @@ void Game::checkClick()
 			}
 		}
 	}
+
 	else 
 	{
 		m_meter.onClick();

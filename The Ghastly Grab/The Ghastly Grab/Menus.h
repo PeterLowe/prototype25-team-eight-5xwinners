@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "SFML/Graphics.hpp"
 #include "Globals.h"
 
@@ -44,9 +45,11 @@ public:
 	sf::RectangleShape getInvReturn();
 	sf::Text getInvReturnText();
 
-private:
+	// Clicking Buttons
+	int clickMenu(sf::Vector2f t_clickPos);
+	int clickGame(sf::Vector2f t_clickPos);
 
-	std::string m_currentScreen = "MainMenu";
+private:
 
 	const int BUT_WIDTH = 192; // Button width
 	const int BUT_HEIGHT = 64; // Button height
@@ -90,7 +93,6 @@ private:
 	sf::RectangleShape m_bagIcon;
 
 	// Inventory Screen
-
 	sf::RectangleShape m_invWindow;
 	sf::RectangleShape m_invReturnShape;
 	sf::Text m_invReturnText;

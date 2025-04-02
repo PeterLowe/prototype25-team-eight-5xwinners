@@ -40,6 +40,7 @@ private:
 	void render();
 
 	void renderScreens();
+	void screenSwitchButtons();
 	void screenSwitchKeys();
 	void checkClick();
 
