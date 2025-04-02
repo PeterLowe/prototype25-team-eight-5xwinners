@@ -15,7 +15,6 @@ class Meter
 
 	int m_filledAmount = 0;		// int to see how much filled
 
-
 public:
 
 	void setupSprite();
@@ -26,6 +25,4 @@ public:
 private:
 
 	void update();
-
 };
-

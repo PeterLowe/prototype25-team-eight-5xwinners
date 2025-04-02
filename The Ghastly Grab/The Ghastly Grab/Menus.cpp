@@ -7,36 +7,9 @@ Menus::Menus() // Default constructor
 	mainMenuText();
 
 	helpMenuShapes();
-}
+	inventoryScreen();
 
-/// <summary>
-///  This function toggles between active screens based on integer value.
-/// </summary>
-void Menus::chooseScreen(int t_screen)
-{
-	switch (t_screen)
-	{
-	case 1:
-		m_currentScreen = "MainMenu";
-		break;
-	case 2:
-		m_currentScreen = "SoundSettings";
-		break;
-	case 3:
-		m_currentScreen = "Help";
-		break;
-	case 4:
-		m_currentScreen = "Credits";
-		break;
-	}
-}
-
-/// <summary>
-/// Returns current screen name as a string.
-/// </summary>
-std::string Menus::currentScreen()
-{
-	return m_currentScreen;
+	gameplayScreen();
 }
 
 /// <summary>
@@ -188,4 +161,61 @@ sf::RectangleShape Menus::getHelpInfo()
 sf::Text Menus::getReturnText()
 {
 	return m_return;
+}
+
+void Menus::gameplayScreen()
+{
+	m_itemList.setFillColor(sf::Color(210, 180, 140));
+	m_itemList.setSize(sf::Vector2f(750, 250));
+	m_itemList.setOrigin(0, 250);
+	m_itemList.setPosition(0, 800);
+
+	m_bagIcon.setFillColor(sf::Color(131, 105, 83));
+	m_bagIcon.setSize(sf::Vector2f(250, 250));
+	m_bagIcon.setOrigin(0, 250);
+	m_bagIcon.setPosition(750,800);
+}
+
+sf::RectangleShape Menus::getItemList()
+{
+	return m_itemList;
+}
+
+sf::RectangleShape Menus::getBagIcon()
+{
+	return m_bagIcon;
+}
+
+void Menus::inventoryScreen()
+{
+	m_invWindow.setFillColor(sf::Color(210, 180, 140));
+	m_invWindow.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+	m_invWindow.setPosition(0, 0);
+
+	m_invReturnShape.setFillColor(sf::Color::Blue);
+	m_invReturnShape.setSize(sf::Vector2f(BUT_WIDTH, BUT_HEIGHT));
+	m_invReturnShape.setPosition(25, 25);
+
+	m_invReturnText.setFont(m_ArialBlackfont);
+	m_invReturnText.setCharacterSize(32);
+	m_invReturnText.setString("Return");
+	m_invReturnText.setPosition(m_invReturnShape.getPosition());
+	m_invReturnSize = m_invReturnShape.getGlobalBounds();
+	m_invReturnText.setOrigin(m_invReturnSize.width / 2, m_invReturnSize.height / 2);
+	m_invReturnText.setPosition(160.0f, 60.0f);
+}
+
+sf::RectangleShape Menus::getInvWindow()
+{
+	return m_invWindow;
+}
+
+sf::RectangleShape Menus::getInvReturn()
+{
+	return m_invReturnShape;
+}
+
+sf::Text Menus::getInvReturnText()
+{
+	return m_invReturnText;
 }

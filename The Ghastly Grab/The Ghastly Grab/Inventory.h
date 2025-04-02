@@ -1,4 +1,4 @@
-//author team_8 - [5xWinners]
+//author Marie-Elise Ghijsen
 #pragma once
 
 #include "Globals.h" //include Global header file
@@ -70,4 +70,3 @@ private:
 	sf::Text m_crowBarText;
 	std::string m_crowBarString;
 };
-

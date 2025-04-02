@@ -7,23 +7,23 @@
 //same as #pragma once
 //Don't forget the endif at the bottom
 
-#include "Player.h" //include Player header file
 #include "Globals.h" //include Global header file
+
+#include "Player.h" //include Player header file
+#include "Covers.h"
 #include "Riches.h"
+#include "Tools.h"
+#include "Rooms.h"
 #include "Menus.h"
 #include "Meter.h"
 #include "Inventory.h" //include Inventory header file
+#include "Hud.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-
-
-
 class Game
 {
-	Player m_player;
-
 public:
 	Game();
 	~Game();
@@ -36,12 +36,18 @@ private:
 	void processEvents();
 	void processKeys(sf::Event t_event);
 	void processMouse(sf::Event t_event);
-	void update(sf::Time t_deltaTime);
-	void render();
-	void drawInventory();
-
 	void gamePlayClick();
 	void inventoryClick();
+
+	void update(sf::Time t_deltaTime);
+	void render();
+	void renderScreens();
+	void renderInventory();
+
+	void screenSwitchKeys();
+
+	void setUp();
+	void setupAudio();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -52,21 +58,22 @@ private:
 
 	bool bounaryCheck();
 
-	void setUp();
-	void setupAudio();
-
 	Menus Menus;
-
+	Hud Hud;
 	Inventory m_inventory;
 
-	sf::Music m_bgMusic;	// BG Music	
-
-	sf::Vector2f m_mousePressed;
+	Player m_player;
+	Rooms m_rooms[MAX_ROOMS];
 
 	Riches m_riches[MAX_RICHES];
+	Tools m_tools[MAX_TOOLS];
+	Covers m_covers[MAX_COVERS];
 
 	Meter m_meter;
 
+	int m_screen = MAIN;
+	sf::Music m_bgMusic;	// BG Music	
+	sf::Vector2f m_mousePressed;
 };
 
 #endif //!GAME_HPP

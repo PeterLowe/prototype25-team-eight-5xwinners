@@ -20,4 +20,3 @@ public:
 	bool getClicked();
 	sf::Sprite getBody();
 };
-
