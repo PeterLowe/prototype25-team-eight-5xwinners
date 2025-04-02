@@ -244,23 +244,3 @@ int Menus::clickMenu(sf::Vector2f t_clickPos)
 		return CREDITS;
 	}
 }
-
-int Menus::clickGame(sf::Vector2f t_clickPos)
-{
-	sf::FloatRect inv = m_bagIcon.getGlobalBounds();
-
-	if (inv.contains(t_clickPos))
-	{
-		return INVENTORY;
-	}
-}
-
-int Menus::clickInv(sf::Vector2f t_clickPos)
-{
-	sf::FloatRect back = m_invReturnShape.getGlobalBounds();
-
-	if (back.contains(t_clickPos))
-	{
-		return GAMEPLAY;
-	}
-}
