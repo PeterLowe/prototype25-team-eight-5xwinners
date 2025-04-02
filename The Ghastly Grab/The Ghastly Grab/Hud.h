@@ -57,5 +57,3 @@ public:
 	sf::Text getItem9();
 
 };
-
-

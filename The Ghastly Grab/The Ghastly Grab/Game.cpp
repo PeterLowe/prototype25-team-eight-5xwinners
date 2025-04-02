@@ -64,7 +64,7 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
-		if (sf::Event::MouseButtonPressed == newEvent.type)	// user pressed mouse button
+		if (sf::Event::MouseButtonReleased == newEvent.type)	// user pressed mouse button
 		{
 			processMouse(newEvent);
 		}
@@ -128,8 +128,14 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
-	checkClick();
 	screenSwitchButtons();
+	if (m_inventory.getOpen())
+	{
+		inventoryClick();
+	}
+
+	gamePlayClick();
+
 }
 
 
@@ -148,6 +154,10 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	if (m_inventory.getOpen())
+	{
+		m_inventory.radioAnimate();
+	}
 }
 
 //draw the frame and then switch buffers
@@ -162,11 +172,35 @@ void Game::render()
 
 	renderScreens();
 
+	m_window.draw(m_inventory.getButton());
+
 	m_window.draw(m_player.getBody());
 	
 	m_window.draw(m_meter.getBody());
 
+	if (m_inventory.getOpen())
+	{
+		renderInventory();
+	}
+
 	m_window.display();
+}
+
+void Game::renderInventory()
+{
+	m_window.draw(m_inventory.getBackground());
+	m_window.draw(m_inventory.getButton());
+	m_window.draw(m_inventory.getRadio());
+
+	for (int index = 1; index < MAX_TOOLS + 1; index++)
+	{
+		m_window.draw(m_inventory.getItems(index));
+	}
+
+	m_window.draw(m_inventory.getKeyText());
+	m_window.draw(m_inventory.getNoteText());
+	m_window.draw(m_inventory.getShovelText());
+	m_window.draw(m_inventory.getCrowBarText());
 }
 
 bool Game::bounaryCheck()
@@ -355,9 +389,16 @@ void Game::screenSwitchKeys()
 	}
 }
 
-void Game::checkClick()
+void Game::gamePlayClick()
 {
 	sf::FloatRect bounds = m_riches[0].getBody().getGlobalBounds();
+	sf::FloatRect inventoryButton = m_inventory.getButton().getGlobalBounds();
+	//currently getting based off inventory sprites - change to game sprite later
+	sf::FloatRect key = m_inventory.getItems(1).getGlobalBounds();
+	sf::FloatRect note = m_inventory.getItems(2).getGlobalBounds();
+	sf::FloatRect shovel = m_inventory.getItems(3).getGlobalBounds();
+	sf::FloatRect crowBar = m_inventory.getItems(4).getGlobalBounds();
+
 	if (bounds.contains(m_mousePressed))
 	{
 		m_riches[0].onClick();
@@ -371,8 +412,58 @@ void Game::checkClick()
 		}
 	}
 
+	else if (key.contains(m_mousePressed))
+	{
+		m_inventory.haveKey();
+	}
+	else if (note.contains(m_mousePressed))
+	{
+		m_inventory.haveNote();
+	}
+	else if (shovel.contains(m_mousePressed))
+	{
+		m_inventory.haveShovel();
+	}
+	else if (crowBar.contains(m_mousePressed))
+	{
+		m_inventory.haveCrowBar();
+	}
+	else if (inventoryButton.contains(m_mousePressed))
+	{
+		m_inventory.changeOpen();
+	}
 	else 
 	{
 		m_meter.onClick();
+	}
+}
+
+void Game::inventoryClick()
+{
+	sf::FloatRect exitBounds = m_inventory.getButton().getGlobalBounds();
+	sf::FloatRect key = m_inventory.getItems(1).getGlobalBounds();
+	sf::FloatRect note = m_inventory.getItems(2).getGlobalBounds();
+	sf::FloatRect shovel = m_inventory.getItems(3).getGlobalBounds();
+	sf::FloatRect crowBar = m_inventory.getItems(4).getGlobalBounds();
+
+	if (exitBounds.contains(m_mousePressed))
+	{
+		m_inventory.changeOpen();
+	}
+	else if (key.contains(m_mousePressed))
+	{
+		m_inventory.keyEffect();
+	}
+	else if (note.contains(m_mousePressed))
+	{
+		m_inventory.noteEffect();
+	}
+	else if (shovel.contains(m_mousePressed))
+	{
+		m_inventory.shovelEffect();
+	}
+	else if (crowBar.contains(m_mousePressed))
+	{
+		m_inventory.crowBarEffect();
 	}
 }

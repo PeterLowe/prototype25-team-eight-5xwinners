@@ -6,7 +6,6 @@ Hud::Hud()
 	setupContent();
 }
 
-
 void Hud::setupContent()
 {
 	m_testBackBoard.setSize(sf::Vector2f{ 750, 200 });
@@ -14,8 +13,6 @@ void Hud::setupContent()
 	m_testBackBoard.setOutlineThickness(-10.0f);
 	m_testBackBoard.setPosition(0.0, 550);
 	m_testBackBoard.setFillColor(sf::Color::Black);
-
-
 
 	//m_item1.setOrigin(?,?);
 	m_item1.setPosition(120.0f, 585.0f);
@@ -44,7 +41,6 @@ void Hud::setupContent()
 	//m_item9.setOrigin(?,?);
 	m_item9.setPosition(520.0f, 695.0f);
 }
-
 
 void Hud::setupText()
 {
@@ -99,7 +95,6 @@ void Hud::setupText()
 	m_item9.setString("placeholder9");
 }
 
-
 void Hud::itemObtained(int t_itemNum)
 {
 	switch (t_itemNum)
@@ -134,78 +129,65 @@ void Hud::itemObtained(int t_itemNum)
 	}
 }
 
-
 void Hud::on()
 {
 	m_hudDisplay = true;
 }
-
 
 void Hud::off()
 {
 	m_hudDisplay = false;
 }
 
-
 bool Hud::display()
 {
 	return m_hudDisplay;
 }
-
 
 sf::RectangleShape Hud::getBackground()
 {
 	return m_testBackBoard;
 }
 
-
 sf::Text Hud::getItem1()
 {
 	return m_item1;
 }
-
 
 sf::Text Hud::getItem2()
 {
 	return m_item2;
 }
 
-
 sf::Text Hud::getItem3()
 {
 	return m_item3;
 }
-
 
 sf::Text Hud::getItem4()
 {
 	return m_item4;
 }
 
-
 sf::Text Hud::getItem5()
 {
 	return m_item5;
 }
-
 
 sf::Text Hud::getItem6()
 {
 	return m_item6;
 }
 
-
 sf::Text Hud::getItem7()
 {
 	return m_item7;
 }
 
-
 sf::Text Hud::getItem8()
 {
 	return m_item8;
 }
-
 
 sf::Text Hud::getItem9()
 {

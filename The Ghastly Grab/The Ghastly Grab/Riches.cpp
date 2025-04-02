@@ -2,7 +2,6 @@
 
 #include "Riches.h"
 
-
 /// <summary>
 /// load the texture and setup the sprite for the logo
 /// </summary>
@@ -16,7 +15,6 @@ void Riches::setupSprite()
 	p_sprite.setTexture(p_texture);
 	p_sprite.setPosition(300.0f, 180.0f);
 }
-
 
 void Riches::onClick()
 {
