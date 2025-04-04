@@ -211,7 +211,7 @@ void Game::setUp()
 	m_legsRect.setFillColor(sf::Color::Yellow);
 	m_legsRect.setOutlineColor(sf::Color::Black);
 	m_legsRect.setOrigin(LEG_WIDTH / 2, LEG_HEIGHT / 2);
-	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG);
+	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG - 100);
 }
 
 
@@ -253,81 +253,95 @@ void Game::bounaryCheck(int t_facing)
 // Arceus bless me in what I am to do
 {
 	float legY, legX;
-	legY = m_legsRect.getOrigin().y;
+	legY = m_legsRect.getPosition().y;
 
-	legX = m_legsRect.getOrigin().x;
+	legX = m_legsRect.getPosition().x;
 
-	//float legValue(legY * 1.706 + 337);
-
-	//if (legY > 337 && legY < 550)
-	//{
-	//	if (legX < 126)
-	//	{
-	//		if (legY < legX * 1.706 + 337)
-	//		{
-	//			legX+= 5;
-	//			m_legsRect.setPosition({ legX,legY });
-	//		}
-	//		else if (false)
-	//		{
-	//			//m_legsRect.setPosition({ legX--, legY });
-	//		}
-	//	}
-	//	else if (legX > 876)
-	//	{
-
-	//	}
-	//}
-
-	if (legX < 126)
+	if (legY < 350)
+		// Keeping player from going above floor
 	{
-		if (legY < 15)
+		legY += 5;
+	}
+	else if (legY > 600)
+		// Keeping player
+	{
+		legY -= 5;
+	}
+
+	if (legX < 0 + LEG_WIDTH / 2)
+	{
+		legX += 5;
+	}
+
+
+
+	leftDiaBounds(legX, legY, t_facing);
+
+
+
+	m_legsRect.setPosition({ legX,legY });
+
+
+}
+
+
+void Game::leftDiaBounds(float &t_legX, float &t_legY, int t_facing)
+{
+	if (t_legX < 120 && t_legY > 340 && t_legY < 530)
+	{
+		if (t_legX < 13 && t_legY < 530 ||
+			t_legX < 26 && t_legY < 508 ||
+			t_legX < 39 && t_legY < 487 ||
+			t_legX < 52 && t_legY < 466 ||
+			t_legX < 65 && t_legY < 445 ||
+			t_legX < 78 && t_legY < 424 ||
+			t_legX < 91 && t_legY < 403 ||
+			t_legX < 104 && t_legY < 382 ||
+			t_legX < 117 && t_legY < 361 ||
+			t_legX < 120 && t_legY < 340)
 		{
-			legX+= 5;
-			legY += 5;
-			m_legsRect.setPosition({ legX,legY });
+			if (t_facing == LEFT)
+				// if player walks to dia facing left, we push them down
+			{
+				t_legY += 10;	// 10 and not 5 to deal with hypotenuse being longer
+			}
+			else if (t_facing == UP)
+				// if player walks to dia facing up, we push them right
+			{
+				t_legX += 5;
+			}
 		}
-		else if (legY < 30)
+	}
+
+
+}
+
+
+void Game::rightDiaBounds(float& t_legX, float& t_legY, int t_facing)
+{
+	if (t_legX < 120 && t_legY > 340 && t_legY < 530)
+	{
+		if (t_legX < 13 && t_legY < 530 ||
+			t_legX < 26 && t_legY < 508 ||
+			t_legX < 39 && t_legY < 487 ||
+			t_legX < 52 && t_legY < 466 ||
+			t_legX < 65 && t_legY < 445 ||
+			t_legX < 78 && t_legY < 424 ||
+			t_legX < 91 && t_legY < 403 ||
+			t_legX < 104 && t_legY < 382 ||
+			t_legX < 117 && t_legY < 361 ||
+			t_legX < 120 && t_legY < 340)
 		{
-			legX += 5;
-			legY += 4.5;
-			m_legsRect.setPosition({ legX,legY });
-		}
-		else if (legY < 45)
-		{
-			legX += 5;
-			legY += 4;
-			m_legsRect.setPosition({ legX,legY });
-		}
-		else if (legY < 60)
-		{
-			legX += 5;
-			legY += 3.5;
-			m_legsRect.setPosition({ legX,legY });
-		}
-		else if (legY < 75)
-		{
-			legX += 5;
-			legY += 3;
-			m_legsRect.setPosition({ legX,legY });
-		}
-		else if (legY < 90)
-		{
-			legX += 5;
-			legY += 2.5;
-			m_legsRect.setPosition({ legX,legY });
-		}
-		else if (legY < 105)
-		{
-			legX += 5;
-			legY += 2;
-			m_legsRect.setPosition({ legX,legY });
-		}
-		else if (legY < 120)
-		{
-			legX += 5;
-			legY += 1.5;
-			m_legsRect.setPosition({ legX,legY });
+			if (t_facing == LEFT)
+				// if player walks to dia facing left, we push them down
+			{
+				t_legY += 10;	// 10 and not 5 to deal with hypotenuse being longer
+			}
+			else if (t_facing == UP)
+				// if player walks to dia facing up, we push them right
+			{
+				t_legX += 5;
+			}
 		}
 	}
 

@@ -42,6 +42,8 @@ private:
 
 
 	void bounaryCheck(int t_facing);
+	void leftDiaBounds(float &t_legX, float &t_legY, int t_facing);
+	void rightDiaBounds(float& t_legX, float& t_legY, int t_facing);
 	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
 
 
