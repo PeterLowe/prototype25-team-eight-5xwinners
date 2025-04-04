@@ -167,9 +167,12 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	if (!m_riches[0].getClicked())
+	for (int index = 0; index < MAX_RICHES; index++)
 	{
-		m_window.draw(m_riches[0].getBody());
+		if (!m_riches[index].getClicked())
+		{
+			m_window.draw(m_riches[index].getBody());
+		}
 	}
 
 	renderScreens();
@@ -247,7 +250,42 @@ bool Game::bounaryCheck()
 void Game::setUp()
 {
 	setupAudio();
-	m_riches[0].setupSprite();
+	sf::IntRect richesTextureRect;
+	for (int index = 0; index < MAX_RICHES; index++)
+	{
+		switch (index)
+		{
+		case 0:
+			richesTextureRect = { 0, 0, 54, 66 };
+			break;
+		case 1:
+			richesTextureRect = { 0, 68, 64, 60 };
+			break;
+		case 2:
+			richesTextureRect = { 0, 132, 65, 60 };
+			break;
+		case 3:
+			richesTextureRect = { 0, 194, 54, 66 };
+			break;
+		case 4:
+			richesTextureRect = { 0, 260 , 64 , 60 };
+			break;
+		case 5 :
+			richesTextureRect = { 0 , 320, 70, 64 };
+			break;
+		case 6 :
+			richesTextureRect = { 0 , 386, 64, 90 };
+			break;
+		case 7:
+			richesTextureRect = { 0 , 480, 64, 30 };
+			break;
+		default:
+			richesTextureRect = { 0, 510, 96, 32 };
+			break;
+		}
+		m_riches[index].setupSprite(richesTextureRect);
+		
+	}
 	m_meter.setupSprite();
 }
 
@@ -388,7 +426,6 @@ void Game::screenSwitchKeys()
 
 void Game::gamePlayClick()
 {
-	sf::FloatRect bounds = m_riches[0].getBody().getGlobalBounds();
 	sf::FloatRect inventoryButton = m_inventory.getButton().getGlobalBounds();
 	//currently getting based off inventory sprites - change to game sprite later
 	sf::FloatRect key = m_inventory.getItems(1).getGlobalBounds();
@@ -396,20 +433,19 @@ void Game::gamePlayClick()
 	sf::FloatRect shovel = m_inventory.getItems(3).getGlobalBounds();
 	sf::FloatRect crowBar = m_inventory.getItems(4).getGlobalBounds();
 
-	if (bounds.contains(m_mousePressed))
-	{
-		m_riches[0].onClick();
 
-		for (int i = 0; i < MAX_RICHES; i++)
+	for (int index = 0; index < MAX_RICHES; index++)
+	{
+		sf::FloatRect bounds = m_riches[index].getBody().getGlobalBounds();
+
+		if (bounds.contains(m_mousePressed))
 		{
-			if (m_riches[i].getClicked())
-			{
-				Hud.itemObtained(i+1);
-			}
+			m_riches[index].onClick();
+			Hud.itemObtained(index + 1);
 		}
 	}
 
-	else if (key.contains(m_mousePressed))
+	if (key.contains(m_mousePressed))
 	{
 		m_inventory.haveKey();
 	}

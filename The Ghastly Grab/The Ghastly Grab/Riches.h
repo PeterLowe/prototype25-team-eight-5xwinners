@@ -8,14 +8,14 @@
 
 class Riches
 {
-	sf::Texture p_texture;		// placeholder texture
-	sf::Sprite p_sprite;
+	sf::Texture m_richesTexture;
+	sf::Sprite m_richesSprite;
 
 	bool m_isFound = false;
 
 public:
 	
-	void setupSprite();
+	void setupSprite(sf::IntRect t_textureRect);
 	void onClick();
 	bool getClicked();
 	sf::Sprite getBody();

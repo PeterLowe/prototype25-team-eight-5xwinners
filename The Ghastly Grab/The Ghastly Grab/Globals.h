@@ -4,7 +4,7 @@
 
 
 // MAXIMUM VALUES
-static const int MAX_RICHES = 1;
+static const int MAX_RICHES = 9;
 static const int MAX_TOOLS = 4;
 static const int MAX_COVERS = 4;
 static const int MAX_ROOMS = 6;

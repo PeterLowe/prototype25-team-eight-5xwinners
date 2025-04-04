@@ -52,7 +52,7 @@ void Hud::setupText()
 	m_item1.setFont(m_font);
 	m_item1.setCharacterSize(16);
 	m_item1.setFillColor(sf::Color::White);
-	m_item1.setString("placeholder1");
+	m_item1.setString("watch");
 
 	m_item2.setFont(m_font);
 	m_item2.setCharacterSize(16);
