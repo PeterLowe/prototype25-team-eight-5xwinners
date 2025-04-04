@@ -160,6 +160,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_inventory.radioAnimate();
 	}
+	//std::cout << m_screen << std::endl;
 }
 
 //draw the frame and then switch buffers
@@ -189,6 +190,15 @@ void Game::render()
 	if (m_screen == INVENTORY)
 	{
 		renderInventory();
+	}
+
+	//if (m_screen == something)
+	//{
+
+	//}
+	for (int i = 0; i < MAX_TOOLS; i++)
+	{
+		m_window.draw(m_tools[i].getBody());
 	}
 
 	m_window.display();
@@ -287,6 +297,10 @@ void Game::setUp()
 		
 	}
 	m_meter.setupSprite();
+	for (int i = 0; i < MAX_TOOLS; i++)
+	{
+		m_tools[i].setupSprite(i + 1);
+	}
 }
 
 /// <summary>
