@@ -18,6 +18,7 @@
 #include "Meter.h"
 #include "Inventory.h" //include Inventory header file
 #include "Hud.h"
+#include "PipeMiniGame.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -49,7 +50,11 @@ private:
 	void setUp();
 	void setupAudio();
 
+	void miniGame();
+
 	sf::RenderWindow m_window; // main SFML window
+	sf::RenderWindow m_window2; 
+
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 	sf::Texture m_logoTexture; // texture used for sfml logo
@@ -70,6 +75,8 @@ private:
 	Covers m_covers[MAX_COVERS];
 
 	Meter m_meter;
+
+	Pipe m_pipe;
 
 	int m_screen = MAIN;
 	sf::Music m_bgMusic;	// BG Music	

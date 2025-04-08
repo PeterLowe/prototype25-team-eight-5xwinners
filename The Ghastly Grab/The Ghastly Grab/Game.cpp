@@ -436,6 +436,10 @@ void Game::screenSwitchKeys()
 	{
 		m_screen = WINNING;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+	{
+		miniGame();
+	}
 }
 
 void Game::gamePlayClick()
@@ -514,3 +518,25 @@ void Game::inventoryClick()
 		m_inventory.crowBarEffect();
 	}
 }
+
+void Game::miniGame()
+{
+	sf::RenderWindow window2(sf::VideoMode{ 800U, 640U, 32U }, "Mini Game");
+
+	while (window2.isOpen())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			window2.close();
+		}
+
+		//if (something == something)
+		//{
+		m_pipe.render(window2);
+		//}
+
+		//window2.display();
+	}
+
+}
+
