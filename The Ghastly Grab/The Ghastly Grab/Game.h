@@ -41,12 +41,6 @@ private:
 	void checkClick();
 
 
-	void bounaryCheck(int t_facing);
-	void leftDiaBounds(float &t_legX, float &t_legY, int t_facing);
-	void rightDiaBounds(float& t_legX, float& t_legY, int t_facing);
-	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
-
-
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen

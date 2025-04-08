@@ -20,6 +20,11 @@ public:
 	sf::Vector2f getPosition();
 	sf::Sprite getBody();
 
+	void bounaryCheck(int t_facing);
+	void leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
+	void rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
+	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
+
 private:
 	sf::Texture m_texture; //texture for Player
 	sf::Sprite m_sprite; //sprite used to represent Player

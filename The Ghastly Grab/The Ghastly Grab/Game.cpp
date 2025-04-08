@@ -86,28 +86,24 @@ void Game::processKeys(sf::Event t_event)
 	{
 		facing = UP;
 		m_player.movement(facing);
-		m_legsRect.move(0, -5);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		facing = DOWN;
 		m_player.movement(facing);
-		m_legsRect.move(0, 5);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		facing = LEFT;
 		m_player.movement(facing);
-		m_legsRect.move(-5, 0);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		facing = RIGHT;
 		m_player.movement(facing);
-		m_legsRect.move(5, 0);
 	}
 
-	bounaryCheck(facing);
+	m_player.bounaryCheck(facing);
 
 }
 
@@ -188,7 +184,6 @@ void Game::render()
 	m_window.draw(m_bgSprite);
 
 	m_window.draw(m_player.getBody());
-	m_window.draw(m_legsRect);
 
 	m_window.display();
 }
@@ -207,11 +202,6 @@ void Game::setUp()
 
 	m_bgSprite.setTexture(m_bgTexture);
 
-	// Rect for legs
-	m_legsRect.setFillColor(sf::Color::Yellow);
-	m_legsRect.setOutlineColor(sf::Color::Black);
-	m_legsRect.setOrigin(LEG_WIDTH / 2, LEG_HEIGHT / 2);
-	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG - 100);
 }
 
 
@@ -248,102 +238,3 @@ void Game::checkClick()
 
 }
 
-void Game::bounaryCheck(int t_facing)
-//stops player from moving out the gameplay bounds
-// Arceus bless me in what I am to do
-{
-	float legY, legX;
-	legY = m_legsRect.getPosition().y;
-
-	legX = m_legsRect.getPosition().x;
-
-	if (legY < 350)
-		// Keeping player from going above floor
-	{
-		legY += 5;
-	}
-	else if (legY > 600)
-		// Keeping player
-	{
-		legY -= 5;
-	}
-
-	if (legX < 0 + LEG_WIDTH / 2)
-	{
-		legX += 5;
-	}
-
-
-
-	leftDiaBounds(legX, legY, t_facing);
-
-
-
-	m_legsRect.setPosition({ legX,legY });
-
-
-}
-
-
-void Game::leftDiaBounds(float &t_legX, float &t_legY, int t_facing)
-{
-	if (t_legX < 120 && t_legY > 340 && t_legY < 530)
-	{
-		if (t_legX < 13 && t_legY < 530 ||
-			t_legX < 26 && t_legY < 508 ||
-			t_legX < 39 && t_legY < 487 ||
-			t_legX < 52 && t_legY < 466 ||
-			t_legX < 65 && t_legY < 445 ||
-			t_legX < 78 && t_legY < 424 ||
-			t_legX < 91 && t_legY < 403 ||
-			t_legX < 104 && t_legY < 382 ||
-			t_legX < 117 && t_legY < 361 ||
-			t_legX < 120 && t_legY < 340)
-		{
-			if (t_facing == LEFT)
-				// if player walks to dia facing left, we push them down
-			{
-				t_legY += 10;	// 10 and not 5 to deal with hypotenuse being longer
-			}
-			else if (t_facing == UP)
-				// if player walks to dia facing up, we push them right
-			{
-				t_legX += 5;
-			}
-		}
-	}
-
-
-}
-
-
-void Game::rightDiaBounds(float& t_legX, float& t_legY, int t_facing)
-{
-	if (t_legX < 120 && t_legY > 340 && t_legY < 530)
-	{
-		if (t_legX < 13 && t_legY < 530 ||
-			t_legX < 26 && t_legY < 508 ||
-			t_legX < 39 && t_legY < 487 ||
-			t_legX < 52 && t_legY < 466 ||
-			t_legX < 65 && t_legY < 445 ||
-			t_legX < 78 && t_legY < 424 ||
-			t_legX < 91 && t_legY < 403 ||
-			t_legX < 104 && t_legY < 382 ||
-			t_legX < 117 && t_legY < 361 ||
-			t_legX < 120 && t_legY < 340)
-		{
-			if (t_facing == LEFT)
-				// if player walks to dia facing left, we push them down
-			{
-				t_legY += 10;	// 10 and not 5 to deal with hypotenuse being longer
-			}
-			else if (t_facing == UP)
-				// if player walks to dia facing up, we push them right
-			{
-				t_legX += 5;
-			}
-		}
-	}
-
-
-}
