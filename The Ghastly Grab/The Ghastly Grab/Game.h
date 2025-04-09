@@ -37,6 +37,7 @@ private:
 	void processEvents();
 	void processKeys(sf::Event t_event);
 	void processMouse(sf::Event t_event);
+	void processMiniMouse(sf::Event t_event);
 	void gamePlayClick();
 	void inventoryClick();
 

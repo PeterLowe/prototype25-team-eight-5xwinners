@@ -128,6 +128,7 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
+
 	screenSwitchButtons();
 
 	if (m_screen == GAMEPLAY)
@@ -139,6 +140,16 @@ void Game::processMouse(sf::Event t_event)
 		inventoryClick();
 	}
 }
+
+void Game::processMiniMouse(sf::Event t_event)
+{
+	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
+	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
+	//m_pipe.setClickPos(m_mousePressed);
+	m_pipe.rotate(m_mousePressed);
+}
+
+
 
 
 
@@ -522,12 +533,19 @@ void Game::inventoryClick()
 void Game::miniGame()
 {
 	sf::RenderWindow window2(sf::VideoMode{ 800U, 640U, 32U }, "Mini Game");
+	sf::Event newEvent{};
 
 	while (window2.isOpen())
 	{
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
 			window2.close();
+		}
+
+		if (sf::Event::MouseButtonReleased == newEvent.type)
+		{
+			processMouse(newEvent);
 		}
 
 		//if (something == something)
