@@ -5,43 +5,24 @@
 
 class Pipe
 {
-	sf::Texture m_pipeT0_Texture;
-	sf::Texture m_pipeT90_Texture;
-	sf::Texture m_pipeT180_Texture;
-	sf::Texture m_pipeT270_Texture;
-	sf::Texture m_pipeL0_Texture;
-	sf::Texture m_pipeL90_Texture;
-	sf::Texture m_pipeL180_Texture;
-	sf::Texture m_pipeL270_Texture;
-	sf::Texture m_pipeI0_Texture;
-	sf::Texture m_pipeI90_Texture;
-	sf::Texture m_pipeD0_Texture;
-	sf::Texture m_pipeD90_Texture;
-	sf::Texture m_pipeD180_Texture;
-	sf::Texture m_pipeD270_Texture;
+	sf::Texture m_pipeT_Texture;
+	sf::Texture m_pipeL_Texture;
+	sf::Texture m_pipeI_Texture;
+	sf::Texture m_pipeD_Texture;
 	sf::Texture m_pipeS_Texture;
 	sf::Texture m_tile_Texture;
-	sf::Sprite m_pipeT0;
-	sf::Sprite m_pipeT90;
-	sf::Sprite m_pipeT180;
-	sf::Sprite m_pipeT270;
-	sf::Sprite m_pipeL0;
-	sf::Sprite m_pipeL90;
-	sf::Sprite m_pipeL180;
-	sf::Sprite m_pipeL270;
-	sf::Sprite m_pipeI0;
-	sf::Sprite m_pipeI90;
-	sf::Sprite m_pipeD0;
-	sf::Sprite m_pipeD90;
-	sf::Sprite m_pipeD180;
-	sf::Sprite m_pipeD270;
+	sf::Sprite m_pipeT;
+	sf::Sprite m_pipeL;
+	sf::Sprite m_pipeI;
+	sf::Sprite m_pipeD;
 	sf::Sprite m_pipeS;
 	sf::Sprite m_tile;
+
 	sf::RectangleShape m_player;
 
 	sf::Vector2f m_clickPos;
 
-	const int CELLSIZE = 64;
+	const float CELLSIZE = 64.0f;
 	const int GRIDSIZE = 10;
 
 	//The 4 digit numbers represent each side of a tile in order of top, right, bottom, left. For example,
@@ -67,5 +48,6 @@ public:
 	void render(sf::RenderWindow& t_window);
 	void update();
 	void rotate(sf::Vector2f t_pos);
+	//void processMouse(sf::Event t_event);
 	//void setClickPos(sf::Vector2f t_pos) { m_clickPos = t_pos; }
 };

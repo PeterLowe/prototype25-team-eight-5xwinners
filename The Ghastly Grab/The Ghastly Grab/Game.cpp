@@ -66,7 +66,7 @@ void Game::processEvents()
 		}
 		if (sf::Event::MouseButtonReleased == newEvent.type)	// user pressed mouse button
 		{
-			processMouse(newEvent);
+				processMouse(newEvent);
 		}
 	}
 }
@@ -124,7 +124,6 @@ void Game::processKeys(sf::Event t_event)
 /// <param name="t_event">key press event</param>
 void Game::processMouse(sf::Event t_event)
 {
-
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
@@ -141,13 +140,6 @@ void Game::processMouse(sf::Event t_event)
 	}
 }
 
-void Game::processMiniMouse(sf::Event t_event)
-{
-	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
-	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
-	//m_pipe.setClickPos(m_mousePressed);
-	m_pipe.rotate(m_mousePressed);
-}
 
 
 
@@ -533,20 +525,40 @@ void Game::inventoryClick()
 void Game::miniGame()
 {
 	sf::RenderWindow window2(sf::VideoMode{ 800U, 640U, 32U }, "Mini Game");
-	sf::Event newEvent{};
+	
 
 	while (window2.isOpen())
 	{
+		sf::Event newEvent{};
+		while (m_window.pollEvent(newEvent))
+		{
+			if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
+			{
+				processKeys(newEvent);
+			}
+			if (sf::Event::MouseButtonReleased == newEvent.type)	// user pressed mouse button
+			{
+				processMouse(newEvent);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				if (newEvent.type == sf::Event::KeyPressed && newEvent.key.code == sf::Keyboard::G)
+				{
+					std::cout << "test";
+				}
+			}
+
+
+
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 		{
 			window2.close();
 		}
 
 		if (sf::Event::MouseButtonReleased == newEvent.type)
 		{
-			processMouse(newEvent);
+
 		}
+
 
 		//if (something == something)
 		//{
