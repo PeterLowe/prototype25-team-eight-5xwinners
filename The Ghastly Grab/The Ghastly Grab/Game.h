@@ -54,6 +54,8 @@ private:
 	void setUp();
 	void setupAudio();
 
+	void playerMovement();
+
 	Menus Menus;
 
 	sf::Music m_bgMusic;	// BG Music	

@@ -15,8 +15,6 @@ public:
 
 	void movement(int t_facing);
 
-	void setPoosition(sf::Vector2f pos);
-
 	sf::Vector2f getPosition();
 	sf::Sprite getBody();
 

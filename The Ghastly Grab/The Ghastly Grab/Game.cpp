@@ -75,36 +75,10 @@ void Game::processEvents()
 //<param name="t_event">key press event</param>
 void Game::processKeys(sf::Event t_event)
 {
-	int facing = 0;
-
 	if (sf::Keyboard::Escape == t_event.key.code)
 	{
 		m_exitGame = true;
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		facing = UP;
-		m_player.movement(facing);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		facing = DOWN;
-		m_player.movement(facing);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		facing = LEFT;
-		m_player.movement(facing);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		facing = RIGHT;
-		m_player.movement(facing);
-	}
-
-	m_player.bounaryCheck(facing);
-
 }
 
 /// <summary>
@@ -136,6 +110,8 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+
+	playerMovement();
 }
 
 //draw the frame and then switch buffers
@@ -236,5 +212,33 @@ void Game::checkClick()
 		m_meter.onClick();
 	}
 
+}
+
+void Game::playerMovement()
+{
+	int facing = 0;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		facing = UP;
+		m_player.movement(facing);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		facing = DOWN;
+		m_player.movement(facing);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		facing = LEFT;
+		m_player.movement(facing);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		facing = RIGHT;
+		m_player.movement(facing);
+	}
+
+	m_player.bounaryCheck(facing);
 }
 

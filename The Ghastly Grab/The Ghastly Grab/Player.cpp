@@ -28,30 +28,31 @@ void Player::movement(int t_facing)
 //moves the player
 {
 	sf::Vector2f pos(m_sprite.getPosition());
+	sf::Vector2f legPos(m_legsRect.getPosition());
 
 	if (t_facing == LEFT)
 	{
 		pos.x = pos.x - m_speed;
+		legPos.x -= m_speed;
 	}
 	if (t_facing == RIGHT)
 	{
 		pos.x = pos.x + m_speed;
+		legPos.x += m_speed;
 	}
 	if (t_facing == UP)
 	{
 		pos.y = pos.y - m_speed;
+		legPos.y -= m_speed;
 	}
 	if (t_facing == DOWN)
 	{
 		pos.y = pos.y + m_speed;
+		legPos.y += m_speed;
 	}
 
 	m_sprite.setPosition(pos);
-}
-
-void Player::setPoosition(sf::Vector2f pos)
-{
-	m_sprite.setPosition(pos);
+	m_legsRect.setPosition(legPos);
 }
 
 sf::Vector2f Player::getPosition()
@@ -72,27 +73,27 @@ void Player::bounaryCheck(int t_facing)
 	sf::Vector2f leg{ m_legsRect.getPosition() };
 	sf::Vector2f body{ m_sprite.getPosition() };
 
-	if (legY < 350)
+	if (leg.y < 350)
 		// Keeping player from going above floor
 	{
 		leg.y += 5;
 		body.y += 5;
 
 	}
-	else if (legY > 600)
+	else if (leg.y > 600)
 		// Keeping player from going below invis floor
 	{
 		leg.y -= 5;
 		body.y -= 5;
 	}
 
-	if (legX < 0 + LEG_WIDTH / 2)
+	if (leg.x < 0 + LEG_WIDTH / 2)
 		// keeping player from going out of left side of screen
 	{
 		leg.x += 5;
 		body.x += 5;
 	}
-	else if (legX > SCREEN_WIDTH - LEG_WIDTH / 2)
+	else if (leg.x > SCREEN_WIDTH - (LEG_WIDTH * 1.5))
 		// keeping player from going out of right side of screen
 	{
 		leg.x -= 5;
@@ -114,62 +115,62 @@ void Player::bounaryCheck(int t_facing)
 }
 
 
-void Player::leftDiaBounds(float& t_legX, float& t_legY, int t_facing)
+void Player::leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing)
 {
-	if (t_legX < 130 && t_legY > 340 && t_legY < 530)
+	if (t_leg.x < 130 && t_leg.y > 340 && t_leg.y < 530)
 	{
-		if (t_legX < 23 && t_legY < 530 ||
-			t_legX < 36 && t_legY < 508 ||
-			t_legX < 49 && t_legY < 487 ||
-			t_legX < 62 && t_legY < 466 ||
-			t_legX < 75 && t_legY < 445 ||
-			t_legX < 88 && t_legY < 424 ||
-			t_legX < 101 && t_legY < 403 ||
-			t_legX < 114 && t_legY < 382 ||
-			t_legX < 127 && t_legY < 361 ||
-			t_legX < 130 && t_legY < 340)
+		if (t_leg.x < 23 && t_leg.y < 530 ||
+			t_leg.x < 36 && t_leg.y < 508 ||
+			t_leg.x < 49 && t_leg.y < 487 ||
+			t_leg.x < 62 && t_leg.y < 466 ||
+			t_leg.x < 75 && t_leg.y < 445 ||
+			t_leg.x < 88 && t_leg.y < 424 ||
+			t_leg.x < 101 && t_leg.y < 403 ||
+			t_leg.x < 114 && t_leg.y < 382 ||
+			t_leg.x < 127 && t_leg.y < 361 ||
+			t_leg.x < 130 && t_leg.y < 340)
 		{
 			if (t_facing == LEFT)
 				// if player walks to dia facing left, we push them down
 			{
-				t_legY += 10;	// 10 and not 5 to deal with hypotenuse being longer
+				t_leg.y += 10;	// 10 and not 5 to deal with hypotenuse being longer
+				t_body.y += 10;
 			}
 			else if (t_facing == UP)
 				// if player walks to dia facing up, we push them right
 			{
-				t_legX += 5;
+				t_leg.x += 5;
+				t_body.x += 5;
 			}
 		}
 	}
-
-
 }
 
 
 void Player::rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing)
 {
-	if (t_leg.x > 870 && t_leg.y > 340 && t_leg.y < 530)
+	if (t_leg.x > 850 && t_leg.y > 340 && t_leg.y < 530)
 	{
-		if (t_legX > 978 && t_legY < 530 ||
-			t_legX > 966 && t_legY < 508 ||
-			t_legX > 954 && t_legY < 487 ||
-			t_legX > 942 && t_legY < 466 ||
-			t_legX > 930 && t_legY < 445 ||
-			t_legX > 918 && t_legY < 424 ||
-			t_legX > 906 && t_legY < 403 ||
-			t_legX > 894 && t_legY < 382 ||
-			t_legX > 882 && t_legY < 361 ||
-			t_legX > 870 && t_legY < 340)
+		if (t_leg.x + LEG_WIDTH > 974 && t_leg.y < 530 ||
+			t_leg.x + LEG_WIDTH > 961 && t_leg.y < 508 ||
+			t_leg.x + LEG_WIDTH > 948 && t_leg.y < 487 ||
+			t_leg.x + LEG_WIDTH > 935 && t_leg.y < 466 ||
+			t_leg.x + LEG_WIDTH > 922 && t_leg.y < 445 ||
+			t_leg.x + LEG_WIDTH > 909 && t_leg.y < 424 ||
+			t_leg.x + LEG_WIDTH > 896 && t_leg.y < 403 ||
+			t_leg.x + LEG_WIDTH > 883 && t_leg.y < 382	)
 		{
 			if (t_facing == RIGHT)
 				// if player walks to dia facing left, we push them down
 			{
-				t_legY += 10;	// 10 and not 5 to deal with hypotenuse being longer
+				t_leg.y += 10;	// 10 and not 5 to deal with hypotenuse being longer
+				t_body.y += 10;
 			}
 			else if (t_facing == UP)
 				// if player walks to dia facing up, we push them right
 			{
-				t_legX -= 5;
+				t_leg.x -= 5;
+				t_body.x -= 5;
 			}
 		}
 	}
