@@ -533,6 +533,7 @@ void Game::miniGame()
 		//if (something == something)
 		//{
 		m_pipe.render(window2);
+		m_pipe.update();
 		//}
 
 		//window2.display();

@@ -33,9 +33,13 @@ void Pipe::setupSprites()
 	}
 
 	m_pipeT.setTexture(m_pipeT_Texture);
+	m_pipeT.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	m_pipeL.setTexture(m_pipeL_Texture);
+	m_pipeL.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	m_pipeI.setTexture(m_pipeI_Texture);
+	m_pipeI.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	m_pipeD.setTexture(m_pipeD_Texture);
+	m_pipeD.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	m_pipeS.setTexture(m_pipeS_Texture);
 	m_tile.setTexture(m_tile_Texture);
 	
@@ -49,9 +53,9 @@ void Pipe::render(sf::RenderWindow& t_window)
 {
 	t_window.clear(sf::Color::Black);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < GRIDSIZE; i++)
 	{
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < GRIDSIZE; j++)
 		{
 			m_tile.setPosition(CELLSIZE * j, CELLSIZE * i);
 			t_window.draw(m_tile);
@@ -89,6 +93,33 @@ void Pipe::render(sf::RenderWindow& t_window)
 	}
 
 	t_window.display();
+}
+
+void Pipe::update()
+{
+	updateRotation();
+}
+
+//me dumb this won't work
+void Pipe::updateRotation()
+{
+	for (int i = 0; i < GRIDSIZE; i++)
+	{
+		for (int j = 0; j < GRIDSIZE; j++)
+		{
+			if (m_grid[i][j] == 1101 || m_grid[i][j] == 1110 || m_grid[i][j] == 0111 || m_grid[i][j] == 1011)
+			{
+				if (m_grid[i][j] == 1101)
+				{
+					m_pipeT.setRotation(0.0f);
+				}
+				else if (m_grid[i][j] == 1110)
+				{
+
+				}
+			}
+		}
+	}
 }
 
 

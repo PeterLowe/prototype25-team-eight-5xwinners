@@ -20,6 +20,7 @@ class Pipe
 	sf::RectangleShape m_player;
 
 	const int CELLSIZE = 64;
+	const int GRIDSIZE = 10;
 
 	//The 4 digit numbers represent each side of a tile in order of top, right, bottom, left. For example,
 	//the number 1101 represents a tile with a T shaped pipe that connects to the top, right and left sides of the tile
@@ -42,4 +43,6 @@ public:
 	Pipe();
 	void setupSprites();
 	void render(sf::RenderWindow& t_window);
+	void update();
+	void updateRotation();
 };
