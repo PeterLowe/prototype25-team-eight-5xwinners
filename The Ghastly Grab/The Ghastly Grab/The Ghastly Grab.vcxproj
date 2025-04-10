@@ -30,6 +30,7 @@
     <ClCompile Include="Riches.cpp" />
     <ClCompile Include="Rooms.cpp" />
     <ClCompile Include="Tools.cpp" />
+	<ClCompile Include="PipeMiniGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Covers.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Riches.h" />
     <ClInclude Include="Rooms.h" />
     <ClInclude Include="Tools.h" />
+	<ClInclude Include="PipeMiniGame.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="ASSETS\IMAGES\SFML-LOGO.png">

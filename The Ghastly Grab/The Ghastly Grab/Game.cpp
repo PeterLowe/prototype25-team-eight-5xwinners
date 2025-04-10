@@ -64,7 +64,7 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
-		if (sf::Event::MouseButtonPressed == newEvent.type)	// user pressed mouse button
+		if (sf::Event::MouseButtonReleased == newEvent.type)	// user pressed mouse button
 		{
 			processMouse(newEvent);
 		}
@@ -79,6 +79,8 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+
+	screenSwitchKeys();
 }
 
 /// <summary>
@@ -91,7 +93,16 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
-	checkClick();
+	screenSwitchButtons();
+
+	if (m_screen == GAMEPLAY)
+	{
+		gamePlayClick();
+	}
+	else if (m_screen == INVENTORY)
+	{
+		inventoryClick();
+	}
 }
 
 
@@ -112,6 +123,12 @@ void Game::update(sf::Time t_deltaTime)
 	}
 
 	playerMovement();
+
+	if (m_inventory.getOpen())
+	{
+		m_inventory.radioAnimate();
+	}
+	//std::cout << m_screen << std::endl;
 }
 
 //draw the frame and then switch buffers
@@ -119,56 +136,104 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	if (!m_riches[0].getClicked())
+	for (int index = 0; index < MAX_RICHES; index++)
 	{
-		m_window.draw(m_riches[0].getBody());
+		if (!m_riches[index].getClicked())
+		{
+			m_window.draw(m_riches[index].getBody());
+		}
 	}
 
-	if (Menus.currentScreen() == "MainMenu")
-	{
-		m_window.draw(Menus.getGameTitle());
-		m_window.draw(Menus.getMainPlay());
-		m_window.draw(Menus.getMainSound());
-		m_window.draw(Menus.getMainHelp());
-		m_window.draw(Menus.getMainCredits());
+	m_window.draw(m_bgSprite);
 
-		// Temp
-		m_window.draw(Menus.getPlayText());
-		m_window.draw(Menus.getSoundText());
-		m_window.draw(Menus.getHelpText());
-		m_window.draw(Menus.getCreditsText());
-		//
-	}
+	m_window.draw(m_player.getBody());
 
-	if (Menus.currentScreen() == "Help")
-	{
-		m_window.draw(Menus.getHelpReturn());
-		m_window.draw(Menus.getHelpInfo());
-		m_window.draw(Menus.getReturnText());
-	}
+	renderScreens();
 
-	if (Menus.currentScreen() == "GameplayScreen")
+	if (m_screen == GAMEPLAY)
 	{
-		m_window.draw(Menus.getItemList());
-		m_window.draw(Menus.getBagIcon());
+		m_window.draw(m_inventory.getButton());
 	}
 
 
 	
 	m_window.draw(m_meter.getBody());
 
-	m_window.draw(m_bgSprite);
 
-	m_window.draw(m_player.getBody());
+
+	if (m_screen == INVENTORY)
+	{
+		renderInventory();
+	}
+
+	//if (m_screen == something)
+	//{
+
+	//}
+	for (int i = 0; i < MAX_TOOLS; i++)
+	{
+		m_window.draw(m_tools[i].getBody());
+	}
 
 	m_window.display();
 }
 
+void Game::renderInventory()
+{
+	m_window.draw(m_inventory.getBackground());
+	m_window.draw(m_inventory.getButton());
+	m_window.draw(m_inventory.getRadio());
+
+	for (int index = 1; index < MAX_TOOLS + 1; index++)
+	{
+		m_window.draw(m_inventory.getItems(index));
+	}
+
+	m_window.draw(m_inventory.getKeyText());
+	m_window.draw(m_inventory.getNoteText());
+	m_window.draw(m_inventory.getShovelText());
+	m_window.draw(m_inventory.getCrowBarText());
+}
 
 void Game::setUp()
 {
 	setupAudio();
-	m_riches[0].setupSprite();
+	sf::IntRect richesTextureRect;
+	for (int index = 0; index < MAX_RICHES; index++)
+	{
+		switch (index)
+		{
+		case 0:
+			richesTextureRect = { 0, 0, 54, 66 };
+			break;
+		case 1:
+			richesTextureRect = { 0, 68, 64, 60 };
+			break;
+		case 2:
+			richesTextureRect = { 0, 132, 65, 60 };
+			break;
+		case 3:
+			richesTextureRect = { 0, 194, 54, 66 };
+			break;
+		case 4:
+			richesTextureRect = { 0, 260 , 64 , 60 };
+			break;
+		case 5 :
+			richesTextureRect = { 0 , 320, 70, 64 };
+			break;
+		case 6 :
+			richesTextureRect = { 0 , 386, 64, 90 };
+			break;
+		case 7:
+			richesTextureRect = { 0 , 480, 64, 30 };
+			break;
+		default:
+			richesTextureRect = { 0, 510, 96, 32 };
+			break;
+		}
+		m_riches[index].setupSprite(richesTextureRect);
+		
+	}
 	m_meter.setupSprite();
 
 	if (!m_bgTexture.loadFromFile("ASSETS/IMAGES/BG.png"))
@@ -178,9 +243,12 @@ void Game::setUp()
 
 	m_bgSprite.setTexture(m_bgTexture);
 
+	for (int i = 0; i < MAX_TOOLS; i++)
+	{
+		m_tools[i].setupSprite(i + 1);
+	}
+
 }
-
-
 
 /// <summary>
 /// load the background music which is to be played constantly
@@ -199,19 +267,169 @@ void Game::setupAudio()
 	}
 }
 
-
-void Game::checkClick()
+/// <summary>
+/// Draws objects from Menu class to screen
+/// </summary>
+void Game::renderScreens()
 {
-	sf::FloatRect bounds = m_riches[0].getBody().getGlobalBounds();
-	if (bounds.contains(m_mousePressed))
+	if (m_screen == MAIN)
 	{
-		m_riches[0].onClick();
+		m_window.draw(Menus.getGameTitle());
+		m_window.draw(Menus.getMainPlay());
+		m_window.draw(Menus.getMainSound());
+		m_window.draw(Menus.getMainHelp());
+		m_window.draw(Menus.getMainCredits());
+
+		// Temp
+		m_window.draw(Menus.getPlayText());
+		m_window.draw(Menus.getSoundText());
+		m_window.draw(Menus.getHelpText());
+		m_window.draw(Menus.getCreditsText());
+		//
+	}
+
+	if (m_screen == HELP)
+	{
+		m_window.draw(Menus.getHelpReturn());
+		m_window.draw(Menus.getHelpInfo());
+		m_window.draw(Menus.getReturnText());
+	}
+
+	if (m_screen == INVENTORY)
+	{
+		m_window.draw(Menus.getInvWindow());
+		m_window.draw(Menus.getInvReturn());
+		m_window.draw(Menus.getInvReturnText());
+	}
+	if (m_screen == GAMEPLAY)
+	{
+		m_window.draw(Hud.getBackground());
+		m_window.draw(Menus.getItemList());
+		m_window.draw(Menus.getBagIcon());
+		m_window.draw(Hud.getItem1());
+		m_window.draw(Hud.getItem2());
+		m_window.draw(Hud.getItem3());
+		m_window.draw(Hud.getItem4());
+		m_window.draw(Hud.getItem5());
+		m_window.draw(Hud.getItem6());
+		m_window.draw(Hud.getItem7());
+		m_window.draw(Hud.getItem8());
+		m_window.draw(Hud.getItem9());
+	}
+
+	if (m_screen == SOUND)
+	{
+
+	}
+
+	if (m_screen == CREDITS)
+	{
+
+	}
+
+	if (m_screen == LOSING)
+	{
+
+	}
+
+	if (m_screen == WINNING)
+	{
+
+	}
+}
+
+void Game::screenSwitchButtons()
+{
+	if (m_screen == MAIN)
+	{
+		m_screen = Menus.clickMenu(m_mousePressed);
+	}
+}
+
+/// <summary>
+/// Switch between gameplay screens using numerical key press
+/// </summary>
+void Game::screenSwitchKeys()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) // Main Menu
+	{
+		m_screen = MAIN;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) // Gameplay
+	{
+		m_screen = GAMEPLAY;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) // Inventory
+	{
+		m_screen = INVENTORY;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) // Help
+	{
+		m_screen = HELP;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) // Sound
+	{
+		m_screen = SOUND;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) // Credits
+	{
+		m_screen = CREDITS;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) // Losing
+	{
+		m_screen = LOSING;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) // Winning
+	{
+		m_screen = WINNING;
+	}
+}
+
+void Game::gamePlayClick()
+{
+	sf::FloatRect inventoryButton = m_inventory.getButton().getGlobalBounds();
+	//currently getting based off inventory sprites - change to game sprite later
+	sf::FloatRect key = m_inventory.getItems(1).getGlobalBounds();
+	sf::FloatRect note = m_inventory.getItems(2).getGlobalBounds();
+	sf::FloatRect shovel = m_inventory.getItems(3).getGlobalBounds();
+	sf::FloatRect crowBar = m_inventory.getItems(4).getGlobalBounds();
+
+
+	for (int index = 0; index < MAX_RICHES; index++)
+	{
+		sf::FloatRect bounds = m_riches[index].getBody().getGlobalBounds();
+
+		if (bounds.contains(m_mousePressed))
+		{
+			m_riches[index].onClick();
+			Hud.itemObtained(index + 1);
+		}
+	}
+
+	if (key.contains(m_mousePressed))
+	{
+		m_inventory.haveKey();
+	}
+	else if (note.contains(m_mousePressed))
+	{
+		m_inventory.haveNote();
+	}
+	else if (shovel.contains(m_mousePressed))
+	{
+		m_inventory.haveShovel();
+	}
+	else if (crowBar.contains(m_mousePressed))
+	{
+		m_inventory.haveCrowBar();
+	}
+	else if (inventoryButton.contains(m_mousePressed))
+	{
+		m_screen = INVENTORY;
 	}
 	else 
 	{
 		m_meter.onClick();
 	}
-
 }
 
 void Game::playerMovement()
@@ -246,3 +464,32 @@ void Game::playerMovement()
 	m_player.bounaryCheck(facing);
 }
 
+void Game::inventoryClick()
+{
+	sf::FloatRect exitBounds = m_inventory.getButton().getGlobalBounds();
+	sf::FloatRect key = m_inventory.getItems(1).getGlobalBounds();
+	sf::FloatRect note = m_inventory.getItems(2).getGlobalBounds();
+	sf::FloatRect shovel = m_inventory.getItems(3).getGlobalBounds();
+	sf::FloatRect crowBar = m_inventory.getItems(4).getGlobalBounds();
+
+	if (exitBounds.contains(m_mousePressed))
+	{
+		m_screen = GAMEPLAY;
+	}
+	else if (key.contains(m_mousePressed))
+	{
+		m_inventory.keyEffect();
+	}
+	else if (note.contains(m_mousePressed))
+	{
+		m_inventory.noteEffect();
+	}
+	else if (shovel.contains(m_mousePressed))
+	{
+		m_inventory.shovelEffect();
+	}
+	else if (crowBar.contains(m_mousePressed))
+	{
+		m_inventory.crowBarEffect();
+	}
+}

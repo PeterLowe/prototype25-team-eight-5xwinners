@@ -4,7 +4,10 @@
 
 
 // MAXIMUM VALUES
-static const int MAX_RICHES = 1;
+static const int MAX_RICHES = 9;
+static const int MAX_TOOLS = 4;
+static const int MAX_COVERS = 4;
+static const int MAX_ROOMS = 6;
 static const int MAX_METERS = 11;
 
 //directions for sprite movement 
@@ -31,3 +34,13 @@ const float LEG_HEIGHT = 11.9f;		// Height of Leg of sprite
 
 //METER CONSTS
 const int SCARE = 0;
+
+// Screens
+static const int MAIN = 1;
+static const int GAMEPLAY = 2;
+static const int INVENTORY = 3;
+static const int HELP = 4;
+static const int SOUND = 5;
+static const int CREDITS = 6;
+static const int LOSING = 7;
+static const int WINNING = 8;

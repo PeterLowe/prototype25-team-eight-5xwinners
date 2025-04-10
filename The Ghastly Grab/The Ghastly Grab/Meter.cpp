@@ -2,7 +2,6 @@
 
 #include "Meter.h"
 
-
 /// <summary>
 /// load the texture and setup the sprite for the logo
 /// </summary>
@@ -18,7 +17,6 @@ void Meter::setupSprite()
 	m_sprite.setPosition(80.0f, 722.50f);
 
 }
-
 
 void Meter::update()
 {

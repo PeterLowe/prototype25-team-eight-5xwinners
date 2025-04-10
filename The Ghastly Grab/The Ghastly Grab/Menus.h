@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "SFML/Graphics.hpp"
 #include "Globals.h"
 
@@ -10,9 +11,6 @@ class Menus
 public:
 
 	Menus();
-
-	void chooseScreen(int t_screen);
-	std::string currentScreen();
 
 	// Main Menu
 	void mainMenuShapes();
@@ -36,14 +34,21 @@ public:
 	sf::RectangleShape getHelpInfo();
 	sf::Text getReturnText();
 
-	// Gameplay Screen
+	// Gameplay
 	void gameplayScreen();
 	sf::RectangleShape getItemList();
 	sf::RectangleShape getBagIcon();
 
-private:
+	// Inventory
+	void inventoryScreen();
+	sf::RectangleShape getInvWindow();
+	sf::RectangleShape getInvReturn();
+	sf::Text getInvReturnText();
 
-	std::string m_currentScreen = "GameplayScreen";
+	// Clicking Buttons
+	int clickMenu(sf::Vector2f t_clickPos);
+
+private:
 
 	const int BUT_WIDTH = 192; // Button width
 	const int BUT_HEIGHT = 64; // Button height
@@ -85,4 +90,10 @@ private:
 	// Gameplay Screen
 	sf::RectangleShape m_itemList;
 	sf::RectangleShape m_bagIcon;
+
+	// Inventory Screen
+	sf::RectangleShape m_invWindow;
+	sf::RectangleShape m_invReturnShape;
+	sf::Text m_invReturnText;
+	sf::FloatRect m_invReturnSize;
 };
