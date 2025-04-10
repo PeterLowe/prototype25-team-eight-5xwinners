@@ -127,7 +127,6 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
-
 	screenSwitchButtons();
 
 	if (m_screen == GAMEPLAY)
@@ -525,11 +524,19 @@ void Game::inventoryClick()
 void Game::miniGame()
 {
 	sf::RenderWindow window2(sf::VideoMode{ 800U, 640U, 32U }, "Mini Game");
+	//window2.setActive();
+
+	while (!window2.hasFocus())
+	{
+		window2.requestFocus();
+	}
 	
+	bool active2 = window2.hasFocus();
+	bool active = m_window.hasFocus();
 
 	while (window2.isOpen())
 	{
-		sf::Event newEvent{};
+		sf::Event newEvent;
 		while (m_window.pollEvent(newEvent))
 		{
 			if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
@@ -554,9 +561,20 @@ void Game::miniGame()
 			window2.close();
 		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		{
+			sf::Vector2f test(10.0f, 200.0f);
+			m_pipe.rotate(test);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+		{
+			bool active = m_window.hasFocus();
+			m_pipe.dothing();
+		}
+
 		if (sf::Event::MouseButtonReleased == newEvent.type)
 		{
-
+			//m_pipe.processMouse(newEvent);
 		}
 
 

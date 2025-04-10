@@ -65,28 +65,29 @@ void Pipe::render(sf::RenderWindow& t_window)
 			m_tile.setPosition(CELLSIZE * j, CELLSIZE * i);
 			t_window.draw(m_tile);
 
+
 			//if T pipe
-			if (m_grid[i][j] == 1101 || m_grid[i][j] == 1110 || m_grid[i][j] == 0111 || m_grid[i][j] == 1011)
+			if (m_grid[i][j] == 51101 || m_grid[i][j] == 51110 || m_grid[i][j] == 50111 || m_grid[i][j] == 51011)
 			{
-				if (m_grid[i][j] == 1101)
+				if (m_grid[i][j] == 51101)
 				{
 					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeT.setRotation(0.0f);
 					t_window.draw(m_pipeT);
 				}
-				else if (m_grid[i][j] == 1110)
+				else if (m_grid[i][j] == 51110)
 				{
 					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeT.setRotation(90.0f);
 					t_window.draw(m_pipeT);
 				}
-				else if (m_grid[i][j] == 0111)
+				else if (m_grid[i][j] == 50111)
 				{
 					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeT.setRotation(180.0f);
 					t_window.draw(m_pipeT);
 				}
-				else if (m_grid[i][j] == 1011)
+				else if (m_grid[i][j] == 51011)
 				{
 					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeT.setRotation(270.0f);
@@ -95,27 +96,27 @@ void Pipe::render(sf::RenderWindow& t_window)
 			}
 
 			//if L pipe
-			if (m_grid[i][j] == 1001 || m_grid[i][j] == 1100 || m_grid[i][j] == 0110 || m_grid[i][j] == 0011)
+			if (m_grid[i][j] == 51001 || m_grid[i][j] == 51100 || m_grid[i][j] == 50110 || m_grid[i][j] == 50011)
 			{
-				if (m_grid[i][j] == 1001)
+				if (m_grid[i][j] == 51001)
 				{
 					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeL.setRotation(0.0f);
 					t_window.draw(m_pipeL);
 				}
-				else if (m_grid[i][j] == 1100)
+				else if (m_grid[i][j] == 51100)
 				{
 					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeL.setRotation(90.0f);
 					t_window.draw(m_pipeL);
 				}
-				else if (m_grid[i][j] == 0110)
+				else if (m_grid[i][j] == 50110)
 				{
 					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeL.setRotation(180.0f);
 					t_window.draw(m_pipeL);
 				}
-				else if (m_grid[i][j] == 0011)
+				else if (m_grid[i][j] == 50011)
 				{
 					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeL.setRotation(270.0f);
@@ -124,15 +125,15 @@ void Pipe::render(sf::RenderWindow& t_window)
 			}
 
 			//if I pipe
-			if (m_grid[i][j] == 0101 || m_grid[i][j] == 1010)
+			if (m_grid[i][j] == 50101 || m_grid[i][j] == 51010)
 			{
-				if (m_grid[i][j] == 0101)
+				if (m_grid[i][j] == 50101)
 				{
 					m_pipeI.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeI.setRotation(0.0f);
 					t_window.draw(m_pipeI);
 				}
-				else if (m_grid[i][j] == 1010)
+				else if (m_grid[i][j] == 51010)
 				{
 					m_pipeI.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeI.setRotation(90.0f);
@@ -141,27 +142,27 @@ void Pipe::render(sf::RenderWindow& t_window)
 			}
 
 			//if Destination pipe
-			if (m_grid[i][j] == 1000 || m_grid[i][j] == 0100 || m_grid[i][j] == 0010 || m_grid[i][j] == 0001)
+			if (m_grid[i][j] == 51000 || m_grid[i][j] == 50100 || m_grid[i][j] == 50010 || m_grid[i][j] == 50001)
 			{
-				if (m_grid[i][j] == 1000)
+				if (m_grid[i][j] == 51000)
 				{
 					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeD.setRotation(0.0f);
 					t_window.draw(m_pipeD);
 				}
-				if (m_grid[i][j] == 0100)
+				if (m_grid[i][j] == 50100)
 				{
 					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeD.setRotation(90.0f);
 					t_window.draw(m_pipeD);
 				}
-				if (m_grid[i][j] == 0010)
+				if (m_grid[i][j] == 50010)
 				{
 					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeD.setRotation(180.0f);
 					t_window.draw(m_pipeD);
 				}
-				if (m_grid[i][j] == 0001)
+				if (m_grid[i][j] == 50001)
 				{
 					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeD.setRotation(270.0f);
@@ -170,7 +171,7 @@ void Pipe::render(sf::RenderWindow& t_window)
 			}
 
 			//if Source pipe
-			if (m_grid[i][j] == 1999)
+			if (m_grid[i][j] == 61999)
 			{
 				m_pipeS.setPosition(CELLSIZE * j, CELLSIZE * i);
 				t_window.draw(m_pipeS);
@@ -197,81 +198,81 @@ void Pipe::rotate(sf::Vector2f t_pos)
 	{
 		for (int j = 0; j < GRIDSIZE; j++)
 		{
-			if (m_grid[posy][posx] != 1999)
+			if (m_grid[posy][posx] != 61999)
 			{
 				//if T pipe
-				if (m_grid[posy][posx] == 1101 || m_grid[posy][posx] == 1110 || m_grid[posy][posx] == 0111 || m_grid[posy][posx] == 1011)
+				if (m_grid[posy][posx] == 51101 || m_grid[posy][posx] == 51110 || m_grid[posy][posx] == 50111 || m_grid[posy][posx] == 51011)
 				{
-					if (m_grid[posy][posx] == 1101)
+					if (m_grid[posy][posx] == 51101)
 					{
-						m_grid[posy][posx] = 1110;
+						m_grid[posy][posx] = 51110;
 					}
-					else if (m_grid[posy][posx] == 1110)
+					else if (m_grid[posy][posx] == 51110)
 					{
-						m_grid[posy][posx] = 0111;
+						m_grid[posy][posx] = 50111;
 					}
-					else if (m_grid[posy][posx] == 0111)
+					else if (m_grid[posy][posx] == 50111)
 					{
-						m_grid[posy][posx] = 1011;
+						m_grid[posy][posx] = 51011;
 					}
-					else if (m_grid[posy][posx] == 1011)
+					else if (m_grid[posy][posx] == 51011)
 					{
-						m_grid[posy][posx] = 1101;
+						m_grid[posy][posx] = 51101;
 					}
 				}
 
 				//if L pipe
-				if (m_grid[posy][posx] == 1001 || m_grid[posy][posx] == 1100 || m_grid[posy][posx] == 0110 || m_grid[posy][posx] == 0011)
+				else if (m_grid[posy][posx] == 51001 || m_grid[posy][posx] == 51100 || m_grid[posy][posx] == 50110 || m_grid[posy][posx] == 50011)
 				{
-					if (m_grid[posy][posx] == 1001)
+					if (m_grid[posy][posx] == 51001)
 					{
-						m_grid[posy][posx] = 1100;
+						m_grid[posy][posx] = 51100;
 					}
-					else if (m_grid[posy][posx] == 1100)
+					else if (m_grid[posy][posx] == 51100)
 					{
-						m_grid[posy][posx] = 0110;
+						m_grid[posy][posx] = 50110;
 					}
-					else if (m_grid[posy][posx] == 0110)
+					else if (m_grid[posy][posx] == 50110)
 					{
-						m_grid[posy][posx] = 0011;
+						m_grid[posy][posx] = 50011;
 					}
-					else if (m_grid[posy][posx] == 0011)
+					else if (m_grid[posy][posx] == 50011)
 					{
-						m_grid[posy][posx] = 1001;
+						m_grid[posy][posx] = 51001;
 					}
 				}
 
 				//if I pipe
-				if (m_grid[posy][posx] == 0101 || m_grid[posy][posx] == 1010)
+				else if (m_grid[posy][posx] == 50101 || m_grid[posy][posx] == 51010)
 				{
-					if (m_grid[posy][posx] == 0101)
+					if (m_grid[posy][posx] == 50101)
 					{
-						m_grid[posy][posx] = 1010;
+						m_grid[posy][posx] = 51010;
 					}
-					else if (m_grid[posy][posx] == 1010)
+					else if (m_grid[posy][posx] == 51010)
 					{
-						m_grid[posy][posx] = 0101;
+						m_grid[posy][posx] = 50101;
 					}
 				}
 
 				//if Destination pipe
-				if (m_grid[posy][posx] == 1000 || m_grid[posy][posx] == 0100 || m_grid[posy][posx] == 0010 || m_grid[posy][posx] == 0001)
+				else if (m_grid[posy][posx] == 51000 || m_grid[posy][posx] == 50100 || m_grid[posy][posx] == 50010 || m_grid[posy][posx] == 50001)
 				{
-					if (m_grid[posy][posx] == 1000)
+					if (m_grid[posy][posx] == 51000)
 					{
-						m_grid[posy][posx] = 0100;
+						m_grid[posy][posx] = 50100;
 					}
-					if (m_grid[posy][posx] == 0100)
+					else if (m_grid[posy][posx] == 50100)
 					{
-						m_grid[posy][posx] = 0010;
+						m_grid[posy][posx] = 50010;
 					}
-					if (m_grid[posy][posx] == 0010)
+					else if (m_grid[posy][posx] == 50010)
 					{
-						m_grid[posy][posx] = 0001;
+						m_grid[posy][posx] = 50001;
 					}
-					if (m_grid[posy][posx] == 0001)
+					else if (m_grid[posy][posx] == 50001)
 					{
-						m_grid[posy][posx] = 1000;
+						m_grid[posy][posx] = 51000;
 					}
 				}
 			}
@@ -284,4 +285,9 @@ void Pipe::rotate(sf::Vector2f t_pos)
 	m_clickPos.x = static_cast<float>(t_event.mouseButton.x);
 	m_clickPos.y = static_cast<float>(t_event.mouseButton.y);
 }*/
+
+void Pipe::dothing()
+{
+	std::cout << m_grid[0][3];
+}
 
