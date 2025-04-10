@@ -238,6 +238,10 @@ void Game::playerMovement()
 		facing = RIGHT;
 		m_player.movement(facing);
 	}
+	else
+	{
+		m_player.resetTexture();
+	}
 
 	m_player.bounaryCheck(facing);
 }

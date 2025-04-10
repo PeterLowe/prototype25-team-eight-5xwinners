@@ -23,8 +23,13 @@ public:
 	void rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
 	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
 
+	void resetTexture();
+	int frame = 0;
+
+
 private:
 	sf::Texture m_texture; //texture for Player
+	sf::Texture m_textureUp;	// texture for player moving down
 	sf::Sprite m_sprite; //sprite used to represent Player
 
 	const int m_speed = 5;

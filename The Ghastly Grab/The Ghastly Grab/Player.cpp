@@ -15,7 +15,12 @@ void Player::loadImage()
 		std::cout << "error with player image file";
 	}
 
-	m_sprite.setScale(0.7f, 0.7f);
+	if (!m_textureUp.loadFromFile("ASSETS/IMAGES/PLAYER_UP.png"))
+	{
+		std::cout << "Error with the player_DOWN image file";
+	}
+
+	m_sprite.setScale(2.625f, 3.390625f);
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 - 100});
 
@@ -42,6 +47,31 @@ void Player::movement(int t_facing)
 	}
 	if (t_facing == UP)
 	{
+		m_sprite.setTexture(m_textureUp);
+		if (frame < 8)
+		{
+			m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+			frame++;
+		}
+		else if (frame < 16)
+		{
+			m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
+			frame++;
+		}
+		else if (frame < 24)
+		{
+			m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
+			frame++;
+		}
+		else
+		{
+			m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
+			frame++;
+			if (frame > 32)
+			{
+				frame = 0;
+			}
+		}
 		pos.y = pos.y - m_speed;
 		legPos.y -= m_speed;
 	}
@@ -49,6 +79,31 @@ void Player::movement(int t_facing)
 	{
 		pos.y = pos.y + m_speed;
 		legPos.y += m_speed;
+		m_sprite.setTexture(m_textureUp);
+		if (frame < 8)
+		{
+			m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+			frame++;
+		}
+		else if (frame < 16)
+		{
+			m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
+			frame++;
+		}
+		else if (frame < 24)
+		{
+			m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
+			frame++;
+		}
+		else
+		{
+			m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
+			frame++;
+			if (frame > 32)
+			{
+				frame = 0;
+			}
+		}
 	}
 
 	m_sprite.setPosition(pos);
@@ -175,8 +230,13 @@ void Player::rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_fac
 		}
 	}
 
-
 }
 
+
+void Player::resetTexture()
+{
+	m_sprite.setTexture(m_texture);
+	m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+}
 
 
