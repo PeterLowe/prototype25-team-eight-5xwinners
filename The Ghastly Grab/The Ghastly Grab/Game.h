@@ -56,6 +56,7 @@ private:
 
 	void playerMovement();
 
+
 	Menus Menus;
 
 	sf::Music m_bgMusic;	// BG Music	

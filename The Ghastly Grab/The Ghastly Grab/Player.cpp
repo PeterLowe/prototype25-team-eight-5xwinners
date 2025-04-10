@@ -17,7 +17,17 @@ void Player::loadImage()
 
 	if (!m_textureUp.loadFromFile("ASSETS/IMAGES/PLAYER_UP.png"))
 	{
-		std::cout << "Error with the player_DOWN image file";
+		std::cout << "Error with the player_UP image file";
+	}
+
+	if (!m_textureRight.loadFromFile("ASSETS/IMAGES/PLAYER_RIGHT.png"))
+	{
+		std::cout << "Error with the player_RIGHT image file";
+	}
+
+	if (!m_textureLeft.loadFromFile("ASSETS/IMAGES/PLAYER_LEFT.png"))
+	{
+		std::cout << "Error with the player_LEFT image file";
 	}
 
 	m_sprite.setScale(2.625f, 3.390625f);
@@ -37,73 +47,29 @@ void Player::movement(int t_facing)
 
 	if (t_facing == LEFT)
 	{
+		m_sprite.setTexture(m_textureLeft);
+		moveSide();
 		pos.x = pos.x - m_speed;
 		legPos.x -= m_speed;
 	}
 	if (t_facing == RIGHT)
 	{
+		m_sprite.setTexture(m_textureRight);
+		moveSide();
 		pos.x = pos.x + m_speed;
 		legPos.x += m_speed;
 	}
 	if (t_facing == UP)
 	{
-		m_sprite.setTexture(m_textureUp);
-		if (frame < 8)
-		{
-			m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
-			frame++;
-		}
-		else if (frame < 16)
-		{
-			m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
-			frame++;
-		}
-		else if (frame < 24)
-		{
-			m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
-			frame++;
-		}
-		else
-		{
-			m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
-			frame++;
-			if (frame > 32)
-			{
-				frame = 0;
-			}
-		}
+		moveUp();
 		pos.y = pos.y - m_speed;
 		legPos.y -= m_speed;
 	}
 	if (t_facing == DOWN)
 	{
+		moveUp();
 		pos.y = pos.y + m_speed;
 		legPos.y += m_speed;
-		m_sprite.setTexture(m_textureUp);
-		if (frame < 8)
-		{
-			m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
-			frame++;
-		}
-		else if (frame < 16)
-		{
-			m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
-			frame++;
-		}
-		else if (frame < 24)
-		{
-			m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
-			frame++;
-		}
-		else
-		{
-			m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
-			frame++;
-			if (frame > 32)
-			{
-				frame = 0;
-			}
-		}
 	}
 
 	m_sprite.setPosition(pos);
@@ -237,6 +203,77 @@ void Player::resetTexture()
 {
 	m_sprite.setTexture(m_texture);
 	m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+}
+
+
+
+void Player::moveUp()
+{
+	m_sprite.setTexture(m_textureUp);
+	if (m_frame < 8)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+	}
+	else if (m_frame < 16)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
+	}
+	else if (m_frame < 24)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
+	}
+	else
+	{
+		m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
+		if (m_frame > 32)
+		{
+			m_frame = 0;
+		}
+	}
+
+	m_frame++;
+}
+
+void Player::moveSide()
+{
+	if (m_frame < 8)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+	}
+	else if (m_frame < 16)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
+	}
+	else if (m_frame < 24)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
+	}
+	else if (m_frame < 32)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
+	}
+	else if (m_frame < 40)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(128,0,32,64) });
+	}
+	else if (m_frame < 48)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(160,0,32,64) });
+	}
+	else if (m_frame < 56)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(192,0,32,64) });
+	}
+	else
+	{
+		m_sprite.setTextureRect({ sf::IntRect(224,0,32,64) });
+		if (m_frame > 64)
+		{
+			m_frame = 0;
+		}
+	}
+
+	m_frame++;
 }
 
 
