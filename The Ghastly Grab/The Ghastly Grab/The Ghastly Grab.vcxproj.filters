@@ -54,7 +54,10 @@
     <ClCompile Include="Rooms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	    <ClCompile Include="PipeMiniGame.cpp">
+    <ClCompile Include="PipeMiniGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingMiniGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +95,10 @@
     <ClInclude Include="Rooms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	    <ClInclude Include="PipeMiniGame.h">
+    <ClInclude Include="PipeMiniGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingMiniGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
