@@ -18,7 +18,7 @@ class Pipe
 	sf::Sprite m_pipeS;
 	sf::Sprite m_tile;
 
-	sf::RectangleShape m_player;
+	//sf::RectangleShape m_player;
 
 	sf::Vector2f m_clickPos;
 
@@ -37,7 +37,7 @@ class Pipe
 		{ 50000, 50000, 50001, 50101, 50110, 51100, 50100, 50000, 51001, 50111 },
 		{ 50011, 50101, 51010, 50111, 50110, 50100, 51101, 50110, 51000, 51010 },
 		{ 51000, 51001, 51010, 51010, 51101, 50100, 51110, 50011, 50000, 50101 },
-		{ 51000, 50011, 51101, 51001, 51999, 51001, 51001, 51000, 50011, 51010 },
+		{ 51000, 50011, 51101, 51001, 61999, 51001, 51001, 51000, 50011, 51010 },
 		{ 50011, 51010, 50110, 50100, 50100, 51011, 50101, 51010, 51101, 50011 }, };
 
 
@@ -48,7 +48,7 @@ public:
 	void render(sf::RenderWindow& t_window);
 	void update();
 	void rotate(sf::Vector2f t_pos);
-	void dothing();
+	void checkWater();
 	//void processMouse(sf::Event t_event);
 	//void setClickPos(sf::Vector2f t_pos) { m_clickPos = t_pos; }
 };

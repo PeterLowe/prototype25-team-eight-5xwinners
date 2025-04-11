@@ -127,6 +127,7 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
+	m_pipe.rotate(m_mousePressed);
 	screenSwitchButtons();
 
 	if (m_screen == GAMEPLAY)
@@ -537,7 +538,7 @@ void Game::miniGame()
 	while (window2.isOpen())
 	{
 		sf::Event newEvent;
-		while (m_window.pollEvent(newEvent))
+		while (window2.pollEvent(newEvent))
 		{
 			if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
 			{
@@ -546,37 +547,12 @@ void Game::miniGame()
 			if (sf::Event::MouseButtonReleased == newEvent.type)	// user pressed mouse button
 			{
 				processMouse(newEvent);
-
-				if (newEvent.type == sf::Event::KeyPressed && newEvent.key.code == sf::Keyboard::G)
-				{
-					std::cout << "test";
-				}
 			}
-
-
-
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 		{
 			window2.close();
 		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-		{
-			sf::Vector2f test(10.0f, 200.0f);
-			m_pipe.rotate(test);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
-		{
-			bool active = m_window.hasFocus();
-			m_pipe.dothing();
-		}
-
-		if (sf::Event::MouseButtonReleased == newEvent.type)
-		{
-			//m_pipe.processMouse(newEvent);
-		}
-
 
 		//if (something == something)
 		//{

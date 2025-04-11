@@ -47,11 +47,11 @@ void Pipe::setupSprites()
 	m_pipeS.setTexture(m_pipeS_Texture);
 	m_tile.setTexture(m_tile_Texture);
 
-	m_player.setSize(sf::Vector2f(64.0f, 64.0f));
+	/*m_player.setSize(sf::Vector2f(64.0f, 64.0f));
 	m_player.setPosition(sf::Vector2f(0.0f, 0.0f));
 	m_player.setFillColor(sf::Color::Transparent);
 	m_player.setOutlineColor(sf::Color(200,200,220, 255));
-	m_player.setOutlineThickness(-6.0f);
+	m_player.setOutlineThickness(-6.0f);*/
 }
 
 void Pipe::render(sf::RenderWindow& t_window)
@@ -67,7 +67,8 @@ void Pipe::render(sf::RenderWindow& t_window)
 
 
 			//if T pipe
-			if (m_grid[i][j] == 51101 || m_grid[i][j] == 51110 || m_grid[i][j] == 50111 || m_grid[i][j] == 51011)
+			if (m_grid[i][j] == 51101 || m_grid[i][j] == 51110 || m_grid[i][j] == 50111 || m_grid[i][j] == 51011 ||
+				m_grid[i][j] == 61101 || m_grid[i][j] == 61110 || m_grid[i][j] == 60111 || m_grid[i][j] == 61011)
 			{
 				if (m_grid[i][j] == 51101)
 				{
@@ -91,6 +92,14 @@ void Pipe::render(sf::RenderWindow& t_window)
 				{
 					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
 					m_pipeT.setRotation(270.0f);
+					t_window.draw(m_pipeT);
+				}
+				else if (m_grid[i][j] == 60111)
+				{
+					std::cout << "hi";
+					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
+					m_pipeT.setRotation(180.0f);
+					m_pipeT.setTextureRect(sf::IntRect(64, 0, 64, 64));
 					t_window.draw(m_pipeT);
 				}
 			}
@@ -179,14 +188,12 @@ void Pipe::render(sf::RenderWindow& t_window)
 		}
 	}
 
-	t_window.draw(m_player);
-
 	t_window.display();
 }
 
 void Pipe::update()
 {
-
+	//checkWater();
 }
 
 void Pipe::rotate(sf::Vector2f t_pos)
@@ -194,100 +201,118 @@ void Pipe::rotate(sf::Vector2f t_pos)
 	int posx = t_pos.x / CELLSIZE;
 	int posy = t_pos.y / CELLSIZE;
 
+	if (m_grid[posy][posx] != 61999)
+	{
+		//if T pipe
+		if (m_grid[posy][posx] == 51101 || m_grid[posy][posx] == 51110 || m_grid[posy][posx] == 50111 || m_grid[posy][posx] == 51011)
+		{
+			if (m_grid[posy][posx] == 51101)
+			{
+				m_grid[posy][posx] = 51110;
+			}
+			else if (m_grid[posy][posx] == 51110)
+			{
+				m_grid[posy][posx] = 50111;
+			}
+			else if (m_grid[posy][posx] == 50111)
+			{
+				m_grid[posy][posx] = 51011;
+			}
+			else if (m_grid[posy][posx] == 51011)
+			{
+				m_grid[posy][posx] = 51101;
+			}
+		}
+
+		//if L pipe
+		else if (m_grid[posy][posx] == 51001 || m_grid[posy][posx] == 51100 || m_grid[posy][posx] == 50110 || m_grid[posy][posx] == 50011)
+		{
+			if (m_grid[posy][posx] == 51001)
+			{
+				m_grid[posy][posx] = 51100;
+			}
+			else if (m_grid[posy][posx] == 51100)
+			{
+				m_grid[posy][posx] = 50110;
+			}
+			else if (m_grid[posy][posx] == 50110)
+			{
+				m_grid[posy][posx] = 50011;
+			}
+			else if (m_grid[posy][posx] == 50011)
+			{
+				m_grid[posy][posx] = 51001;
+			}
+		}
+
+		//if I pipe
+		else if (m_grid[posy][posx] == 50101 || m_grid[posy][posx] == 51010)
+		{
+			if (m_grid[posy][posx] == 50101)
+			{
+				m_grid[posy][posx] = 51010;
+			}
+			else if (m_grid[posy][posx] == 51010)
+			{
+				m_grid[posy][posx] = 50101;
+			}
+		}
+
+		//if Destination pipe
+		else if (m_grid[posy][posx] == 51000 || m_grid[posy][posx] == 50100 || m_grid[posy][posx] == 50010 || m_grid[posy][posx] == 50001)
+		{
+			if (m_grid[posy][posx] == 51000)
+			{
+				m_grid[posy][posx] = 50100;
+			}
+			else if (m_grid[posy][posx] == 50100)
+			{
+				m_grid[posy][posx] = 50010;
+			}
+			else if (m_grid[posy][posx] == 50010)
+			{
+				m_grid[posy][posx] = 50001;
+			}
+			else if (m_grid[posy][posx] == 50001)
+			{
+				m_grid[posy][posx] = 51000;
+			}
+		}
+	}
+	std::cout << m_grid[7][4];
+	std::cout << m_grid[8][4];
+	checkWater();
+	std::cout << m_grid[7][4];
+}
+
+void Pipe::checkWater()
+{
 	for (int i = 0; i < GRIDSIZE; i++)
 	{
-		for (int j = 0; j < GRIDSIZE; j++)
+		for (int j = 0; i < GRIDSIZE; i++)
 		{
-			if (m_grid[posy][posx] != 61999)
+			//these are all of the tiles with a pipe connection going up
+			if (m_grid[j][i] == 51000 || m_grid[j][i] == 51100 || m_grid[j][i] == 51001 ||m_grid[j][i] == 51010 || 
+				m_grid[j][i] == 51101 || m_grid[j][i] == 51110 || m_grid[j][i] == 51011)
 			{
-				//if T pipe
-				if (m_grid[posy][posx] == 51101 || m_grid[posy][posx] == 51110 || m_grid[posy][posx] == 50111 || m_grid[posy][posx] == 51011)
+				if (m_grid[j - 1][i] == 60110 || m_grid[j - 1][i] == 60011 || m_grid[j - 1][i] == 61010 || m_grid[j - 1][i] == 61110 ||
+					m_grid[j - 1][i] == 60111 || m_grid[j - 1][i] == 61011)
 				{
-					if (m_grid[posy][posx] == 51101)
-					{
-						m_grid[posy][posx] = 51110;
-					}
-					else if (m_grid[posy][posx] == 51110)
-					{
-						m_grid[posy][posx] = 50111;
-					}
-					else if (m_grid[posy][posx] == 50111)
-					{
-						m_grid[posy][posx] = 51011;
-					}
-					else if (m_grid[posy][posx] == 51011)
-					{
-						m_grid[posy][posx] = 51101;
-					}
+					m_grid[j][i] += 10000;
 				}
-
-				//if L pipe
-				else if (m_grid[posy][posx] == 51001 || m_grid[posy][posx] == 51100 || m_grid[posy][posx] == 50110 || m_grid[posy][posx] == 50011)
+			}
+			//these are all of the tiles with a pipe connection going down
+			else if (m_grid[i][j] == 50010 || m_grid[i][j] == 50110 || m_grid[i][j] == 50011 || m_grid[i][j] == 51010 || 
+					 m_grid[i][j] == 50111 || m_grid[i][j] == 51110 || m_grid[i][j] == 51011)
+			{
+				if (m_grid[j][i] == 61100 || m_grid[j][i] == 61001 || m_grid[j][i] == 61010 || m_grid[j][i] == 61110 ||
+					m_grid[j][i] == 61101 || m_grid[j][i] == 61011 || m_grid[i + 1][j] == 61999)
 				{
-					if (m_grid[posy][posx] == 51001)
-					{
-						m_grid[posy][posx] = 51100;
-					}
-					else if (m_grid[posy][posx] == 51100)
-					{
-						m_grid[posy][posx] = 50110;
-					}
-					else if (m_grid[posy][posx] == 50110)
-					{
-						m_grid[posy][posx] = 50011;
-					}
-					else if (m_grid[posy][posx] == 50011)
-					{
-						m_grid[posy][posx] = 51001;
-					}
-				}
-
-				//if I pipe
-				else if (m_grid[posy][posx] == 50101 || m_grid[posy][posx] == 51010)
-				{
-					if (m_grid[posy][posx] == 50101)
-					{
-						m_grid[posy][posx] = 51010;
-					}
-					else if (m_grid[posy][posx] == 51010)
-					{
-						m_grid[posy][posx] = 50101;
-					}
-				}
-
-				//if Destination pipe
-				else if (m_grid[posy][posx] == 51000 || m_grid[posy][posx] == 50100 || m_grid[posy][posx] == 50010 || m_grid[posy][posx] == 50001)
-				{
-					if (m_grid[posy][posx] == 51000)
-					{
-						m_grid[posy][posx] = 50100;
-					}
-					else if (m_grid[posy][posx] == 50100)
-					{
-						m_grid[posy][posx] = 50010;
-					}
-					else if (m_grid[posy][posx] == 50010)
-					{
-						m_grid[posy][posx] = 50001;
-					}
-					else if (m_grid[posy][posx] == 50001)
-					{
-						m_grid[posy][posx] = 51000;
-					}
+					std::cout << "asd";
+					m_grid[i][j] += 10000;
 				}
 			}
 		}
 	}
-}
-
-/*void Pipe::processMouse(sf::Event t_event)
-{
-	m_clickPos.x = static_cast<float>(t_event.mouseButton.x);
-	m_clickPos.y = static_cast<float>(t_event.mouseButton.y);
-}*/
-
-void Pipe::dothing()
-{
-	std::cout << m_grid[0][3];
 }
 
