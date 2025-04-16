@@ -65,121 +65,180 @@ void Pipe::render(sf::RenderWindow& t_window)
 			m_tile.setPosition(CELLSIZE * j, CELLSIZE * i);
 			t_window.draw(m_tile);
 
+			int pipe = m_grid[i][j];		//I don't know why I didn't think of doing this much sooner instead of writing out m_grid[i][j] a thousand times
+			bool found = false;				//if the pipe was found we don't need to keep looking for it where we won't find it
 
-			//if T pipe
-			if (m_grid[i][j] == 51101 || m_grid[i][j] == 51110 || m_grid[i][j] == 50111 || m_grid[i][j] == 51011 ||
-				m_grid[i][j] == 61101 || m_grid[i][j] == 61110 || m_grid[i][j] == 60111 || m_grid[i][j] == 61011)
+			//first loop checks for T pipes
+			for (int p = 0; p < 8; p++)
 			{
-				if (m_grid[i][j] == 51101)
+				if (pipe == TPIPE[p])		//if this tile contains a T pipe...
 				{
+					switch (pipe)			//set the rotation
+					{
+					case 51101:
+					case 61101:
+						m_pipeT.setRotation(0);
+						break;
+					case 51110:
+					case 61110:
+						m_pipeT.setRotation(90);
+						break;
+					case 50111:
+					case 60111:
+						m_pipeT.setRotation(180);
+						break;
+					case 51011:
+					case 61011:
+						m_pipeT.setRotation(270);
+						break;
+					}
+
+					//update the sprite/texture depending on if the tile contains water or not
+					if (pipe / 10000 == 6)
+					{
+						m_pipeT.setTextureRect(sf::IntRect(64, 0, 64, 64));
+					}
+					else
+					{
+						m_pipeT.setTextureRect(sf::IntRect(0, 0, 64, 64));
+					}
+
+					//set its position and draw it
 					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeT.setRotation(0.0f);
 					t_window.draw(m_pipeT);
-				}
-				else if (m_grid[i][j] == 51110)
-				{
-					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeT.setRotation(90.0f);
-					t_window.draw(m_pipeT);
-				}
-				else if (m_grid[i][j] == 50111)
-				{
-					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeT.setRotation(180.0f);
-					t_window.draw(m_pipeT);
-				}
-				else if (m_grid[i][j] == 51011)
-				{
-					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeT.setRotation(270.0f);
-					t_window.draw(m_pipeT);
-				}
-				else if (m_grid[i][j] == 60111)
-				{
-					std::cout << "hi";
-					m_pipeT.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeT.setRotation(180.0f);
-					m_pipeT.setTextureRect(sf::IntRect(64, 0, 64, 64));
-					t_window.draw(m_pipeT);
+
+					found = true;
+					break;
 				}
 			}
 
-			//if L pipe
-			if (m_grid[i][j] == 51001 || m_grid[i][j] == 51100 || m_grid[i][j] == 50110 || m_grid[i][j] == 50011)
+			if (!found)
 			{
-				if (m_grid[i][j] == 51001)
+				//this loop checks for L pipes
+				for (int p = 0; p < 8; p++)
 				{
-					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeL.setRotation(0.0f);
-					t_window.draw(m_pipeL);
-				}
-				else if (m_grid[i][j] == 51100)
-				{
-					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeL.setRotation(90.0f);
-					t_window.draw(m_pipeL);
-				}
-				else if (m_grid[i][j] == 50110)
-				{
-					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeL.setRotation(180.0f);
-					t_window.draw(m_pipeL);
-				}
-				else if (m_grid[i][j] == 50011)
-				{
-					m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeL.setRotation(270.0f);
-					t_window.draw(m_pipeL);
+					if (pipe == LPIPE[p])
+					{
+						switch (pipe)
+						{
+						case 51001:
+						case 61001:
+							m_pipeL.setRotation(0);
+							break;
+						case 51100:
+						case 61100:
+							m_pipeL.setRotation(90);
+							break;
+						case 50110:
+						case 60110:
+							m_pipeL.setRotation(180);
+							break;
+						case 50011:
+						case 60011:
+							m_pipeL.setRotation(270);
+							break;
+						}
+
+						if (pipe / 10000 == 6)
+						{
+							m_pipeL.setTextureRect(sf::IntRect(64, 0, 64, 64));
+						}
+						else
+						{
+							m_pipeL.setTextureRect(sf::IntRect(0, 0, 64, 64));
+						}
+
+						m_pipeL.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
+						t_window.draw(m_pipeL);
+
+						found = true;
+						break;
+					}
 				}
 			}
 
-			//if I pipe
-			if (m_grid[i][j] == 50101 || m_grid[i][j] == 51010)
+			if (!found)
 			{
-				if (m_grid[i][j] == 50101)
+				//this loop checks for I pipes
+				for (int p = 0; p < 4; p++)
 				{
-					m_pipeI.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeI.setRotation(0.0f);
-					t_window.draw(m_pipeI);
-				}
-				else if (m_grid[i][j] == 51010)
-				{
-					m_pipeI.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeI.setRotation(90.0f);
-					t_window.draw(m_pipeI);
+					if (pipe == IPIPE[p])
+					{
+						switch (pipe)
+						{
+						case 51010:
+						case 61010:
+							m_pipeI.setRotation(0);
+							break;
+						case 50101:
+						case 60101:
+							m_pipeI.setRotation(90);
+							break;
+						}
+
+						if (pipe / 10000 == 6)
+						{
+							m_pipeI.setTextureRect(sf::IntRect(64, 0, 64, 64));
+						}
+						else
+						{
+							m_pipeI.setTextureRect(sf::IntRect(0, 0, 64, 64));
+						}
+
+						m_pipeI.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
+						t_window.draw(m_pipeI);
+
+						found = true;
+						break;
+					}
 				}
 			}
 
-			//if Destination pipe
-			if (m_grid[i][j] == 51000 || m_grid[i][j] == 50100 || m_grid[i][j] == 50010 || m_grid[i][j] == 50001)
+			if (!found)
 			{
-				if (m_grid[i][j] == 51000)
+				//this loop checks for D pipes
+				for (int p = 0; p < 8; p++)
 				{
-					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeD.setRotation(0.0f);
-					t_window.draw(m_pipeD);
-				}
-				if (m_grid[i][j] == 50100)
-				{
-					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeD.setRotation(90.0f);
-					t_window.draw(m_pipeD);
-				}
-				if (m_grid[i][j] == 50010)
-				{
-					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeD.setRotation(180.0f);
-					t_window.draw(m_pipeD);
-				}
-				if (m_grid[i][j] == 50001)
-				{
-					m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
-					m_pipeD.setRotation(270.0f);
-					t_window.draw(m_pipeD);
+					if (pipe == DPIPE[p])
+					{
+						switch (pipe)
+						{
+						case 51000:
+						case 61000:
+							m_pipeD.setRotation(0);
+							break;
+						case 50100:
+						case 60100:
+							m_pipeD.setRotation(90);
+							break;
+						case 50010:
+						case 60010:
+							m_pipeD.setRotation(180);
+							break;
+						case 50001:
+						case 60001:
+							m_pipeD.setRotation(270);
+							break;
+						}
+
+						if (pipe / 10000 == 6)
+						{
+							m_pipeD.setTextureRect(sf::IntRect(64, 0, 64, 64));
+						}
+						else
+						{
+							m_pipeD.setTextureRect(sf::IntRect(0, 0, 64, 64));
+						}
+
+						m_pipeD.setPosition(CELLSIZE * j + CELLSIZE / 2, CELLSIZE * i + CELLSIZE / 2);
+						t_window.draw(m_pipeD);
+
+						found = true;
+						break;
+					}
 				}
 			}
 
-			//if Source pipe
 			if (m_grid[i][j] == 61999)
 			{
 				m_pipeS.setPosition(CELLSIZE * j, CELLSIZE * i);
@@ -201,88 +260,111 @@ void Pipe::rotate(sf::Vector2f t_pos)
 	int posx = t_pos.x / CELLSIZE;
 	int posy = t_pos.y / CELLSIZE;
 
-	if (m_grid[posy][posx] != 61999)
+	int pipe = m_grid[posy][posx];
+
+	//check if T pipe
+	for (int i = 0; i < 8; i++)
 	{
-		//if T pipe
-		if (m_grid[posy][posx] == 51101 || m_grid[posy][posx] == 51110 || m_grid[posy][posx] == 50111 || m_grid[posy][posx] == 51011)
+		if (pipe == TPIPE[i])
 		{
-			if (m_grid[posy][posx] == 51101)
+			//check for water (the last 4 indexes of the array mirror the first 4 but with water, so their value is the same but +10000)
+			if (i >= 4)
 			{
-				m_grid[posy][posx] = 51110;
+				i -= 4;		//treat it as if it doesn't have water
 			}
-			else if (m_grid[posy][posx] == 51110)
-			{
-				m_grid[posy][posx] = 50111;
-			}
-			else if (m_grid[posy][posx] == 50111)
-			{
-				m_grid[posy][posx] = 51011;
-			}
-			else if (m_grid[posy][posx] == 51011)
-			{
-				m_grid[posy][posx] = 51101;
-			}
-		}
 
-		//if L pipe
-		else if (m_grid[posy][posx] == 51001 || m_grid[posy][posx] == 51100 || m_grid[posy][posx] == 50110 || m_grid[posy][posx] == 50011)
-		{
-			if (m_grid[posy][posx] == 51001)
+			//rotation
+			if (i == 3)
 			{
-				m_grid[posy][posx] = 51100;
+				pipe = TPIPE[0];
 			}
-			else if (m_grid[posy][posx] == 51100)
+			else
 			{
-				m_grid[posy][posx] = 50110;
+				pipe = TPIPE[i + 1];
 			}
-			else if (m_grid[posy][posx] == 50110)
-			{
-				m_grid[posy][posx] = 50011;
-			}
-			else if (m_grid[posy][posx] == 50011)
-			{
-				m_grid[posy][posx] = 51001;
-			}
-		}
 
-		//if I pipe
-		else if (m_grid[posy][posx] == 50101 || m_grid[posy][posx] == 51010)
-		{
-			if (m_grid[posy][posx] == 50101)
-			{
-				m_grid[posy][posx] = 51010;
-			}
-			else if (m_grid[posy][posx] == 51010)
-			{
-				m_grid[posy][posx] = 50101;
-			}
-		}
-
-		//if Destination pipe
-		else if (m_grid[posy][posx] == 51000 || m_grid[posy][posx] == 50100 || m_grid[posy][posx] == 50010 || m_grid[posy][posx] == 50001)
-		{
-			if (m_grid[posy][posx] == 51000)
-			{
-				m_grid[posy][posx] = 50100;
-			}
-			else if (m_grid[posy][posx] == 50100)
-			{
-				m_grid[posy][posx] = 50010;
-			}
-			else if (m_grid[posy][posx] == 50010)
-			{
-				m_grid[posy][posx] = 50001;
-			}
-			else if (m_grid[posy][posx] == 50001)
-			{
-				m_grid[posy][posx] = 51000;
-			}
+			m_grid[posy][posx] = pipe;
+			return;
 		}
 	}
-	std::cout << m_grid[7][4];
-	std::cout << m_grid[8][4];
-	checkWater();
-	std::cout << m_grid[7][4];
+
+	//check if L pipe
+	for (int i = 0; i < 8; i++)
+	{
+		if (pipe == LPIPE[i])
+		{
+			//check for water
+			if (i >= 4)
+			{
+				i -= 4;
+			}
+
+			//rotation
+			if (i == 3)
+			{
+				pipe = LPIPE[0];
+			}
+			else
+			{
+				pipe = LPIPE[i + 1];
+			}
+
+			m_grid[posy][posx] = pipe;
+			return;
+		}
+	}
+
+	//check if I pipe
+	for (int i = 0; i < 4; i++)
+	{
+		if (pipe == IPIPE[i])
+		{
+			//check for water
+			if (i >= 2)
+			{
+				i -= 2;
+			}
+
+			//rotation
+			if (i == 1)
+			{
+				pipe = IPIPE[0];
+			}
+			else
+			{
+				pipe = IPIPE[i + 1];
+			}
+
+			m_grid[posy][posx] = pipe;
+			return;
+		}
+	}
+
+	//check if D pipe
+	for (int i = 0; i < 8; i++)
+	{
+		if (pipe == DPIPE[i])
+		{
+			//check for water
+			if (i >= 4)
+			{
+				i -= 4;
+			}
+
+			//rotation
+			if (i == 3)
+			{
+				pipe = DPIPE[0];
+			}
+			else
+			{
+				pipe = DPIPE[i + 1];
+			}
+
+			m_grid[posy][posx] = pipe;
+			return;
+		}
+	}
 }
 
 void Pipe::checkWater()

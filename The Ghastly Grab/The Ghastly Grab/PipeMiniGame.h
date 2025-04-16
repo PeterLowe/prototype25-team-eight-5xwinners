@@ -24,10 +24,16 @@ class Pipe
 
 	const float CELLSIZE = 64.0f;
 	const int GRIDSIZE = 10;
+	const int TPIPE[8] = { 51101, 51110, 50111, 51011, 61101, 61110, 60111, 61011 };
+	const int LPIPE[8] = { 51001, 51100, 50110, 50011, 61001, 61100, 60110, 60011 };
+	const int IPIPE[4] = { 51010, 50101, 61010, 60101 };
+	const int DPIPE[8] = { 51000, 50100, 50010, 50001, 61000, 60100, 60010, 60001 };
 
-	//The 4 digit numbers represent each side of a tile in order of top, right, bottom, left. For example,
-	//the number 1101 represents a tile with a T shaped pipe that connects to the top, right and left sides of the tile
-	//1999 is a special source tile that cannot rotate
+	//The last 4 digits of the 5 digit numbers represent each side of a tile in order of top, right, bottom, left.
+	//1 represents a pipe on that side of the tile that can connect to the adjacent tile. 0 represents no pipe on that side.
+	//For example, the number x1101 represents a T shaped pipe that connects to the top, right and left sides of the tile
+	//The first digit of the number determines if the tile has access to water or not. 5 means no water and 6 means it has water. 
+	//61999 is a special source tile that cannot rotate
 	int m_grid[10][10] = {
 		{ 50011, 51100, 50010, 51000, 51100, 51010, 50101, 51011, 51101, 50010 },
 		{ 51010, 50110, 50110, 51010, 50110, 51100, 50000, 50010, 50110, 50010 },
