@@ -234,4 +234,8 @@ int Menus::clickMenu(sf::Vector2f t_clickPos)
 	{
 		return CREDITS;
 	}
+	else
+	{
+		return MAIN;
+	}
 }

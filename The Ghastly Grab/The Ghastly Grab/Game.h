@@ -71,7 +71,7 @@ private:
 	Inventory m_inventory;
 
 	Player m_player;
-	//Rooms m_rooms[MAX_ROOMS];
+	Rooms m_roomBG;
 
 	Riches m_riches[MAX_RICHES];
 	Tools m_tools[MAX_TOOLS];

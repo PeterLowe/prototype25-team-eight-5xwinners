@@ -15,7 +15,7 @@ class Riches
 
 public:
 	
-	void setupSprite(sf::IntRect t_textureRect);
+	void setupSprite(int t_index);
 	void onClick();
 	bool getClicked();
 	sf::Sprite getBody();

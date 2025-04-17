@@ -14,7 +14,7 @@ void Tools::setupSprite(int t_num)
 	{
 		case 1:
 			m_toolsSprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
-			m_toolsSprite.setPosition(100, 100);
+			m_toolsSprite.setPosition(480, 337);
 			break;
 		case 2:
 			m_toolsSprite.setTextureRect(sf::IntRect(0, 64, 64, 64));

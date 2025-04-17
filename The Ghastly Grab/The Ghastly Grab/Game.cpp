@@ -143,12 +143,12 @@ void Game::render()
 
 void Game::renderGamePlay()
 {
-	m_window.draw(m_inventory.getButton());
-	renderRooms();
-	m_window.draw(m_player.getBody());
+	m_window.draw(m_roomBG.getBackground());
+
 	renderTools();
 	renderRiches();
 
+	m_window.draw(m_player.getBody());
 
 	m_window.draw(Hud.getBackground());
 	m_window.draw(Menus.getItemList());
@@ -163,34 +163,8 @@ void Game::renderGamePlay()
 	m_window.draw(Hud.getItem8());
 	m_window.draw(Hud.getItem9());
 
+	m_window.draw(m_inventory.getButton());
 	m_window.draw(m_meter.getBody());
-}
-
-void Game::renderRooms()
-{
-	m_window.draw(m_bgSprite);
-
-	switch (m_room)
-	{
-	case OUTSIDE:
-		break;
-	case GREENHOUSE:
-		break;
-	case HALLWAY_LEFT:
-		break;
-	case HALLWAY_RIGHT:
-		break;
-	case KITCHEN:
-		break;
-	case LIVING:
-		break;
-	case BEDROOM_LEFT:
-		break;
-	case BEDROOM_RIGHT:
-		break;
-	case BATHROOM:
-		break;
-	}
 }
 
 void Game::renderRiches()
@@ -224,6 +198,7 @@ void Game::renderTools()
 	switch (m_room)
 	{
 	case OUTSIDE:
+		m_window.draw(m_tools[0].getBody());
 		break;
 	case GREENHOUSE:
 		break;
@@ -279,46 +254,11 @@ void Game::setUp()
 		m_tools[i].setupSprite(i + 1);
 	}
 
-}
-
-void Game::setupRiches()
-{
-	sf::IntRect richesTextureRect;
-	for (int index = 0; index < MAX_RICHES; index++)
+	for (int i = 0; i < MAX_RICHES; i++)
 	{
-		switch (index)
-		{
-		case 0:
-			richesTextureRect = { 0, 0, 54, 66 };
-			break;
-		case 1:
-			richesTextureRect = { 0, 68, 64, 60 };
-			break;
-		case 2:
-			richesTextureRect = { 0, 132, 65, 60 };
-			break;
-		case 3:
-			richesTextureRect = { 0, 194, 54, 66 };
-			break;
-		case 4:
-			richesTextureRect = { 0, 260 , 64 , 60 };
-			break;
-		case 5:
-			richesTextureRect = { 0 , 320, 70, 64 };
-			break;
-		case 6:
-			richesTextureRect = { 0 , 386, 64, 90 };
-			break;
-		case 7:
-			richesTextureRect = { 0 , 480, 64, 30 };
-			break;
-		default:
-			richesTextureRect = { 0, 510, 96, 32 };
-			break;
-		}
-		m_riches[index].setupSprite(richesTextureRect);
-
+		m_riches[i].setupSprite(i);
 	}
+
 }
 
 /// <summary>
@@ -358,42 +298,36 @@ void Game::renderScreens()
 		m_window.draw(Menus.getCreditsText());
 		//
 	}
-
-	if (m_screen == HELP)
+	else if (m_screen == HELP)
 	{
 		m_window.draw(Menus.getHelpReturn());
 		m_window.draw(Menus.getHelpInfo());
 		m_window.draw(Menus.getReturnText());
 	}
-
-	if (m_screen == INVENTORY)
+	else if (m_screen == INVENTORY)
 	{
 		renderInventory();
 
 		m_window.draw(Menus.getInvReturn());
 		m_window.draw(Menus.getInvReturnText());
 	}
-	if (m_screen == GAMEPLAY)
+	else if (m_screen == GAMEPLAY)
 	{
 		renderGamePlay();
 	}
-
-	if (m_screen == SOUND)
+	else if (m_screen == SOUND)
 	{
 
 	}
-
-	if (m_screen == CREDITS)
+	else if (m_screen == CREDITS)
 	{
 
 	}
-
-	if (m_screen == LOSING)
+	else if (m_screen == LOSING)
 	{
 
 	}
-
-	if (m_screen == WINNING)
+	else if (m_screen == WINNING)
 	{
 
 	}
