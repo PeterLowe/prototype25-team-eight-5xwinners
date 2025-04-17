@@ -188,13 +188,9 @@ sf::RectangleShape Menus::getBagIcon()
 
 void Menus::inventoryScreen()
 {
-	m_invWindow.setFillColor(sf::Color(210, 180, 140));
-	m_invWindow.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-	m_invWindow.setPosition(0, 0);
-
 	m_invReturnShape.setFillColor(sf::Color::Blue);
 	m_invReturnShape.setSize(sf::Vector2f(BUT_WIDTH, BUT_HEIGHT));
-	m_invReturnShape.setPosition(25, 25);
+	m_invReturnShape.setPosition(SCREEN_WIDTH - BUT_WIDTH - 50, SCREEN_HEIGHT - BUT_HEIGHT - 50);
 
 	m_invReturnText.setFont(m_ArialBlackfont);
 	m_invReturnText.setCharacterSize(32);
@@ -202,12 +198,7 @@ void Menus::inventoryScreen()
 	m_invReturnText.setPosition(m_invReturnShape.getPosition());
 	m_invReturnSize = m_invReturnShape.getGlobalBounds();
 	m_invReturnText.setOrigin(m_invReturnSize.width / 2, m_invReturnSize.height / 2);
-	m_invReturnText.setPosition(160.0f, 60.0f);
-}
-
-sf::RectangleShape Menus::getInvWindow()
-{
-	return m_invWindow;
+	m_invReturnText.setPosition(SCREEN_WIDTH - 110, SCREEN_HEIGHT - 70);
 }
 
 sf::RectangleShape Menus::getInvReturn()

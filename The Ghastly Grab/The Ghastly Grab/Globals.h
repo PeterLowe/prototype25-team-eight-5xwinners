@@ -7,7 +7,7 @@
 static const int MAX_RICHES = 9;
 static const int MAX_TOOLS = 4;
 static const int MAX_COVERS = 4;
-static const int MAX_ROOMS = 6;
+//static const int MAX_ROOMS = 9;
 static const int MAX_METERS = 11;
 
 //directions for sprite movement 
@@ -44,3 +44,15 @@ static const int SOUND = 5;
 static const int CREDITS = 6;
 static const int LOSING = 7;
 static const int WINNING = 8;
+
+
+// Static for gameplay rooms
+static const int OUTSIDE = 0;
+static const int HALLWAY_LEFT = 1;
+static const int HALLWAY_RIGHT = 2;
+static const int KITCHEN = 3;
+static const int BEDROOM_LEFT = 4;
+static const int BEDROOM_RIGHT = 5;
+static const int BATHROOM = 6;
+static const int GREENHOUSE = 7;
+static const int LIVING = 8;

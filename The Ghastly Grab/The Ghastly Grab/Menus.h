@@ -41,7 +41,6 @@ public:
 
 	// Inventory
 	void inventoryScreen();
-	sf::RectangleShape getInvWindow();
 	sf::RectangleShape getInvReturn();
 	sf::Text getInvReturnText();
 
@@ -92,7 +91,6 @@ private:
 	sf::RectangleShape m_bagIcon;
 
 	// Inventory Screen
-	sf::RectangleShape m_invWindow;
 	sf::RectangleShape m_invReturnShape;
 	sf::Text m_invReturnText;
 	sf::FloatRect m_invReturnSize;

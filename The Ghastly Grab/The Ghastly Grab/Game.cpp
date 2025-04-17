@@ -124,7 +124,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	playerMovement();
 
-	if (m_inventory.getOpen())
+	if (m_screen == INVENTORY)
 	{
 		m_inventory.radioAnimate();
 	}
@@ -135,47 +135,113 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-
-	for (int index = 0; index < MAX_RICHES; index++)
-	{
-		if (!m_riches[index].getClicked())
-		{
-			m_window.draw(m_riches[index].getBody());
-		}
-	}
-
-	m_window.draw(m_bgSprite);
-
-	m_window.draw(m_player.getBody());
-
+	
 	renderScreens();
 
-	if (m_screen == GAMEPLAY)
-	{
-		m_window.draw(m_inventory.getButton());
-	}
-
-
-	
-	m_window.draw(m_meter.getBody());
-
-
-
-	if (m_screen == INVENTORY)
-	{
-		renderInventory();
-	}
-
-	//if (m_screen == something)
-	//{
-
-	//}
-	for (int i = 0; i < MAX_TOOLS; i++)
-	{
-		m_window.draw(m_tools[i].getBody());
-	}
-
 	m_window.display();
+}
+
+void Game::renderGamePlay()
+{
+	m_window.draw(m_inventory.getButton());
+	renderRooms();
+	m_window.draw(m_player.getBody());
+	renderTools();
+	renderRiches();
+
+
+	m_window.draw(Hud.getBackground());
+	m_window.draw(Menus.getItemList());
+	m_window.draw(Menus.getBagIcon());
+	m_window.draw(Hud.getItem1());
+	m_window.draw(Hud.getItem2());
+	m_window.draw(Hud.getItem3());
+	m_window.draw(Hud.getItem4());
+	m_window.draw(Hud.getItem5());
+	m_window.draw(Hud.getItem6());
+	m_window.draw(Hud.getItem7());
+	m_window.draw(Hud.getItem8());
+	m_window.draw(Hud.getItem9());
+
+	m_window.draw(m_meter.getBody());
+}
+
+void Game::renderRooms()
+{
+	m_window.draw(m_bgSprite);
+
+	switch (m_room)
+	{
+	case OUTSIDE:
+		break;
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+}
+
+void Game::renderRiches()
+{
+	switch (m_room)
+	{
+	case OUTSIDE:
+		break;
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+}
+
+
+void Game::renderTools()
+{
+	switch (m_room)
+	{
+	case OUTSIDE:
+		break;
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
 }
 
 void Game::renderInventory()
@@ -198,6 +264,25 @@ void Game::renderInventory()
 void Game::setUp()
 {
 	setupAudio();
+	
+	m_meter.setupSprite();
+
+	if (!m_bgTexture.loadFromFile("ASSETS/IMAGES/BG.png"))
+	{
+		std::cout << "Error with BG" << std::endl;
+	}
+
+	m_bgSprite.setTexture(m_bgTexture);
+
+	for (int i = 0; i < MAX_TOOLS; i++)
+	{
+		m_tools[i].setupSprite(i + 1);
+	}
+
+}
+
+void Game::setupRiches()
+{
 	sf::IntRect richesTextureRect;
 	for (int index = 0; index < MAX_RICHES; index++)
 	{
@@ -218,10 +303,10 @@ void Game::setUp()
 		case 4:
 			richesTextureRect = { 0, 260 , 64 , 60 };
 			break;
-		case 5 :
+		case 5:
 			richesTextureRect = { 0 , 320, 70, 64 };
 			break;
-		case 6 :
+		case 6:
 			richesTextureRect = { 0 , 386, 64, 90 };
 			break;
 		case 7:
@@ -232,22 +317,8 @@ void Game::setUp()
 			break;
 		}
 		m_riches[index].setupSprite(richesTextureRect);
-		
+
 	}
-	m_meter.setupSprite();
-
-	if (!m_bgTexture.loadFromFile("ASSETS/IMAGES/BG.png"))
-	{
-		std::cout << "Error with BG" << std::endl;
-	}
-
-	m_bgSprite.setTexture(m_bgTexture);
-
-	for (int i = 0; i < MAX_TOOLS; i++)
-	{
-		m_tools[i].setupSprite(i + 1);
-	}
-
 }
 
 /// <summary>
@@ -297,24 +368,14 @@ void Game::renderScreens()
 
 	if (m_screen == INVENTORY)
 	{
-		m_window.draw(Menus.getInvWindow());
+		renderInventory();
+
 		m_window.draw(Menus.getInvReturn());
 		m_window.draw(Menus.getInvReturnText());
 	}
 	if (m_screen == GAMEPLAY)
 	{
-		m_window.draw(Hud.getBackground());
-		m_window.draw(Menus.getItemList());
-		m_window.draw(Menus.getBagIcon());
-		m_window.draw(Hud.getItem1());
-		m_window.draw(Hud.getItem2());
-		m_window.draw(Hud.getItem3());
-		m_window.draw(Hud.getItem4());
-		m_window.draw(Hud.getItem5());
-		m_window.draw(Hud.getItem6());
-		m_window.draw(Hud.getItem7());
-		m_window.draw(Hud.getItem8());
-		m_window.draw(Hud.getItem9());
+		renderGamePlay();
 	}
 
 	if (m_screen == SOUND)
@@ -436,22 +497,22 @@ void Game::playerMovement()
 {
 	int facing = 0;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		facing = UP;
 		m_player.movement(facing);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		facing = DOWN;
 		m_player.movement(facing);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		facing = LEFT;
 		m_player.movement(facing);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		facing = RIGHT;
 		m_player.movement(facing);

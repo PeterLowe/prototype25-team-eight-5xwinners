@@ -42,11 +42,16 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 	void renderScreens();
+	void renderRooms();		// Function to draw room-specific gameplay elements (bg, riches, tools, and covers)
+	void renderGamePlay();	// all-encompassing function for gameplay all gameplay elemnts
+	void renderTools();		// Function to draw tools based on rooms
+	void renderRiches();		// Function to draw Riches based on rooms
 	void screenSwitchButtons();
 	void renderInventory();
 	void screenSwitchKeys();
 
 	void setUp();
+	void setupRiches();		// function to setup riches for gameplay
 	void setupAudio();
 
 	void playerMovement();
@@ -66,7 +71,7 @@ private:
 	Inventory m_inventory;
 
 	Player m_player;
-	Rooms m_rooms[MAX_ROOMS];
+	//Rooms m_rooms[MAX_ROOMS];
 
 	Riches m_riches[MAX_RICHES];
 	Tools m_tools[MAX_TOOLS];
@@ -75,6 +80,7 @@ private:
 	Meter m_meter;
 
 	int m_screen = MAIN;
+	int m_room = OUTSIDE;
 	sf::Music m_bgMusic;	// BG Music	
 	sf::Vector2f m_mousePressed;
 };
