@@ -47,11 +47,11 @@ void Pipe::setupSprites()
 	m_pipeS.setTexture(m_pipeS_Texture);
 	m_tile.setTexture(m_tile_Texture);
 
-	/*m_player.setSize(sf::Vector2f(64.0f, 64.0f));
-	m_player.setPosition(sf::Vector2f(0.0f, 0.0f));
+	m_player.setSize(sf::Vector2f(64.0f, 64.0f));
+	m_player.setPosition(sf::Vector2f(0.0f, 0.0f ));
 	m_player.setFillColor(sf::Color::Transparent);
 	m_player.setOutlineColor(sf::Color(200,200,220, 255));
-	m_player.setOutlineThickness(-6.0f);*/
+	m_player.setOutlineThickness(-6.0f);
 }
 
 void Pipe::render(sf::RenderWindow& t_window)
@@ -243,16 +243,16 @@ void Pipe::render(sf::RenderWindow& t_window)
 			{
 				m_pipeS.setPosition(CELLSIZE * j, CELLSIZE * i);
 				t_window.draw(m_pipeS);
-			}
+			}	
 		}
 	}
-
+	t_window.draw(m_player);
 	t_window.display();
 }
 
 void Pipe::update()
 {
-	//checkWater();
+
 }
 
 void Pipe::rotate(sf::Vector2f t_pos)
@@ -284,7 +284,7 @@ void Pipe::rotate(sf::Vector2f t_pos)
 			}
 
 			m_grid[posy][posx] = pipe;
-			return;
+			break;
 		}
 	}
 
@@ -310,7 +310,7 @@ void Pipe::rotate(sf::Vector2f t_pos)
 			}
 
 			m_grid[posy][posx] = pipe;
-			return;
+			break;
 		}
 	}
 
@@ -336,7 +336,7 @@ void Pipe::rotate(sf::Vector2f t_pos)
 			}
 
 			m_grid[posy][posx] = pipe;
-			return;
+			break;
 		}
 	}
 
@@ -362,39 +362,234 @@ void Pipe::rotate(sf::Vector2f t_pos)
 			}
 
 			m_grid[posy][posx] = pipe;
-			return;
+			break;
 		}
 	}
+
+	checkWater();
 }
 
 void Pipe::checkWater()
 {
-	for (int i = 0; i < GRIDSIZE; i++)
+	int waterFlow[10][10];				//new 2d array to store information about water and forks
+
+	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; i < GRIDSIZE; i++)
+		for (int j = 0; j < 10; j++)
 		{
-			//these are all of the tiles with a pipe connection going up
-			if (m_grid[j][i] == 51000 || m_grid[j][i] == 51100 || m_grid[j][i] == 51001 ||m_grid[j][i] == 51010 || 
-				m_grid[j][i] == 51101 || m_grid[j][i] == 51110 || m_grid[j][i] == 51011)
+			waterFlow[i][j] = 50;		//the first digit handles water, 5 means no water, 6 means has water. The second digit represents a fork, 0 is no fork, 1 means there is a fork
+		}
+	}
+
+	waterFlow[8][4] = 60;				//the source tile starts with water
+
+	int posx = 4;						//our starting position is the source tile
+	int posy = 8;
+		
+	int numPath = 1;					//this tracks the number of paths in the maze that haven't resulted in a dead end yet
+	int numFork = 0;					//this tracks the number of forks in the maze
+
+	while (numPath > 0)					//we keep looping until all paths result in a dead end
+	{
+   		bool upPipe = false;			//these bools track if our current position has a pipe going in a particular direction
+		bool rightPipe = false;
+		bool downPipe = false;
+		bool leftPipe = false;
+
+		checkDirection(posx, posy, upPipe, rightPipe, downPipe, leftPipe);
+
+
+		//in this next section we're going to check the relevant neighboring tiles to see if they have a pipe that makes a viable connection with our tile
+
+		int connections = 0;			//this tracks how many successful connections we have between the pipe on our current tile and the neighboring tiles. Used for determining if we have forks
+		bool hasConnection = false;		//used to track if we have at least one viable connection
+
+		if (upPipe)			//if our pipe has a side going up 
+		{
+			for (int i = 0; i < 14; i++)
 			{
-				if (m_grid[j - 1][i] == 60110 || m_grid[j - 1][i] == 60011 || m_grid[j - 1][i] == 61010 || m_grid[j - 1][i] == 61110 ||
-					m_grid[j - 1][i] == 60111 || m_grid[j - 1][i] == 61011)
+				std::cout << m_grid[posy - 1][posx] << std::endl;
+				if (m_grid[posy - 1][posx] == DOWN_CON[i] && waterFlow[posy - 1][posx] / 10 == 5)	//if the pipe above = one of the 14 possible pipe/rotation combos that has a downward facing pipe and has no water
 				{
-					m_grid[j][i] += 10000;
-				}
-			}
-			//these are all of the tiles with a pipe connection going down
-			else if (m_grid[i][j] == 50010 || m_grid[i][j] == 50110 || m_grid[i][j] == 50011 || m_grid[i][j] == 51010 || 
-					 m_grid[i][j] == 50111 || m_grid[i][j] == 51110 || m_grid[i][j] == 51011)
-			{
-				if (m_grid[j][i] == 61100 || m_grid[j][i] == 61001 || m_grid[j][i] == 61010 || m_grid[j][i] == 61110 ||
-					m_grid[j][i] == 61101 || m_grid[j][i] == 61011 || m_grid[i + 1][j] == 61999)
-				{
-					std::cout << "asd";
-					m_grid[i][j] += 10000;
+					connections++;			//it connects
+					hasConnection = true;	//make a note of it
+					break;
 				}
 			}
 		}
+		if (rightPipe)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy][posx + 1] == LEFT_CON[i] && waterFlow[posy][posx + 1] / 10 == 5)
+				{
+					connections++;
+					hasConnection = true;
+					break;
+				}
+			}
+		}
+		if (downPipe)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy + 1][posx] == UP_CON[i] && waterFlow[posy + 1][posx] / 10 == 5)
+				{
+					connections++;
+					hasConnection = true;
+					break;
+				}
+			}
+		}
+		if (leftPipe)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy][posx - 1] == RIGHT_CON[i] && waterFlow[posy][posx - 1] / 10 == 5)
+				{
+					connections++;
+					hasConnection = true;
+					break;
+				}
+			}
+		}
+		if (!hasConnection)		//if there was no viable connections
+		{
+			numPath--;			//it was a dead end so the number of possible paths is reduced
+		}
+
+
+		//now that the connections are calculated, we update our array with water and forks where appropriate
+
+		if (waterFlow[posy][posx] % 10 == 0 && connections >= 2)	//if the value of this tile is 50 or 60 (should always be 60 at this point) and more than 1 connection
+		{
+			waterFlow[posy][posx] += 1;		//we update the array to have a fork 
+			numFork++;						//we count how many forks we have for later use
+		}
+
+
+		//next we're going to move to a new tile
+
+		if (upPipe)			//if our pipe has a side going up
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy - 1][posx] == DOWN_CON[i] && waterFlow[posy - 1][posx] / 10 == 5)	//if the pipe above = one of the 14 possible pipe/rotation combos that has a downward facing pipe and has no water
+				{
+					posy -= 1;						//we move there
+					waterFlow[posy][posx] += 10;	//and it gets water
+					break;
+				}
+			}
+		}
+		else if (rightPipe)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy][posx + 1] == LEFT_CON[i] && waterFlow[posy][posx + 1] / 10 == 5)
+				{
+					posx += 1;
+					waterFlow[posy][posx] += 10;
+					break;
+				}
+			}
+		}
+		else if (downPipe)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy + 1][posx] == UP_CON[i] && waterFlow[posy + 1][posx] / 10 == 5)
+				{
+					posy += 1;
+					waterFlow[posy][posx] += 10;
+					break;
+				}
+			}
+		}
+		else if (leftPipe)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				if (m_grid[posy][posx - 1] == RIGHT_CON[i] && waterFlow[posy][posx - 1] / 10 == 5)
+				{
+					posx -= 1;
+					waterFlow[posy][posx] += 10;
+					break;
+				}
+			}
+		}
+
+
+		//if we got this far but ran into a dead end so numPath is now 0, we check for the existence of a fork in the array, move there, and set numPath back to 1
+
+		if (numPath == 0)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					if (waterFlow[i][j] == 61)		//if a fork tile exists. It should already have water since we've been there before
+					{
+						posx = j;					//set our position to that tile
+						posy = i;
+						numPath++;					//add 1 to path so we can enter the loop again
+					}
+				}
+			}
+		}
+	}
+
+
+	//update the m_grid array based on the final results of the waterFlow array
+
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (waterFlow[i][j] / 10 == 6)
+			{
+				if (m_grid[i][j] / 10000 == 5)
+				{
+					m_grid[i][j] += 10000;
+				}
+			}
+			else
+			{
+				if (m_grid[i][j] / 10000 == 6)
+				{
+					m_grid[i][j] -= 10000;
+				}
+			}
+		}
+	}
+}
+
+void Pipe::checkDirection(int t_posx, int t_posy, bool& t_up, bool& t_right, bool& t_down, bool& t_left)
+{
+	int pipe = m_grid[t_posy][t_posx];
+
+	for (int i = 0; i < 14; i++)
+	{
+		if (pipe == UP_CON[i])
+		{
+			t_up = true;
+		}
+		if (pipe == RIGHT_CON[i])
+		{
+			t_right = true;
+		}
+		if (pipe == DOWN_CON[i])
+		{
+			t_down = true;
+		}
+		if (pipe == LEFT_CON[i])
+		{
+			t_left = true;
+		}
+	}
+	if (pipe == 61999)
+	{
+		t_up = true;
 	}
 }
 

@@ -18,16 +18,21 @@ class Pipe
 	sf::Sprite m_pipeS;
 	sf::Sprite m_tile;
 
-	//sf::RectangleShape m_player;
+	sf::RectangleShape m_player;
 
 	sf::Vector2f m_clickPos;
 
 	const float CELLSIZE = 64.0f;
 	const int GRIDSIZE = 10;
-	const int TPIPE[8] = { 51101, 51110, 50111, 51011, 61101, 61110, 60111, 61011 };
-	const int LPIPE[8] = { 51001, 51100, 50110, 50011, 61001, 61100, 60110, 60011 };
-	const int IPIPE[4] = { 51010, 50101, 61010, 60101 };
-	const int DPIPE[8] = { 51000, 50100, 50010, 50001, 61000, 60100, 60010, 60001 };
+	const int TPIPE[8] = { 51101, 51110, 50111, 51011, 61101, 61110, 60111, 61011 };	//all of the T pipes
+	const int LPIPE[8] = { 51001, 51100, 50110, 50011, 61001, 61100, 60110, 60011 };	//all of the L pipes
+	const int IPIPE[4] = { 51010, 50101, 61010, 60101 };								//I pipes
+	const int DPIPE[8] = { 51000, 50100, 50010, 50001, 61000, 60100, 60010, 60001 };	//D pipes
+
+	const int UP_CON[14] = { 51101, 51110, 51011, 61101, 61110, 61011, 51001, 51100, 61001, 61100, 51010, 61010, 51000, 61000 };			//all pipes with a connection going up
+	const int RIGHT_CON[14] = { 51101, 51110, 50111, 61101, 61110, 60111, 51100, 50110, 61100, 60110, 50101, 60101, 50100, 60100 };			//connection going right
+	const int DOWN_CON[14] = { 51110, 50111, 51011, 61110, 60111, 61011, 50110, 50011, 60110, 60011, 51010, 61010, 50010, 60010 };			//connection going down
+	const int LEFT_CON[14] = { 51101, 50111, 51011, 61101, 60111, 61011, 51001, 50011, 61001, 60011, 50101, 60101, 50001, 60001 };			//connection going left
 
 	//The last 4 digits of the 5 digit numbers represent each side of a tile in order of top, right, bottom, left.
 	//1 represents a pipe on that side of the tile that can connect to the adjacent tile. 0 represents no pipe on that side.
@@ -55,6 +60,7 @@ public:
 	void update();
 	void rotate(sf::Vector2f t_pos);
 	void checkWater();
+	void checkDirection(int t_posx, int t_posy, bool& t_up, bool& t_right, bool& t_down, bool& t_left);
 	//void processMouse(sf::Event t_event);
 	//void setClickPos(sf::Vector2f t_pos) { m_clickPos = t_pos; }
 };
