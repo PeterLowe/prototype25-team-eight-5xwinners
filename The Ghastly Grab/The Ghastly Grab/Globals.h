@@ -56,3 +56,10 @@ static const int BEDROOM_RIGHT = 5;
 static const int BATHROOM = 6;
 static const int GREENHOUSE = 7;
 static const int LIVING = 8;
+
+
+
+#include <SFML/WINDOW.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/event.hpp>
+// for uni library ^
