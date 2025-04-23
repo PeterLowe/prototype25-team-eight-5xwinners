@@ -168,11 +168,11 @@ void Pipe::render(sf::RenderWindow& t_window)
 						{
 						case 51010:
 						case 61010:
-							m_pipeI.setRotation(0);
+							m_pipeI.setRotation(90);
 							break;
 						case 50101:
 						case 60101:
-							m_pipeI.setRotation(90);
+							m_pipeI.setRotation(0);
 							break;
 						}
 
@@ -387,7 +387,6 @@ void Pipe::checkWater()
 	int posy = 8;
 		
 	int numPath = 1;					//this tracks the number of paths in the maze that haven't resulted in a dead end yet
-	int numFork = 0;					//this tracks the number of forks in the maze
 
 	while (numPath > 0)					//we keep looping until all paths result in a dead end
 	{
@@ -396,7 +395,11 @@ void Pipe::checkWater()
 		bool downPipe = false;
 		bool leftPipe = false;
 
+		bool moved = false;
+
+
 		checkDirection(posx, posy, upPipe, rightPipe, downPipe, leftPipe);
+		std::cout << "PosX: " << posx << " PosY: " << posy << " UpPipe: " << upPipe << " RightPipe: " << rightPipe << " DownPipe: " << downPipe << " LeftPipe: " << leftPipe << std::endl;
 
 
 		//in this next section we're going to check the relevant neighboring tiles to see if they have a pipe that makes a viable connection with our tile
@@ -408,7 +411,6 @@ void Pipe::checkWater()
 		{
 			for (int i = 0; i < 14; i++)
 			{
-				std::cout << m_grid[posy - 1][posx] << std::endl;
 				if (m_grid[posy - 1][posx] == DOWN_CON[i] && waterFlow[posy - 1][posx] / 10 == 5)	//if the pipe above = one of the 14 possible pipe/rotation combos that has a downward facing pipe and has no water
 				{
 					connections++;			//it connects
@@ -453,6 +455,8 @@ void Pipe::checkWater()
 				}
 			}
 		}
+
+		std::cout << "connections: " << connections << std::endl;
 		if (!hasConnection)		//if there was no viable connections
 		{
 			numPath--;			//it was a dead end so the number of possible paths is reduced
@@ -464,11 +468,16 @@ void Pipe::checkWater()
 		if (waterFlow[posy][posx] % 10 == 0 && connections >= 2)	//if the value of this tile is 50 or 60 (should always be 60 at this point) and more than 1 connection
 		{
 			waterFlow[posy][posx] += 1;		//we update the array to have a fork 
-			numFork++;						//we count how many forks we have for later use
+			std::cout << "more than 2 connection so +1" << std::endl;
+		}
+		else
+		{
+			std::cout << "less than 2 connection" << std::endl;
 		}
 
 
 		//next we're going to move to a new tile
+	
 
 		if (upPipe)			//if our pipe has a side going up
 		{
@@ -478,11 +487,12 @@ void Pipe::checkWater()
 				{
 					posy -= 1;						//we move there
 					waterFlow[posy][posx] += 10;	//and it gets water
+					moved = true;
 					break;
 				}
 			}
 		}
-		else if (rightPipe)
+		if (rightPipe && !moved)
 		{
 			for (int i = 0; i < 14; i++)
 			{
@@ -490,11 +500,12 @@ void Pipe::checkWater()
 				{
 					posx += 1;
 					waterFlow[posy][posx] += 10;
+					moved = true;
 					break;
 				}
 			}
 		}
-		else if (downPipe)
+		if (downPipe && !moved)
 		{
 			for (int i = 0; i < 14; i++)
 			{
@@ -502,11 +513,12 @@ void Pipe::checkWater()
 				{
 					posy += 1;
 					waterFlow[posy][posx] += 10;
+					moved = true;
 					break;
 				}
 			}
 		}
-		else if (leftPipe)
+		if (leftPipe && !moved)
 		{
 			for (int i = 0; i < 14; i++)
 			{
@@ -533,10 +545,13 @@ void Pipe::checkWater()
 						posx = j;					//set our position to that tile
 						posy = i;
 						numPath++;					//add 1 to path so we can enter the loop again
+						waterFlow[i][j]--;
 					}
 				}
 			}
 		}
+
+		std::cout << "-------------------------" << std::endl;
 	}
 
 

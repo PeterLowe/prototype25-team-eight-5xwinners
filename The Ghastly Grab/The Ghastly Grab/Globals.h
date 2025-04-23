@@ -33,3 +33,8 @@ static const int SOUND = 5;
 static const int CREDITS = 6;
 static const int LOSING = 7;
 static const int WINNING = 8;
+
+#include <SFML/WINDOW.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/event.hpp>
+// for uni library ^
