@@ -147,6 +147,7 @@ void Game::renderGamePlay()
 
 	renderTools();
 	renderRiches();
+	renderCovers();
 
 	m_window.draw(m_player.getBody());
 
@@ -172,6 +173,32 @@ void Game::renderRiches()
 	switch (m_room)
 	{
 	case OUTSIDE:
+		break;
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+}
+
+void Game::renderCovers()
+{
+	switch (m_room)
+	{
+	case OUTSIDE:
+		m_window.draw(m_covers[0].getBody());
 		break;
 	case GREENHOUSE:
 		break;
@@ -257,6 +284,11 @@ void Game::setUp()
 	for (int i = 0; i < MAX_RICHES; i++)
 	{
 		m_riches[i].setupSprite(i);
+	}
+
+	for (int i = 0; i < MAX_COVERS; i++)
+	{
+		m_covers[i].setupSprite(i);
 	}
 
 }
@@ -383,48 +415,131 @@ void Game::screenSwitchKeys()
 void Game::gamePlayClick()
 {
 	sf::FloatRect inventoryButton = m_inventory.getButton().getGlobalBounds();
-	//currently getting based off inventory sprites - change to game sprite later
-	sf::FloatRect key = m_inventory.getItems(1).getGlobalBounds();
-	sf::FloatRect note = m_inventory.getItems(2).getGlobalBounds();
-	sf::FloatRect shovel = m_inventory.getItems(3).getGlobalBounds();
-	sf::FloatRect crowBar = m_inventory.getItems(4).getGlobalBounds();
 
 
-	for (int index = 0; index < MAX_RICHES; index++)
-	{
-		sf::FloatRect bounds = m_riches[index].getBody().getGlobalBounds();
-
-		if (bounds.contains(m_mousePressed))
-		{
-			m_riches[index].onClick();
-			Hud.itemObtained(index + 1);
-		}
-	}
-
-	if (key.contains(m_mousePressed))
-	{
-		m_inventory.haveKey();
-	}
-	else if (note.contains(m_mousePressed))
-	{
-		m_inventory.haveNote();
-	}
-	else if (shovel.contains(m_mousePressed))
-	{
-		m_inventory.haveShovel();
-	}
-	else if (crowBar.contains(m_mousePressed))
-	{
-		m_inventory.haveCrowBar();
-	}
-	else if (inventoryButton.contains(m_mousePressed))
+	if (inventoryButton.contains(m_mousePressed))
 	{
 		m_screen = INVENTORY;
+	}
+	else if (coversClick())
+	{
+		
+	}
+	else if (toolsClick())
+	{
+
+	}
+	else if (richesClick())
+	{
+
 	}
 	else 
 	{
 		m_meter.onClick();
 	}
+}
+
+bool Game::coversClick()
+{
+	bool clicked = false;
+
+	switch (m_room)
+	{
+	case OUTSIDE:
+	{
+		sf::FloatRect mat = m_covers[0].getBody().getGlobalBounds();
+		if (mat.contains(m_mousePressed) && !m_covers[0].getClicked())
+		{
+			m_covers[0].onClick(0);
+			clicked = true;
+		}
+		break;
+	}
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+
+	return clicked;
+}
+
+bool Game::toolsClick()
+{
+	bool clicked = false;
+
+	switch (m_room)
+	{
+	case OUTSIDE:
+	{
+		sf::FloatRect key = m_tools[0].getBody().getGlobalBounds();
+		if (key.contains(m_mousePressed) && m_covers[0].getClicked())
+		{
+			m_tools[0].onClick();
+			m_inventory.haveKey();
+			clicked = true;
+		}
+		break;
+	}
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+
+	return clicked;
+}
+
+bool Game::richesClick()
+{
+	bool clicked = false;
+
+	switch (m_room)
+	{
+
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+
+	return clicked;
 }
 
 void Game::playerMovement()

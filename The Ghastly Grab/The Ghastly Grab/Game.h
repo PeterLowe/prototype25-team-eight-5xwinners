@@ -38,20 +38,22 @@ private:
 	void processMouse(sf::Event t_event);
 	void gamePlayClick();
 	void inventoryClick();
+	bool coversClick();		// processing click on covers
+	bool richesClick();		// pocessing click on riches
+	bool toolsClick();		// processing click on tools
 
 	void update(sf::Time t_deltaTime);
 	void render();
 	void renderScreens();
-	void renderRooms();		// Function to draw room-specific gameplay elements (bg, riches, tools, and covers)
 	void renderGamePlay();	// all-encompassing function for gameplay all gameplay elemnts
 	void renderTools();		// Function to draw tools based on rooms
-	void renderRiches();		// Function to draw Riches based on rooms
+	void renderRiches();	// Function to draw Riches based on rooms
+	void renderCovers();	// Function to render covers based on room
 	void screenSwitchButtons();
 	void renderInventory();
 	void screenSwitchKeys();
 
 	void setUp();
-	void setupRiches();		// function to setup riches for gameplay
 	void setupAudio();
 
 	void playerMovement();

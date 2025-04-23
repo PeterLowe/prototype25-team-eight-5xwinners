@@ -40,6 +40,7 @@ sf::Sprite Tools::getBody()
 void Tools::onClick()
 {
 	m_isFound = true;
+	m_toolsSprite.setColor(sf::Color::Transparent);
 }
 
 bool Tools::getClicked()
