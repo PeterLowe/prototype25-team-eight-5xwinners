@@ -22,6 +22,11 @@ class Pipe
 
 	sf::Vector2f m_clickPos;
 
+	static const int MAX_FORKS = 19;	// Maximum number of forks (no. of t pipes in total)
+	int fork[MAX_FORKS][10][10];		// Array saving information about all forks (1st is fork #, 2nd is x coord of T-Pipe where fork is, 3rd is y coord of T-Pipe)
+	// 10 refers to maximum x and y coords (size of grid)
+	// This is an extremely specific solution, but good enough I presume
+
 	const float CELLSIZE = 64.0f;
 	const int GRIDSIZE = 10;
 	const int TPIPE[8] = { 51101, 51110, 50111, 51011, 61101, 61110, 60111, 61011 };	//all of the T pipes
@@ -61,6 +66,7 @@ public:
 	void rotate(sf::Vector2f t_pos);
 	void checkWater();
 	void checkDirection(int t_posx, int t_posy, bool& t_up, bool& t_right, bool& t_down, bool& t_left);
+	bool checkConnection();
 	//void processMouse(sf::Event t_event);
 	//void setClickPos(sf::Vector2f t_pos) { m_clickPos = t_pos; }
 };

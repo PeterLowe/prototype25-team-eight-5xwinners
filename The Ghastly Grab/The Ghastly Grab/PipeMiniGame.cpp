@@ -546,6 +546,8 @@ void Pipe::checkWater()
 						posy = i;
 						numPath++;					//add 1 to path so we can enter the loop again
 						waterFlow[i][j]--;
+						i = 10;				// since this is a nested loop, break only works for inner loop
+						j = 10;				// so setting i and j to 10 maually to break out of loop
 					}
 				}
 			}
