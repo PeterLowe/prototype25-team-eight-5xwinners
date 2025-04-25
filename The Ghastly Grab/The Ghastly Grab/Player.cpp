@@ -39,8 +39,8 @@ void Player::loadImage()
 	m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, (SCREEN_HEIGHT / 2) + UP_TO_LEG - 100);
 }
 
-void Player::movement(int t_facing)
-//moves the player
+void Player::movement(int t_facing, int t_room)
+// moves player and redirects boundary check based on respective room
 {
 	sf::Vector2f pos(m_sprite.getPosition());
 	sf::Vector2f legPos(m_legsRect.getPosition());
@@ -77,62 +77,123 @@ void Player::movement(int t_facing)
 }
 
 sf::Vector2f Player::getPosition()
+// return position of player
 {
 	return m_sprite.getPosition();
 }
 
 sf::Sprite Player::getBody()
+// return the sprite of player
 {
 	return m_sprite;
 }
 
+sf::RectangleShape Player::getLegs()
+{
+	return m_legsRect;
+}
 
-void Player::bounaryCheck(int t_facing)
-//stops player from moving out the gameplay bounds
-// Arceus bless me in what I am to do
+void Player::reset(int t_room)
+{
+	switch (t_room)
+	{
+	case OUTSIDE:
+	{
+		break;
+	}
+	case GREENHOUSE:
+	{
+		m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
+		m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
+	}
+	break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+}
+
+
+void Player::bounaryCheck(int t_facing, int t_room)
+//stops player from moving out the gameplay bounds specific to the room they are in
+// This function is blessed by Arceus
 {
 	sf::Vector2f leg{ m_legsRect.getPosition() };
 	sf::Vector2f body{ m_sprite.getPosition() };
 
-	if (leg.y < 350)
+	switch (t_room)
+	{
+	case OUTSIDE:
+	{
+		outsideBounds(t_facing, leg, body);
+		break;
+	}
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+
+	m_sprite.setPosition(body);
+	m_legsRect.setPosition(leg);
+}
+
+void Player::outsideBounds(int t_facing, sf::Vector2f &t_leg, sf::Vector2f &t_body)	
+// bound check specific to outside
+{
+
+	if (t_leg.y < 350)
 		// Keeping player from going above floor
 	{
-		leg.y += 5;
-		body.y += 5;
+		t_leg.y += 5;
+		t_body.y += 5;
 
 	}
-	else if (leg.y > 600)
+	else if (t_leg.y > 600)
 		// Keeping player from going below invis floor
 	{
-		leg.y -= 5;
-		body.y -= 5;
+		t_leg.y -= 5;
+		t_body.y -= 5;
 	}
 
-	if (leg.x < 0 + LEG_WIDTH / 2)
+	if (t_leg.x < 0 + LEG_WIDTH / 2)
 		// keeping player from going out of left side of screen
 	{
-		leg.x += 5;
-		body.x += 5;
+		t_leg.x += 5;
+		t_body.x += 5;
 	}
-	else if (leg.x > SCREEN_WIDTH - (LEG_WIDTH * 1.5))
+	else if (t_leg.x > SCREEN_WIDTH - (LEG_WIDTH * 1.5))
 		// keeping player from going out of right side of screen
 	{
-		leg.x -= 5;
-		body.x -= 5;
+		t_leg.x -= 5;
+		t_body.x -= 5;
 	}
 
-
-
-	leftDiaBounds(leg, body, t_facing);	
+	leftDiaBounds(t_leg, t_body, t_facing);
 	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
-	rightDiaBounds(leg, body, t_facing);
-
-
-
-	m_legsRect.setPosition(leg);
-	m_sprite.setPosition(body);
-
-
 }
 
 
@@ -208,6 +269,7 @@ void Player::resetTexture()
 
 
 void Player::moveUp()
+// function to animate player moving up
 {
 	m_sprite.setTexture(m_textureUp);
 	if (m_frame < 8)
@@ -235,6 +297,7 @@ void Player::moveUp()
 }
 
 void Player::moveSide()
+// function to animate player moving sideways
 {
 	if (m_frame < 8)
 	{
@@ -275,5 +338,8 @@ void Player::moveSide()
 
 	m_frame++;
 }
+
+
+
 
 

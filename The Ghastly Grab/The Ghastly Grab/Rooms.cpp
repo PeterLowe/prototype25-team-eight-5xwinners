@@ -23,8 +23,12 @@ void Rooms::loadBackgrounds()
 		std::cout << "error with kitchen image file";
 	}
 
+	if (!m_greenHouseTexture.loadFromFile("ASSETS/IMAGES/GREENHOUSE.png"))
+	{
+		std::cout << "error with GREENHOUSE image file";
+	}
+
 	m_background.setTexture(m_outsideTexture);
-	m_background.setScale(0.5f, 0.5f);
 }
 
 void Rooms::roomChange(int t_room)
@@ -35,6 +39,7 @@ void Rooms::roomChange(int t_room)
 		m_background.setTexture(m_outsideTexture);
 		break;
 	case GREENHOUSE:
+		m_background.setTexture(m_greenHouseTexture);
 		break;
 	case HALLWAY_LEFT:
 		break;

@@ -12,16 +12,21 @@ public:
 	Player();
 	void loadImage();
 
-	void movement(int t_facing);
+	void movement(int t_facing, int t_room);	// function that redirects movement based on room
 	void resetTexture();
+	void reset(int t_room);		// resets character position when entering a new room
 
 	sf::Vector2f getPosition();
 	sf::Sprite getBody();
+	sf::RectangleShape getLegs();
 
-	void bounaryCheck(int t_facing);
+	void bounaryCheck(int t_facing, int t_room);
+	void outsideBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to outside
+
+
 	void leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
 	void rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
-	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
+
 
 
 
@@ -37,6 +42,8 @@ private:
 	sf::Texture m_textureRight;	// texture for player moving right
 	sf::Texture m_textureLeft;	// texture for player moving left
 	sf::Sprite m_sprite; //sprite used to represent Player
+
+	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs
 
 	const int m_speed = 5;
 };

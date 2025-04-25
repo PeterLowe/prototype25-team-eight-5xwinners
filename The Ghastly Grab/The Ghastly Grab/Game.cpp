@@ -123,6 +123,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 
 	playerMovement();
+	m_roomBG.roomChange(m_room);
 
 	if (m_screen == INVENTORY)
 	{
@@ -278,7 +279,7 @@ void Game::setUp()
 
 	for (int i = 0; i < MAX_TOOLS; i++)
 	{
-		m_tools[i].setupSprite(i + 1);
+		m_tools[i].setupSprite(i);
 	}
 
 	for (int i = 0; i < MAX_RICHES; i++)
@@ -485,9 +486,10 @@ bool Game::toolsClick()
 	case OUTSIDE:
 	{
 		sf::FloatRect key = m_tools[0].getBody().getGlobalBounds();
-		if (key.contains(m_mousePressed) && m_covers[0].getClicked())
+		if (key.contains(m_mousePressed) && m_covers[0].getClicked() && !m_tools[0].getClicked())
+			// if mouse is on key AND cover is clicked AND key itself is NOT clicked
 		{
-			m_tools[0].onClick();
+			m_tools[0].onClick(0);
 			m_inventory.haveKey();
 			clicked = true;
 		}
@@ -549,29 +551,30 @@ void Game::playerMovement()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		facing = UP;
-		m_player.movement(facing);
+		m_player.movement(facing, m_room);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		facing = DOWN;
-		m_player.movement(facing);
+		m_player.movement(facing, m_room);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		facing = LEFT;
-		m_player.movement(facing);
+		m_player.movement(facing, m_room);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		facing = RIGHT;
-		m_player.movement(facing);
+		m_player.movement(facing, m_room);
 	}
 	else
 	{
 		m_player.resetTexture();
 	}
 
-	m_player.bounaryCheck(facing);
+	m_room = roomCheck(m_room);
+	m_player.bounaryCheck(facing, m_room);
 }
 
 void Game::inventoryClick()
@@ -602,4 +605,51 @@ void Game::inventoryClick()
 	{
 		m_inventory.crowBarEffect();
 	}
+}
+
+int Game::roomCheck(int t_room)
+// function to move player to another room when they move to door
+{
+	t_room;
+	sf::Vector2f leg{ m_player.getLegs().getPosition()};
+
+	switch (t_room)
+	{
+	case OUTSIDE:
+	{
+		if (leg.x < 62 && leg.y < 466 ||
+			leg.x < 75 && leg.y < 445 ||
+			leg.x < 88 && leg.y < 424 ||
+			leg.x < 101 && leg.y < 403)
+		{
+			t_room = GREENHOUSE;
+			m_player.reset(t_room);
+		}
+		else if (leg.x > 416 && leg.x < 572
+			&& leg.y < 350 && m_tools[0].getClicked())
+		{
+			t_room = HALLWAY_LEFT;
+			m_player.reset(t_room);
+		}
+		break;
+	}
+	case GREENHOUSE:
+		break;
+	case HALLWAY_LEFT:
+		break;
+	case HALLWAY_RIGHT:
+		break;
+	case KITCHEN:
+		break;
+	case LIVING:
+		break;
+	case BEDROOM_LEFT:
+		break;
+	case BEDROOM_RIGHT:
+		break;
+	case BATHROOM:
+		break;
+	}
+
+	return t_room;
 }

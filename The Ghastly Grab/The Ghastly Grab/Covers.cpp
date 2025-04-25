@@ -17,6 +17,11 @@ void Covers::setupSprite(int t_num)
 			std::cout << "Problem loading matdown image." << std::endl;
 		}
 
+		if (!m_matFlap.loadFromFile("ASSETS\\AUDIO\\carpet.ogg"))
+		{
+			std::cout << "carpet Flap no load"; // error message
+		}
+
 		m_sprite.setTexture(m_initialTexture);
 		m_sprite.setPosition(370, 339);
 		m_sprite.setScale(0.5, 0.5);
@@ -44,6 +49,8 @@ void Covers::onClick(int t_num)
 	{
 	case 0:
 		m_sprite.setTexture(m_finalTexture);
+		m_sfx.setBuffer(m_matFlap);
+		m_sfx.play();
 		break;
 	case 1:
 		break;

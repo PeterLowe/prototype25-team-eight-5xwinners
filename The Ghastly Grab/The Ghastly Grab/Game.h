@@ -57,6 +57,7 @@ private:
 	void setupAudio();
 
 	void playerMovement();
+	int roomCheck(int t_room);					// function to chek if player enters/exits a room
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
