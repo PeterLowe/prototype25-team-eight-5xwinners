@@ -1033,35 +1033,69 @@ int Game::roomCheck(int t_room)
 	}
 	case KITCHEN:
 	{
+		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		{
+			t_room = HALLWAY_RIGHT;
+			m_player.reset(t_room, KITCHEN);
+		}
 		break;
 	}
 	case LIVING:
 	{
+		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		{
+			t_room = HALLWAY_RIGHT;
+			m_player.reset(t_room, LIVING);
+		}
 		break;
 	}
 	case BEDROOM_LEFT:
-		/*if (position)
+	{
+		if (leg.x > 1000)
+			// walked right to continue in hallway
+		{
+			t_room = BEDROOM_RIGHT;
+			m_player.reset(t_room, BEDROOM_LEFT);
+		}
+		else if (leg.x < 62 && leg.y < 466 ||
+			leg.x < 75 && leg.y < 445 ||
+			leg.x < 88 && leg.y < 424 ||
+			leg.x < 101 && leg.y < 403)
+			// walked left to greenhouse door
 		{
 			t_room = BATHROOM;
-			m_player.reset(t_room);
+			m_player.reset(t_room, BEDROOM_LEFT);
 		}
-		
-		else if  -> BEDROOM_RIGHT*/
+
+		break;
+	}
+
 		break;
 	case BEDROOM_RIGHT:
-		/*if (position)
+	{
+		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		{
+			t_room = HALLWAY_LEFT;
+			m_player.reset(t_room, BEDROOM_RIGHT);
+		}
+		else if (leg.x < 0)
+			// walked left to continue in hallway
 		{
 			t_room = BEDROOM_LEFT;
-			m_player.reset(t_room);
-		}*/
+			m_player.reset(t_room, BEDROOM_RIGHT);
+		}
 		break;
+	}
 	case BATHROOM:
-		/*if (position)
+	{
+		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
 		{
 			t_room = BEDROOM_LEFT;
-			m_player.reset(t_room);
-		}*/
+			m_player.reset(t_room, BATHROOM);
+		}
 		break;
+	}
+
 	}
 
 	return t_room;

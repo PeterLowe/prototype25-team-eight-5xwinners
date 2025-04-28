@@ -148,10 +148,28 @@ void Player::reset(int t_room, int t_oldRoom)
 	}
 	case BEDROOM_LEFT:
 	{
+		if (t_oldRoom == HALLWAY_LEFT)
+		{
+			m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
+			m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
+			break;
+		}
+		else if (t_oldRoom == BEDROOM_RIGHT)
+		{
+			m_sprite.setPosition(10, 250);
+			m_legsRect.setPosition(10 + LEFT_TO_LEG, 250 + UP_TO_LEG);
+			break;
+		}
 		break;
 	}
 	case BEDROOM_RIGHT:
 	{
+		if (t_oldRoom == BEDROOM_LEFT)
+		{
+			m_sprite.setPosition(SCREEN_WIDTH - 50, 250);
+			m_legsRect.setPosition(SCREEN_WIDTH - 50 + LEFT_TO_LEG, 250 + UP_TO_LEG);
+			break;
+		}
 		break;
 	}
 	case BATHROOM:
