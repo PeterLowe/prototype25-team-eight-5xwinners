@@ -44,9 +44,6 @@ public:
 	sf::RectangleShape getInvReturn();
 	sf::Text getInvReturnText();
 
-	// Clicking Buttons
-	int clickMenu(sf::Vector2f t_clickPos);
-
 private:
 
 	const int BUT_WIDTH = 192; // Button width

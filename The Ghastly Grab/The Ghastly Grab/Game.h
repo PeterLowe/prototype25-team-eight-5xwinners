@@ -38,6 +38,7 @@ private:
 	void processMouse(sf::Event t_event);
 	void gamePlayClick();
 	void inventoryClick();
+	void menuClick();
 	bool coversClick();		// processing click on covers
 	bool richesClick();		// pocessing click on riches
 	bool toolsClick();		// processing click on tools
@@ -49,7 +50,6 @@ private:
 	void renderTools();		// Function to draw tools based on rooms
 	void renderRiches();	// Function to draw Riches based on rooms
 	void renderCovers();	// Function to render covers based on room
-	void screenSwitchButtons();
 	void renderInventory();
 	void screenSwitchKeys();
 

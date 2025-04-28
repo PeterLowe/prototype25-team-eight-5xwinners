@@ -210,32 +210,3 @@ sf::Text Menus::getInvReturnText()
 {
 	return m_invReturnText;
 }
-
-int Menus::clickMenu(sf::Vector2f t_clickPos)
-{
-	sf::FloatRect play = m_playDef.getGlobalBounds();
-	sf::FloatRect sound = m_soundDef.getGlobalBounds();
-	sf::FloatRect help = m_helpDef.getGlobalBounds();
-	sf::FloatRect credits = m_creditsDef.getGlobalBounds();
-
-	if (play.contains(t_clickPos))
-	{
-		return GAMEPLAY;
-	}
-	else if (sound.contains(t_clickPos))
-	{
-		return SOUND;
-	}
-	else if (help.contains(t_clickPos))
-	{
-		return HELP;
-	}
-	else if (credits.contains(t_clickPos))
-	{
-		return CREDITS;
-	}
-	else
-	{
-		return MAIN;
-	}
-}

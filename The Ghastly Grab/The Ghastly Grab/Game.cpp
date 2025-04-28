@@ -93,8 +93,6 @@ void Game::processMouse(sf::Event t_event)
 	m_mousePressed.x = static_cast<float>(t_event.mouseButton.x);
 	m_mousePressed.y = static_cast<float>(t_event.mouseButton.y);
 
-	screenSwitchButtons();
-
 	if (m_screen == GAMEPLAY)
 	{
 		gamePlayClick();
@@ -102,6 +100,10 @@ void Game::processMouse(sf::Event t_event)
 	else if (m_screen == INVENTORY)
 	{
 		inventoryClick();
+	}
+	else if (m_screen == MAIN)
+	{
+		menuClick();
 	}
 }
 
@@ -366,14 +368,6 @@ void Game::renderScreens()
 	}
 }
 
-void Game::screenSwitchButtons()
-{
-	if (m_screen == MAIN)
-	{
-		m_screen = Menus.clickMenu(m_mousePressed);
-	}
-}
-
 /// <summary>
 /// Switch between gameplay screens using numerical key press
 /// </summary>
@@ -604,6 +598,35 @@ void Game::inventoryClick()
 	else if (crowBar.contains(m_mousePressed))
 	{
 		m_inventory.crowBarEffect();
+	}
+}
+
+void Game::menuClick()
+{
+	sf::FloatRect play = Menus.getMainPlay().getGlobalBounds();
+	sf::FloatRect sound = Menus.getMainSound().getGlobalBounds();
+	sf::FloatRect help = Menus.getMainHelp().getGlobalBounds();
+	sf::FloatRect credits = Menus.getMainCredits().getGlobalBounds();
+
+	if (play.contains(m_mousePressed))
+	{
+		m_screen = GAMEPLAY;
+	}
+	else if (sound.contains(m_mousePressed))
+	{
+		m_screen = SOUND;
+	}
+	else if (help.contains(m_mousePressed))
+	{
+		m_screen = HELP;
+	}
+	else if (credits.contains(m_mousePressed))
+	{
+		m_screen = CREDITS;
+	}
+	else
+	{
+		m_screen = MAIN;
 	}
 }
 
