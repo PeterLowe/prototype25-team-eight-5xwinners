@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Globals.h"
+#include <SFML/Audio.hpp>
 
 class Riches
 {
@@ -12,6 +13,9 @@ class Riches
 	sf::Sprite m_richesSprite;
 
 	bool m_isFound = false;
+
+	sf::Sound m_sfx;
+	sf::SoundBuffer m_sfxBuffer;
 
 public:
 	

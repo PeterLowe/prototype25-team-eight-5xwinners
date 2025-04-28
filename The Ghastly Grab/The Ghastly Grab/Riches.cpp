@@ -12,6 +12,12 @@ void Riches::setupSprite(int t_index)
 		// simple error message if previous call fails
 		std::cout << "problem loading unusable items texture" << std::endl;
 	}
+
+	if (!m_sfxBuffer.loadFromFile("ASSETS\\AUDIO\\riches.ogg"))
+	{
+		std::cout << "riches sfx no load"; // error message
+	}
+	m_sfx.setBuffer(m_sfxBuffer);
 	m_richesSprite.setTexture(m_richesTexture);
 
 
@@ -38,12 +44,15 @@ void Riches::setupSprite(int t_index)
 		break;
 	case 6:
 		richesTextureRect = { 0 , 386, 64, 90 };
+		m_richesSprite.setPosition(766, 108);
+		m_richesSprite.setScale(1.2, 1.7);
 		break;
 	case 7:
 		richesTextureRect = { 0 , 480, 64, 30 };
 		break;
 	case 8:
 		richesTextureRect = { 0, 510, 96, 32 };
+		m_richesSprite.setPosition(300, 100);
 		break;
 	}
 		
@@ -54,6 +63,7 @@ void Riches::setupSprite(int t_index)
 void Riches::onClick()
 {
 	m_isFound = true;
+	m_sfx.play();
 }
 
 sf::Sprite Riches::getBody()

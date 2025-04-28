@@ -185,9 +185,21 @@ void Game::renderRiches()
 	case GREENHOUSE:
 		break;
 	case HALLWAY_LEFT:
+	{
+		if (!m_riches[8].getClicked())
+		{
+			m_window.draw(m_riches[8].getBody());
+		}
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
+		if (!m_riches[6].getClicked())
+		{
+			m_window.draw(m_riches[6].getBody());
+		}
 		break;
+	}
 	case KITCHEN:
 		break;
 	case LIVING:
@@ -206,6 +218,9 @@ void Game::renderCovers()
 	switch (m_room)
 	{
 	case OUTSIDE:
+		m_window.draw(m_covers[0].getBody());
+		break;
+	case OUTSIDE_NO_DOOR:
 		m_window.draw(m_covers[0].getBody());
 		break;
 	case GREENHOUSE:
@@ -233,7 +248,11 @@ void Game::renderTools()
 	switch (m_room)
 	{
 	case OUTSIDE:
-		m_window.draw(m_tools[0].getBody());
+		if (!m_tools[0].getClicked())
+		{
+			m_window.draw(m_tools[0].getBody());
+		}
+
 		break;
 	case GREENHOUSE:
 		break;
@@ -539,9 +558,29 @@ bool Game::richesClick()
 	case GREENHOUSE:
 		break;
 	case HALLWAY_LEFT:
+	{
+		sf::FloatRect saber = m_riches[8].getBody().getGlobalBounds();
+		if (saber.contains(m_mousePressed) && !m_riches[8].getClicked())
+			// if mouse is on saber AND saber itself is NOT clicked
+		{
+			m_riches[8].onClick();
+			clicked = true;
+			Hud.itemObtained(9);
+		}
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
+		sf::FloatRect saber = m_riches[6].getBody().getGlobalBounds();
+		if (saber.contains(m_mousePressed) && !m_riches[6].getClicked())
+			// if mouse is on saber AND saber itself is NOT clicked
+		{
+			m_riches[6].onClick();
+			clicked = true;
+			Hud.itemObtained(7);
+		}
 		break;
+	}
 	case KITCHEN:
 		break;
 	case LIVING:
@@ -665,7 +704,7 @@ int Game::roomCheck(int t_room)
 			leg.x < 101 && leg.y < 403)
 		{
 			t_room = GREENHOUSE;
-			m_player.reset(t_room);
+			m_player.reset(t_room, OUTSIDE);
 		}
 		break;
 	}
@@ -675,24 +714,63 @@ int Game::roomCheck(int t_room)
 			leg.x < 75 && leg.y < 445 ||
 			leg.x < 88 && leg.y < 424 ||
 			leg.x < 101 && leg.y < 403)
+			// walked left to greenhouse door
 		{
 			t_room = GREENHOUSE;
-			m_player.reset(t_room);
+			m_player.reset(t_room, OUTSIDE_NO_DOOR);
 		}
 		else if (leg.x > 416 && leg.x < 572
 			&& leg.y < 350 && m_tools[0].getClicked())
+			// walked up to main door with key in hand
 		{
 			t_room = HALLWAY_LEFT;
-			m_player.reset(t_room);
+			m_player.reset(t_room, OUTSIDE_NO_DOOR);
 		}
 		break;
 	}
 	case GREENHOUSE:
 		break;
 	case HALLWAY_LEFT:
+		if (leg.x > 1000)
+			// walked right to continue in hallway
+		{
+			t_room = HALLWAY_RIGHT;
+			m_player.reset(t_room, HALLWAY_LEFT);
+		}
+		else if (leg.x < 49 && leg.y < 487 ||
+			leg.x < 62 && leg.y < 466 ||
+			leg.x < 75 && leg.y < 445 ||
+			leg.x < 88 && leg.y < 424 ||
+			leg.x < 101 && leg.y < 403 )
+			//leg.x < 114 && leg.y < 382 )
+		{
+			t_room = BEDROOM_RIGHT;
+			m_player.reset(t_room, HALLWAY_LEFT);
+		}
 		break;
 	case HALLWAY_RIGHT:
+	{
+		if (leg.x < 0)
+			// walked left to continue in hallway
+		{
+			t_room = HALLWAY_LEFT;
+			m_player.reset(t_room, HALLWAY_RIGHT);
+		}
+		else if (leg.x > 227 && leg.x < 458 && leg.y < 350)
+		{
+			t_room = KITCHEN;
+			m_player.reset(t_room, HALLWAY_RIGHT);
+		}
+		else if (leg.x > 934 && leg.y < 466 ||
+			leg.x > 921 && leg.y < 445 ||
+			leg.x > 908 && leg.y < 424 ||
+			leg.x > 895 && leg.y < 403 ) 
+		{
+			t_room = LIVING;
+			m_player.reset(t_room, HALLWAY_RIGHT);
+		}
 		break;
+	}
 	case KITCHEN:
 		break;
 	case LIVING:
