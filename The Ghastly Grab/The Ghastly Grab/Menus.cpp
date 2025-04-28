@@ -3,6 +3,7 @@
 // Written by Daemon
 Menus::Menus() // Default constructor
 {
+	loadMenu();
 	mainMenuShapes();
 	mainMenuText();
 
@@ -46,14 +47,6 @@ void Menus::mainMenuText()
 		std::cout << "Issue loading menu font" << std::endl;
 	}
 
-	m_gameTitle.setFont(m_ArialBlackfont);
-	m_gameTitle.setCharacterSize(64);
-	m_gameTitle.setFillColor(sf::Color::Black);
-	m_gameTitle.setString("Ghastly Grab");
-	m_titleSize = m_gameTitle.getGlobalBounds();
-	m_gameTitle.setOrigin(m_titleSize.width / 2, m_titleSize.height / 2);
-	m_gameTitle.setPosition(m_titlePos);
-
 	m_play.setFont(m_ArialBlackfont);
 	m_play.setCharacterSize(32);
 	m_play.setString("Play");
@@ -81,11 +74,6 @@ void Menus::mainMenuText()
 	m_creditSize = m_credits.getGlobalBounds();
 	m_credits.setOrigin((m_creditSize.width / 2), (m_creditSize.height / 2) + 8);
 	m_credits.setPosition(m_creditsPos);
-}
-
-sf::Text Menus::getGameTitle()
-{
-	return m_gameTitle;
 }
 
 sf::Text Menus::getPlayText()
@@ -127,6 +115,21 @@ sf::RectangleShape Menus::getMainHelp()
 sf::RectangleShape Menus::getMainCredits()
 {
 	return m_creditsDef;
+}
+
+void Menus::loadMenu()
+{
+	if (!m_mainText.loadFromFile("ASSETS//IMAGES//mainMenu.png"))
+	{
+		std::cout << "Issue loading Main Menu texture" << std::endl;
+	}
+
+	m_mainSprite.setTexture(m_mainText);
+}
+
+sf::Sprite Menus::getMain()
+{
+	return m_mainSprite;
 }
 
 void Menus::helpMenuShapes()

@@ -320,7 +320,7 @@ void Game::renderScreens()
 {
 	if (m_screen == MAIN)
 	{
-		m_window.draw(Menus.getGameTitle());
+		m_window.draw(Menus.getMain());
 		m_window.draw(Menus.getMainPlay());
 		m_window.draw(Menus.getMainSound());
 		m_window.draw(Menus.getMainHelp());

@@ -19,9 +19,15 @@ public:
 	sf::RectangleShape getMainHelp();
 	sf::RectangleShape getMainCredits();
 
+	sf::Texture m_mainText;
+	sf::Sprite m_mainSprite;
+
+	void loadMenu();
+	sf::Sprite getMain();
+	void animateMainMenu();
+
 	// Temporary for readability
 	void mainMenuText();
-	sf::Text getGameTitle();
 	sf::Text getPlayText();
 	sf::Text getSoundText();
 	sf::Text getHelpText();
@@ -54,12 +60,10 @@ private:
 
 	// Temporary for readability
 	sf::Font m_ArialBlackfont;
-	sf::Text m_gameTitle;
 	sf::Text m_play;
 	sf::Text m_sound;
 	sf::Text m_help;
 	sf::Text m_credits;
-	sf::FloatRect m_titleSize;
 	sf::FloatRect m_playSize;
 	sf::FloatRect m_soundSize;
 	sf::FloatRect m_helpSize;
@@ -71,11 +75,10 @@ private:
 	sf::RectangleShape m_soundDef; // Default button shape
 	sf::RectangleShape m_helpDef; // Default button shape
 	sf::RectangleShape m_creditsDef; // Default button shape
-	sf::Vector2f m_titlePos{ SCREEN_WIDTH / 2,150.0f }; // Game title position
-	sf::Vector2f m_playPos{ SCREEN_WIDTH / 2,300.0f }; // Play button position
-	sf::Vector2f m_soundPos{ SCREEN_WIDTH / 2,382.0f }; // Sound Button Position
-	sf::Vector2f m_helpPos{ SCREEN_WIDTH / 2,464.0f }; // Help button position
-	sf::Vector2f m_creditsPos{ SCREEN_WIDTH / 2,546.0f }; // Credits button position
+	sf::Vector2f m_playPos{ SCREEN_WIDTH / 2,450.0f }; // Play button position
+	sf::Vector2f m_soundPos{ SCREEN_WIDTH / 2,532.0f }; // Sound Button Position
+	sf::Vector2f m_helpPos{ SCREEN_WIDTH / 2,614.0f }; // Help button position
+	sf::Vector2f m_creditsPos{ SCREEN_WIDTH / 2,696.0f }; // Credits button position
 
 	// Help Screen
 	sf::RectangleShape m_helpReturn;
