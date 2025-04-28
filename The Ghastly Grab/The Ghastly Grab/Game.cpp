@@ -488,6 +488,20 @@ bool Game::toolsClick()
 		if (key.contains(m_mousePressed) && m_covers[0].getClicked() && !m_tools[0].getClicked())
 			// if mouse is on key AND cover is clicked AND key itself is NOT clicked
 		{
+			m_room = OUTSIDE_NO_DOOR;
+			m_tools[0].onClick(0);
+			m_inventory.haveKey();
+			clicked = true;
+		}
+		break;
+	}
+	case OUTSIDE_NO_DOOR:
+	{
+		sf::FloatRect key = m_tools[0].getBody().getGlobalBounds();
+		if (key.contains(m_mousePressed) && m_covers[0].getClicked() && !m_tools[0].getClicked())
+			// if mouse is on key AND cover is clicked AND key itself is NOT clicked
+		{
+			m_room = OUTSIDE_NO_DOOR;
 			m_tools[0].onClick(0);
 			m_inventory.haveKey();
 			clicked = true;
@@ -644,6 +658,18 @@ int Game::roomCheck(int t_room)
 	switch (t_room)
 	{
 	case OUTSIDE:
+	{
+		if (leg.x < 62 && leg.y < 466 ||
+			leg.x < 75 && leg.y < 445 ||
+			leg.x < 88 && leg.y < 424 ||
+			leg.x < 101 && leg.y < 403)
+		{
+			t_room = GREENHOUSE;
+			m_player.reset(t_room);
+		}
+		break;
+	}
+	case OUTSIDE_NO_DOOR:
 	{
 		if (leg.x < 62 && leg.y < 466 ||
 			leg.x < 75 && leg.y < 445 ||

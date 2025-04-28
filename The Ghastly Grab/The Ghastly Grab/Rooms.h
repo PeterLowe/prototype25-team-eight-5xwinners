@@ -21,6 +21,7 @@ public:
 private:
 
 	sf::Texture m_outsideTexture;
+	sf::Texture m_outsideNoDoorTexture;
 	sf::Texture m_hallwayLeftTexture;
 	sf::Texture m_hallwayRightTexture;
 	sf::Texture m_greenHouseTexture;
