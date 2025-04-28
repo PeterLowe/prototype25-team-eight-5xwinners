@@ -124,6 +124,8 @@ void Player::reset(int t_room)
 	case BEDROOM_RIGHT:
 		break;
 	case BATHROOM:
+		m_sprite.setPosition(700, 320);
+		m_legsRect.setPosition(700 + LEFT_TO_LEG, 320 + UP_TO_LEG);
 		break;
 	}
 }

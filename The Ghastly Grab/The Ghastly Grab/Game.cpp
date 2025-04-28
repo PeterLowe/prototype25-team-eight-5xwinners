@@ -193,10 +193,26 @@ void Game::renderRiches()
 	case LIVING:
 		break;
 	case BEDROOM_LEFT:
+		if (!m_riches[0].getClicked())
+		{
+			m_window.draw(m_riches[0].getBody());
+		}
 		break;
 	case BEDROOM_RIGHT:
+		if (!m_riches[1].getClicked())
+		{
+			m_window.draw(m_riches[1].getBody());
+		}
+		if (!m_riches[2].getClicked())
+		{
+			m_window.draw(m_riches[2].getBody());
+		}
 		break;
 	case BATHROOM:
+		if (!m_riches[3].getClicked())
+		{
+			m_window.draw(m_riches[3].getBody());
+		}
 		break;
 	}
 }
@@ -547,10 +563,44 @@ bool Game::richesClick()
 	case LIVING:
 		break;
 	case BEDROOM_LEFT:
+	{
+		sf::FloatRect watch = m_riches[0].getBody().getGlobalBounds();
+		if (watch.contains(m_mousePressed) && !m_riches[0].getClicked())
+		{
+			m_riches[0].onClick();
+			Hud.itemObtained(1);
+			clicked = true;
+		}
 		break;
+	}
+
 	case BEDROOM_RIGHT:
+	{
+		sf::FloatRect necklace = m_riches[1].getBody().getGlobalBounds();
+		if (necklace.contains(m_mousePressed) && !m_riches[1].getClicked())
+		{
+			m_riches[1].onClick();
+			Hud.itemObtained(2);
+			clicked = true;
+		}
+		sf::FloatRect purse = m_riches[2].getBody().getGlobalBounds();
+		if (purse.contains(m_mousePressed) && !m_riches[2].getClicked())
+		{
+			m_riches[2].onClick();
+			Hud.itemObtained(3);
+			clicked = true;
+		}
 		break;
+	}
+
 	case BATHROOM:
+		sf::FloatRect meds = m_riches[3].getBody().getGlobalBounds();
+		if (meds.contains(m_mousePressed) && !m_riches[3].getClicked())
+		{
+			m_riches[3].onClick();
+			Hud.itemObtained(4);
+			clicked = true;
+		}
 		break;
 	}
 
@@ -676,7 +726,7 @@ int Game::roomCheck(int t_room)
 			leg.x < 88 && leg.y < 424 ||
 			leg.x < 101 && leg.y < 403)
 		{
-			t_room = GREENHOUSE;
+			t_room = HALLWAY_LEFT;
 			m_player.reset(t_room);
 		}
 		else if (leg.x > 416 && leg.x < 572
@@ -698,10 +748,27 @@ int Game::roomCheck(int t_room)
 	case LIVING:
 		break;
 	case BEDROOM_LEFT:
+		/*if (position)
+		{
+			t_room = BATHROOM;
+			m_player.reset(t_room);
+		}
+		
+		else if  -> BEDROOM_RIGHT*/
 		break;
 	case BEDROOM_RIGHT:
+		/*if (position)
+		{
+			t_room = BEDROOM_LEFT;
+			m_player.reset(t_room);
+		}*/
 		break;
 	case BATHROOM:
+		/*if (position)
+		{
+			t_room = BEDROOM_LEFT;
+			m_player.reset(t_room);
+		}*/
 		break;
 	}
 
