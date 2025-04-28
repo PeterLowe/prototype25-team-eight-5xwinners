@@ -22,6 +22,7 @@ public:
 
 	void bounaryCheck(int t_facing, int t_room);
 	void outsideBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to outside
+	void kitchenBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body); // movement specific to kitchen
 
 
 	void leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);

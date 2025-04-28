@@ -155,7 +155,10 @@ void Player::bounaryCheck(int t_facing, int t_room)
 	case HALLWAY_RIGHT:
 		break;
 	case KITCHEN:
+	{
+		kitchenBounds(t_facing, leg, body);
 		break;
+	}
 	case LIVING:
 		break;
 	case BEDROOM_LEFT:
@@ -202,6 +205,42 @@ void Player::outsideBounds(int t_facing, sf::Vector2f &t_leg, sf::Vector2f &t_bo
 	}
 
 	leftDiaBounds(t_leg, t_body, t_facing);
+	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
+}
+
+void Player::kitchenBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body)
+// bound check specific to outside
+{
+
+	if (t_leg.y < 415)
+		// Keeping player from going above floor
+	{
+		t_leg.y += 5;
+		t_body.y += 5;
+
+	}
+	else if (t_leg.y > 600)
+		// Keeping player from going below invis floor
+	{
+		t_leg.y -= 5;
+		t_body.y -= 5;
+	}
+
+	if (t_leg.x < 0 + LEG_WIDTH / 2)
+		// keeping player from going out of left side of screen
+	{
+		t_leg.x += 5;
+		t_body.x += 5;
+	}
+	else if (t_leg.x > SCREEN_WIDTH - (LEG_WIDTH * 2))
+		// keeping player from going out of right side of screen
+	{
+		t_leg.x -= 5;
+		t_body.x -= 5;
+	}
+
+	leftDiaBounds(t_leg, t_body, t_facing);
+	rightDiaBounds(t_leg, t_body, t_facing);
 	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
 }
 
