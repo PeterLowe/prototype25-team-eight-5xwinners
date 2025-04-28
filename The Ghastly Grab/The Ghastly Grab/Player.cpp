@@ -101,6 +101,10 @@ void Player::reset(int t_room)
 	{
 		break;
 	}
+	case OUTSIDE_NO_DOOR:
+	{
+		break;
+	}
 	case GREENHOUSE:
 	{
 		m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
@@ -135,6 +139,11 @@ void Player::bounaryCheck(int t_facing, int t_room)
 	switch (t_room)
 	{
 	case OUTSIDE:
+	{
+		outsideBounds(t_facing, leg, body);
+		break;
+	}
+	case OUTSIDE_NO_DOOR:
 	{
 		outsideBounds(t_facing, leg, body);
 		break;

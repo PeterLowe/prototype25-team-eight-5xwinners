@@ -56,6 +56,7 @@ static const int BEDROOM_RIGHT = 5;
 static const int BATHROOM = 6;
 static const int GREENHOUSE = 7;
 static const int LIVING = 8;
+static const int OUTSIDE_NO_DOOR = 9;
 
 
 

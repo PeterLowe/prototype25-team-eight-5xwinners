@@ -28,6 +28,12 @@ void Rooms::loadBackgrounds()
 		std::cout << "error with GREENHOUSE image file";
 	}
 
+
+	if (!m_outsideNoDoorTexture.loadFromFile("ASSETS/IMAGES/Outside_no_door.png"))
+	{
+		std::cout << "error with No door outside image file";
+	}
+
 	m_background.setTexture(m_outsideTexture);
 }
 
@@ -55,6 +61,9 @@ void Rooms::roomChange(int t_room)
 	case BEDROOM_RIGHT:
 		break;
 	case BATHROOM:
+		break;
+	case OUTSIDE_NO_DOOR:
+		m_background.setTexture(m_outsideNoDoorTexture);
 		break;
 	}
 }
