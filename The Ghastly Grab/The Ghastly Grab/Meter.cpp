@@ -16,6 +16,7 @@ void Meter::setupSprite()
 	m_sprite.setTextureRect(sf::IntRect{ 0,0,640,80 });
 	m_sprite.setPosition(80.0f, 722.50f);
 
+	loadMusic();
 }
 
 void Meter::update()
@@ -39,6 +40,32 @@ void Meter::onClick()
 	if (mainChance == SCARE)
 	{
 		m_filledAmount++;
+		int spook = rand() % 7;
+		switch (spook)
+		{
+		case 0:
+			m_spook.setBuffer(m_door);
+			break;
+		case 1:
+			m_spook.setBuffer(m_knock);
+			break;
+		case 2:
+			m_spook.setBuffer(m_racket);
+			break;
+		case 3:
+			m_spook.setBuffer(m_wind);
+			break;
+		case 4:
+			m_spook.setBuffer(m_coin);
+			break;
+		case 5:
+			m_spook.setBuffer(m_foot);
+			break;
+		case 6:
+			m_spook.setBuffer(m_metal);
+			break;
+		}
+		m_spook.play();
 	}
 
 	if (m_filledAmount == 5)
@@ -90,4 +117,42 @@ sf::Sprite Meter::getBody()
 int Meter::getFilled()
 {
 	return m_filledAmount;
+}
+
+void Meter::loadMusic()
+{
+	if (!m_door.loadFromFile("ASSETS\\AUDIO\\dor.ogg"))
+	{
+		std::cout << "door spook no load"; // error
+	}
+
+	if (!m_knock.loadFromFile("ASSETS\\AUDIO\\knock.ogg"))
+	{
+		std::cout << "knock spook no load"; // error
+	}
+
+	if (!m_racket.loadFromFile("ASSETS\\AUDIO\\racket.ogg"))
+	{
+		std::cout << "racket spook no load"; // error
+	}
+
+	if (!m_wind.loadFromFile("ASSETS\\AUDIO\\wind.ogg"))
+	{
+		std::cout << "wind spook no load"; // error
+	}
+
+	if (!m_coin.loadFromFile("ASSETS\\AUDIO\\coin.ogg"))
+	{
+		std::cout << "coin spook no load"; // error
+	}
+
+	if (!m_foot.loadFromFile("ASSETS\\AUDIO\\foot.ogg"))
+	{
+		std::cout << "footsteps spook no load"; // error
+	}
+ 
+	if (!m_metal.loadFromFile("ASSETS\\AUDIO\\metal.ogg"))
+	{
+		std::cout << "metal spook music no load"; // error
+	}
 }

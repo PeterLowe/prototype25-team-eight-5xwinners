@@ -104,7 +104,16 @@ void Inventory::setupFontAndText()
 void Inventory::keyEffect()
 //for sound read out
 {
+	if (m_haveKey)
+	{
+		m_voiceline.setBuffer(m_keyUse);
+	}
+	else
+	{
+		m_voiceline.setBuffer(m_keyFind);
+	}
 
+	m_voiceline.play();
 }
 
 void Inventory::noteEffect()
@@ -125,12 +134,27 @@ void Inventory::crowBarEffect()
 
 }
 
+void Inventory::loadVoice()
+// loads the voicelines
+{
+	if (!m_keyUse.loadFromFile("ASSETS\\AUDIO\\keyUse.ogg"))
+	{
+		std::cout << "key use voiceline no load"; // error
+	}
+
+	if (!m_keyFind.loadFromFile("ASSETS\\AUDIO\\keyFind.ogg"))
+	{
+		std::cout << "key Find voiceline no load"; // error
+	}
+}
+
 void Inventory::haveKey()
 //changes sprite and text appearance
 {
 	m_key.setTextureRect(sf::IntRect{ 141, 0, 141, 141 });
 	m_keyString = "My my my \nwhat a lovely door \nyouve got!";
 	m_keyText.setString(m_keyString);
+	m_haveKey = true;
 }
 
 void Inventory::haveNote()
@@ -139,6 +163,7 @@ void Inventory::haveNote()
 	m_note.setTextureRect(sf::IntRect{ 141, 141, 141, 141 });
 	m_noteString = "A combination?";
 	m_noteText.setString(m_noteString);
+	m_haveNote = true;
 }
 
 void Inventory::haveShovel()
@@ -155,6 +180,7 @@ void Inventory::haveCrowBar()
 	m_crowBar.setTextureRect(sf::IntRect{ 141, 423, 141, 141 });
 	m_crowBarString = "You could ply \nsomething of a wall \nwith this thing...";
 	m_crowBarText.setString(m_crowBarString);
+	m_haveCrowbar = true;
 }
 
 void Inventory::radioAnimate()

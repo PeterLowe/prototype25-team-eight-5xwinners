@@ -411,6 +411,8 @@ void Game::setupAudio()
 	m_bgMusic.setLoop(true);
 	m_bgMusic.play();
 
+
+	m_inventory.loadVoice();
 	//if (!m_outsideMusic.openFromFile("ASSETS\\AUDIO\\outside.ogg"))
 	//{
 	//	std::cout << "Music no load"; // error
@@ -857,6 +859,7 @@ void Game::menuClick()
 	if (play.contains(m_mousePressed))
 	{
 		m_screen = GAMEPLAY;
+		m_bgMusic.stop();
 	}
 	else if (sound.contains(m_mousePressed))
 	{

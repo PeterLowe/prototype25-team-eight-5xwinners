@@ -5,6 +5,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include <SFML/AUDIO.hpp>
 
 class Inventory
 {
@@ -12,7 +13,7 @@ public:
 	Inventory();
 	void loadImage();
 	void setupFontAndText();
-
+	void loadVoice();
 	void changeOpen();
 
 	void haveKey();
@@ -69,4 +70,13 @@ private:
 	std::string m_shovelString;
 	sf::Text m_crowBarText;
 	std::string m_crowBarString;
+
+	bool m_haveNote;
+	bool m_haveKey;
+	bool m_haveCrowbar;
+
+	sf::Sound m_voiceline;
+	sf::SoundBuffer m_keyFind;
+	sf::SoundBuffer m_keyUse;
+	// more buffers when audio comes in
 };

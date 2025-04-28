@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include "Globals.h"
+#include <SFML/Audio.hpp>
 
 class Meter
 {
@@ -15,9 +16,19 @@ class Meter
 
 	int m_filledAmount = 0;		// int to see how much filled
 
+	sf::Sound m_spook;	// Spooky sound fx
+	sf::SoundBuffer m_door;
+	sf::SoundBuffer m_knock;
+	sf::SoundBuffer m_coin;
+	sf::SoundBuffer m_foot;
+	sf::SoundBuffer m_wind;
+	sf::SoundBuffer m_racket;
+	sf::SoundBuffer m_metal;
+
 public:
 
 	void setupSprite();
+	void loadMusic();
 	int getFilled();
 	void onClick();
 	sf::Sprite getBody();
