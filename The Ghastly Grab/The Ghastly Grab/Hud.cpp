@@ -82,7 +82,7 @@ void Hud::setupText()
 	m_item7.setFont(m_font);
 	m_item7.setCharacterSize(16);
 	m_item7.setFillColor(sf::Color::White);
-	m_item7.setString("placeholder7");
+	m_item7.setString("Coat");
 
 	m_item8.setFont(m_font);
 	m_item8.setCharacterSize(16);
@@ -92,7 +92,7 @@ void Hud::setupText()
 	m_item9.setFont(m_font);
 	m_item9.setCharacterSize(16);
 	m_item9.setFillColor(sf::Color::White);
-	m_item9.setString("placeholder9");
+	m_item9.setString("Saber");
 }
 
 void Hud::itemObtained(int t_itemNum)

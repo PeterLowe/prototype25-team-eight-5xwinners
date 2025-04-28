@@ -93,7 +93,7 @@ sf::RectangleShape Player::getLegs()
 	return m_legsRect;
 }
 
-void Player::reset(int t_room)
+void Player::reset(int t_room, int t_oldRoom)
 {
 	switch (t_room)
 	{
@@ -109,11 +109,36 @@ void Player::reset(int t_room)
 	{
 		m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
 		m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
-	}
-	break;
-	case HALLWAY_LEFT:
 		break;
+	}
+
+	case HALLWAY_LEFT:
+	{
+		if (t_oldRoom == OUTSIDE || t_oldRoom == OUTSIDE_NO_DOOR)
+		{
+			m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
+			m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
+			break;
+		}
+		else if (t_oldRoom == HALLWAY_RIGHT)
+		{
+			m_sprite.setPosition(SCREEN_WIDTH - 50 , 250);
+			m_legsRect.setPosition(SCREEN_WIDTH - 50 + LEFT_TO_LEG, 250 + UP_TO_LEG);
+			break;
+		}
+
+	}
 	case HALLWAY_RIGHT:
+	{
+		if (t_oldRoom == HALLWAY_LEFT)
+		{
+			m_sprite.setPosition(10, 250);
+			m_legsRect.setPosition(10+LEFT_TO_LEG, 250 + UP_TO_LEG);
+		}
+
+		break;
+
+	}
 		break;
 	case KITCHEN:
 		break;
@@ -153,11 +178,16 @@ void Player::bounaryCheck(int t_facing, int t_room)
 	case GREENHOUSE:
 		break;
 	case HALLWAY_LEFT:
+		leftHallBounds(t_facing, leg, body);
 		break;
 	case HALLWAY_RIGHT:
+		rightHallBounds(t_facing, leg, body);
 		break;
 	case KITCHEN:
+	{
+		kitchenBounds(t_facing, leg, body);
 		break;
+	}
 	case LIVING:
 		break;
 	case BEDROOM_LEFT:
@@ -204,6 +234,116 @@ void Player::outsideBounds(int t_facing, sf::Vector2f &t_leg, sf::Vector2f &t_bo
 	}
 
 	leftDiaBounds(t_leg, t_body, t_facing);
+	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
+}
+
+void Player::rightHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body)
+{
+	if (t_leg.x > 700 && t_leg.x < 800)
+		// Keeping player from going into coat stand
+	{
+		if (t_leg.y < 387)
+		{
+			t_leg.y += 5;
+			t_body.y += 5;
+		}
+	}
+
+	if (t_leg.y < 350)
+		// Keeping player from going above floor
+	{
+		t_leg.y += 5;
+		t_body.y += 5;
+
+	}
+	else if (t_leg.y > 600)
+		// Keeping player from going below invis floor
+	{
+		t_leg.y -= 5;
+		t_body.y -= 5;
+	}
+
+	if (t_leg.x > SCREEN_WIDTH - (LEG_WIDTH * 1.5))
+		// keeping player from going out of right side of screen
+	{
+		t_leg.x -= 5;
+		t_body.x -= 5;
+	}
+
+	rightDiaBounds(t_leg, t_body, t_facing);
+	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
+}
+
+void Player::leftHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body)
+{
+	if (t_leg.x > 460 && t_leg.x < 820)
+		// Keeping player from going into cupboard
+	{
+		if (t_leg.y < 370)
+		{
+			t_leg.y += 5;
+			t_body.y += 5;
+		}
+	}
+
+	if (t_leg.y < 350)
+		// Keeping player from going above floor
+	{
+		t_leg.y += 5;
+		t_body.y += 5;
+
+	}
+	else if (t_leg.y > 600)
+		// Keeping player from going below invis floor
+	{
+		t_leg.y -= 5;
+		t_body.y -= 5;
+	}
+
+	if (t_leg.x < 0 + LEG_WIDTH / 2)
+		// keeping player from going out of left side of screen
+	{
+		t_leg.x += 5;
+		t_body.x += 5;
+	}
+
+	leftDiaBounds(t_leg, t_body, t_facing);
+	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
+}
+
+void Player::kitchenBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body)
+// bound check specific to outside
+{
+
+	if (t_leg.y < 415)
+		// Keeping player from going above floor
+	{
+		t_leg.y += 5;
+		t_body.y += 5;
+
+	}
+	else if (t_leg.y > 600)
+		// Keeping player from going below invis floor
+	{
+		t_leg.y -= 5;
+		t_body.y -= 5;
+	}
+
+	if (t_leg.x < 0 + LEG_WIDTH / 2)
+		// keeping player from going out of left side of screen
+	{
+		t_leg.x += 5;
+		t_body.x += 5;
+	}
+	else if (t_leg.x > SCREEN_WIDTH - (LEG_WIDTH * 2))
+		// keeping player from going out of right side of screen
+	{
+		t_leg.x -= 5;
+		t_body.x -= 5;
+	}
+
+	leftDiaBounds(t_leg, t_body, t_facing);
+	rightDiaBounds(t_leg, t_body, t_facing);
 	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
 }
 

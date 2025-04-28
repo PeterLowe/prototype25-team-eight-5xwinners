@@ -47,6 +47,18 @@ void Rooms::loadBackgrounds()
 		std::cout << "error with No door outside image file";
 	}
 
+	if (!m_hallwayLeftTexture.loadFromFile("ASSETS/IMAGES/LEFT_HALLWAY.png"))
+	{
+		std::cout << "error with left hallway image file";
+	}
+
+	if (!m_hallwayRightTexture.loadFromFile("ASSETS/IMAGES/RIGHT_HALLWAY.png"))
+	{
+		std::cout << "error with right hallway image file";
+	}
+
+
+
 	m_background.setTexture(m_outsideTexture);
 }
 
@@ -61,8 +73,10 @@ void Rooms::roomChange(int t_room)
 		m_background.setTexture(m_greenHouseTexture);
 		break;
 	case HALLWAY_LEFT:
+		m_background.setTexture(m_hallwayLeftTexture);
 		break;
 	case HALLWAY_RIGHT:
+		m_background.setTexture(m_hallwayRightTexture);
 		break;
 	case KITCHEN:
 		m_background.setTexture(m_kitchenTexture);

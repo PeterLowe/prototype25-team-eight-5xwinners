@@ -14,7 +14,7 @@ public:
 
 	void movement(int t_facing, int t_room);	// function that redirects movement based on room
 	void resetTexture();
-	void reset(int t_room);		// resets character position when entering a new room
+	void reset(int t_room, int t_oldRoom);		// resets character position when entering a new room
 
 	sf::Vector2f getPosition();
 	sf::Sprite getBody();
@@ -22,6 +22,10 @@ public:
 
 	void bounaryCheck(int t_facing, int t_room);
 	void outsideBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to outside
+	void kitchenBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body); // movement specific to kitchen
+
+	void leftHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to left Hallway
+	void rightHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to right Hallway
 
 
 	void leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
