@@ -7,7 +7,7 @@
 //load and setup the text 
 ///oad and setup thne image
 Game::Game() :
-	m_window{ sf::VideoMode{ SCREEN_WIDTH, SCREEN_HEIGHT, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ SCREEN_WIDTH, SCREEN_HEIGHT, 32U }, "Ghastly Grab" },
 	m_exitGame{false} //when true game will exit
 {
 	setUp();
