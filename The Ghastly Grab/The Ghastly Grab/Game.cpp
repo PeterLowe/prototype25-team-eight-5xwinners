@@ -215,6 +215,8 @@ void Game::renderCovers()
 	case HALLWAY_RIGHT:
 		break;
 	case KITCHEN:
+		m_window.draw(m_covers[1].getSafe());
+		m_window.draw(m_covers[1].getCupboard());
 		break;
 	case LIVING:
 		break;
@@ -462,7 +464,16 @@ bool Game::coversClick()
 	case HALLWAY_RIGHT:
 		break;
 	case KITCHEN:
+	{
+		sf::FloatRect cupboard = m_covers[1].getCupboard().getGlobalBounds();
+		if (cupboard.contains(m_mousePressed) && !m_covers[1].getClicked())
+		{
+			m_covers[1].onClick(1);
+			clicked = true;
+		}
+	}
 		break;
+
 	case LIVING:
 		break;
 	case BEDROOM_LEFT:

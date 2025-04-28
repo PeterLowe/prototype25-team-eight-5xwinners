@@ -83,7 +83,7 @@ private:
 	Meter m_meter;
 
 	int m_screen = MAIN;
-	int m_room = OUTSIDE;
+	int m_room = KITCHEN;
 	sf::Music m_bgMusic;	// BG Music	
 	sf::Vector2f m_mousePressed;
 };
