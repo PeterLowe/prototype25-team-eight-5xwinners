@@ -52,32 +52,32 @@ void Hud::setupText()
 	m_item1.setFont(m_font);
 	m_item1.setCharacterSize(16);
 	m_item1.setFillColor(sf::Color::White);
-	m_item1.setString("watch");
+	m_item1.setString("Watch");
 
 	m_item2.setFont(m_font);
 	m_item2.setCharacterSize(16);
 	m_item2.setFillColor(sf::Color::White);
-	m_item2.setString("placeholder2");
+	m_item2.setString("Necklace");
 
 	m_item3.setFont(m_font);
 	m_item3.setCharacterSize(16);
 	m_item3.setFillColor(sf::Color::White);
-	m_item3.setString("placeholder3");
+	m_item3.setString("Purse");
 
 	m_item4.setFont(m_font);
 	m_item4.setCharacterSize(16);
 	m_item4.setFillColor(sf::Color::White);
-	m_item4.setString("placeholder4");
+	m_item4.setString("Medicine");
 
 	m_item5.setFont(m_font);
 	m_item5.setCharacterSize(16);
 	m_item5.setFillColor(sf::Color::White);
-	m_item5.setString("placeholder5");
+	m_item5.setString("Power Tool");
 
 	m_item6.setFont(m_font);
 	m_item6.setCharacterSize(16);
 	m_item6.setFillColor(sf::Color::White);
-	m_item6.setString("placeholder6");
+	m_item6.setString("Vase");
 
 	m_item7.setFont(m_font);
 	m_item7.setCharacterSize(16);
@@ -87,7 +87,7 @@ void Hud::setupText()
 	m_item8.setFont(m_font);
 	m_item8.setCharacterSize(16);
 	m_item8.setFillColor(sf::Color::White);
-	m_item8.setString("placeholder8");
+	m_item8.setString("Cards");
 
 	m_item9.setFont(m_font);
 	m_item9.setCharacterSize(16);

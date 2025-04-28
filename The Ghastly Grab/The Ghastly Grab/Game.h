@@ -71,6 +71,7 @@ private:
 
 	Menus Menus;
 	Hud Hud;
+	Meter m_meter;
 	Inventory m_inventory;
 
 	Player m_player;
@@ -80,13 +81,13 @@ private:
 	Tools m_tools[MAX_TOOLS];
 	Covers m_covers[MAX_COVERS];
 
-	Meter m_meter;
-
 	int m_screen = MAIN;
 	int m_room = OUTSIDE;
-	sf::Music m_bgMusic;	// BG Music	
+
+	sf::Music m_bgMusic;	// BG Music
+	sf::Music m_outsideMusic; //music for outside areas
+
 	sf::Vector2f m_mousePressed;
 };
 
 #endif //!GAME_HPP
-

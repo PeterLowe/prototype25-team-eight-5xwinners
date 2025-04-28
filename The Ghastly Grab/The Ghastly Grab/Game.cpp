@@ -124,7 +124,11 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 
-	playerMovement();
+	if (m_screen == GAMEPLAY)
+	{
+		playerMovement();
+	}
+
 	m_roomBG.roomChange(m_room);
 
 	if (m_screen == MAIN)
@@ -181,9 +185,17 @@ void Game::renderRiches()
 	switch (m_room)
 	{
 	case OUTSIDE:
+	{
 		break;
+	}
 	case GREENHOUSE:
+	{
+		if (!m_riches[4].getClicked())
+		{
+			m_window.draw(m_riches[4].getBody());
+		}
 		break;
+	}
 	case HALLWAY_LEFT:
 	{
 		if (!m_riches[8].getClicked())
@@ -201,15 +213,41 @@ void Game::renderRiches()
 		break;
 	}
 	case KITCHEN:
+	{
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
+		if (!m_riches[0].getClicked())
+		{
+			m_window.draw(m_riches[0].getBody());
+		}
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
+		if (!m_riches[1].getClicked())
+		{
+			m_window.draw(m_riches[1].getBody());
+		}
+		if (!m_riches[2].getClicked())
+		{
+			m_window.draw(m_riches[2].getBody());
+		}
 		break;
+	}
 	case BATHROOM:
+	{
+		if (!m_riches[3].getClicked())
+		{
+			m_window.draw(m_riches[3].getBody());
+		}
 		break;
+	}
 	}
 }
 
@@ -218,27 +256,47 @@ void Game::renderCovers()
 	switch (m_room)
 	{
 	case OUTSIDE:
+	{
 		m_window.draw(m_covers[0].getBody());
 		break;
+	}
 	case OUTSIDE_NO_DOOR:
 		m_window.draw(m_covers[0].getBody());
 		break;
 	case GREENHOUSE:
+	{
 		break;
+	}
 	case HALLWAY_LEFT:
+	{
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
 		break;
+	}
 	case KITCHEN:
+	{
+		m_window.draw(m_covers[1].getSafe());
+		m_window.draw(m_covers[1].getCupboard());
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
 		break;
+	}
 	case BATHROOM:
+	{
 		break;
+	}
 	}
 }
 
@@ -248,28 +306,47 @@ void Game::renderTools()
 	switch (m_room)
 	{
 	case OUTSIDE:
+	{
 		if (!m_tools[0].getClicked())
 		{
 			m_window.draw(m_tools[0].getBody());
 		}
-
 		break;
+	}
 	case GREENHOUSE:
+	{
+		m_window.draw(m_tools[2].getBody());
+		m_window.draw(m_tools[3].getBody());
 		break;
+	}
 	case HALLWAY_LEFT:
+	{
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
 		break;
+	}
 	case KITCHEN:
+	{
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
 		break;
+	}
 	case BATHROOM:
+	{
 		break;
+	}
 	}
 }
 
@@ -325,16 +402,23 @@ void Game::setUp()
 /// </summary>
 void Game::setupAudio()
 {
+	if (!m_bgMusic.openFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
 	{
-		if (!m_bgMusic.openFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
-		{
-			std::cout << "Music no load"; // error
-		}
-
-		m_bgMusic.setVolume(20.f);
-		m_bgMusic.setLoop(true);
-		m_bgMusic.play();
+		std::cout << "Music no load"; // error
 	}
+
+	m_bgMusic.setVolume(20.f);
+	m_bgMusic.setLoop(true);
+	m_bgMusic.play();
+
+	//if (!m_outsideMusic.openFromFile("ASSETS\\AUDIO\\outside.ogg"))
+	//{
+	//	std::cout << "Music no load"; // error
+	//}
+
+	//m_outsideMusic.setVolume(20.f);
+	//m_outsideMusic.setLoop(true);
+	//m_outsideMusic.play();
 }
 
 /// <summary>
@@ -475,21 +559,44 @@ bool Game::coversClick()
 		break;
 	}
 	case GREENHOUSE:
+	{
 		break;
+	}
 	case HALLWAY_LEFT:
+	{
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
 		break;
+	}
 	case KITCHEN:
+	{
+		sf::FloatRect cupboard = m_covers[1].getCupboard().getGlobalBounds();
+		if (cupboard.contains(m_mousePressed) && !m_covers[1].getClicked())
+		{
+			m_covers[1].onClick(1);
+			clicked = true;
+		}
+	}
 		break;
+
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
 		break;
+	}
 	case BATHROOM:
+	{
 		break;
+	}
 	}
 
 	return clicked;
@@ -528,21 +635,52 @@ bool Game::toolsClick()
 		break;
 	}
 	case GREENHOUSE:
+	{
+		sf::FloatRect shovel = m_tools[2].getBody().getGlobalBounds();
+		sf::FloatRect crowBar = m_tools[3].getBody().getGlobalBounds();
+		if (shovel.contains(m_mousePressed))
+		{
+			m_tools[2].onClick(2);
+			m_inventory.haveShovel();
+			clicked = true;
+		}
+		else if (crowBar.contains(m_mousePressed))
+		{
+			m_tools[3].onClick(3);
+			m_inventory.haveCrowBar();
+			clicked = true;
+		}
+
 		break;
+	}
 	case HALLWAY_LEFT:
+	{
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
 		break;
+	}
 	case KITCHEN:
+	{
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
 		break;
+	}
 	case BATHROOM:
+	{
 		break;
+	}
 	}
 
 	return clicked;
@@ -556,7 +694,17 @@ bool Game::richesClick()
 	{
 
 	case GREENHOUSE:
+	{
+		sf::FloatRect powrTool = m_riches[4].getBody().getGlobalBounds();
+		if (powrTool.contains(m_mousePressed))
+		{
+			m_riches[4].onClick();
+			Hud.itemObtained(4);
+			clicked = true;
+		}
+
 		break;
+	}
 	case HALLWAY_LEFT:
 	{
 		sf::FloatRect saber = m_riches[8].getBody().getGlobalBounds();
@@ -582,15 +730,55 @@ bool Game::richesClick()
 		break;
 	}
 	case KITCHEN:
+	{
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
+		sf::FloatRect watch = m_riches[0].getBody().getGlobalBounds();
+		if (watch.contains(m_mousePressed) && !m_riches[0].getClicked())
+		{
+			m_riches[0].onClick();
+			Hud.itemObtained(1);
+			clicked = true;
+		}
 		break;
+	}
+
 	case BEDROOM_RIGHT:
+	{
+		sf::FloatRect necklace = m_riches[1].getBody().getGlobalBounds();
+		if (necklace.contains(m_mousePressed) && !m_riches[1].getClicked())
+		{
+			m_riches[1].onClick();
+			Hud.itemObtained(2);
+			clicked = true;
+		}
+		sf::FloatRect purse = m_riches[2].getBody().getGlobalBounds();
+		if (purse.contains(m_mousePressed) && !m_riches[2].getClicked())
+		{
+			m_riches[2].onClick();
+			Hud.itemObtained(3);
+			clicked = true;
+		}
 		break;
+	}
+
 	case BATHROOM:
+	{
+		sf::FloatRect meds = m_riches[3].getBody().getGlobalBounds();
+		if (meds.contains(m_mousePressed) && !m_riches[3].getClicked())
+		{
+			m_riches[3].onClick();
+			Hud.itemObtained(4);
+			clicked = true;
+		}
 		break;
+	}
 	}
 
 	return clicked;
@@ -729,8 +917,17 @@ int Game::roomCheck(int t_room)
 		break;
 	}
 	case GREENHOUSE:
+	{
+		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		{
+			t_room = OUTSIDE;
+			m_player.reset(t_room, GREENHOUSE);
+		}
+
 		break;
+	}
 	case HALLWAY_LEFT:
+	{
 		if (leg.x > 1000)
 			// walked right to continue in hallway
 		{
@@ -741,13 +938,14 @@ int Game::roomCheck(int t_room)
 			leg.x < 62 && leg.y < 466 ||
 			leg.x < 75 && leg.y < 445 ||
 			leg.x < 88 && leg.y < 424 ||
-			leg.x < 101 && leg.y < 403 )
+			leg.x < 101 && leg.y < 403)
 			//leg.x < 114 && leg.y < 382 )
 		{
 			t_room = BEDROOM_RIGHT;
 			m_player.reset(t_room, HALLWAY_LEFT);
 		}
 		break;
+	}
 	case HALLWAY_RIGHT:
 	{
 		if (leg.x < 0)
@@ -775,14 +973,35 @@ int Game::roomCheck(int t_room)
 		break;
 	}
 	case KITCHEN:
+	{
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+		/*if (position)
+		{
+			t_room = BATHROOM;
+			m_player.reset(t_room);
+		}
+		
+		else if  -> BEDROOM_RIGHT*/
 		break;
 	case BEDROOM_RIGHT:
+		/*if (position)
+		{
+			t_room = BEDROOM_LEFT;
+			m_player.reset(t_room);
+		}*/
 		break;
 	case BATHROOM:
+		/*if (position)
+		{
+			t_room = BEDROOM_LEFT;
+			m_player.reset(t_room);
+		}*/
 		break;
 	}
 

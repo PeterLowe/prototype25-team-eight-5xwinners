@@ -11,9 +11,17 @@ class Covers
 	sf::Texture m_finalTexture;
 	sf::Sprite m_sprite;
 
+	sf::Texture m_cupboardCloseText;
+	sf::Texture m_cupboardOpenText;
+	sf::Texture m_safeText;
+
+	sf::Sprite m_cupboardSprite;
+	sf::Sprite m_safeSprite;
+
 	sf::Sound m_sfx;
 
 	sf::SoundBuffer m_matFlap;
+	sf::SoundBuffer m_cupboard;
 
 	bool m_isFound = false;
 
@@ -23,4 +31,8 @@ public:
 	sf::Sprite getBody();
 	void onClick(int t_num);
 	bool getClicked();
+
+
+	sf::Sprite getCupboard();
+	sf::Sprite getSafe();
 };
