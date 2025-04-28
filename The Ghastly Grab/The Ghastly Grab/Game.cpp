@@ -413,14 +413,58 @@ void Game::setupAudio()
 
 
 	m_inventory.loadVoice();
-	//if (!m_outsideMusic.openFromFile("ASSETS\\AUDIO\\outside.ogg"))
-	//{
-	//	std::cout << "Music no load"; // error
-	//}
 
-	//m_outsideMusic.setVolume(20.f);
-	//m_outsideMusic.setLoop(true);
-	//m_outsideMusic.play();
+	// lOADING BACKGROUND MUSIC BUFFERS
+
+	// outside / greenhouse
+	if (!m_outsideMusic.loadFromFile("ASSETS\\AUDIO\\outside.ogg"))
+	{
+		std::cout << "outside Music no load"; // error
+	}
+
+	if (!m_hallMusic.loadFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
+	{
+		std::cout << "hall Music no load"; // error
+	}
+
+	// same as hallways?
+	if (!m_kitchenMusic.loadFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
+	{
+		std::cout << "kitchen Music no load"; // error
+	}
+
+	// bed music
+	if (!m_bedMusic.loadFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
+	{
+		std::cout << "bed Music no load"; // error
+	}
+
+	// bath music
+	if (!m_bathMusic.loadFromFile("ASSETS\\AUDIO\\cynthia.ogg"))
+	{
+		std::cout << "bath music no load"; // error
+	}
+
+	// same as kitchen/ hallways? 
+	if (!m_livingMusic.loadFromFile("ASSETS\\AUDIO\\fireplace.ogg"))
+	{
+		std::cout << "living room music no load"; // error
+	}
+
+	if (!m_doorOneBuffer.loadFromFile("ASSETS\\AUDIO\\door1.ogg"))
+	{
+		std::cout << "door 1 no load"; // error
+	}
+
+	if (!m_doorTwoBuffer.loadFromFile("ASSETS\\AUDIO\\door2.ogg"))
+	{
+		std::cout << "door 2 no load"; // error
+	}
+
+	m_roomMusic.setBuffer(m_outsideMusic);
+
+	m_bgMusic.setVolume(20.f);
+	m_bgMusic.setLoop(true);
 }
 
 /// <summary>
@@ -860,6 +904,7 @@ void Game::menuClick()
 	{
 		m_screen = GAMEPLAY;
 		m_bgMusic.stop();
+		m_roomMusic.play();
 	}
 	else if (sound.contains(m_mousePressed))
 	{
@@ -885,6 +930,8 @@ int Game::roomCheck(int t_room)
 	t_room;
 	sf::Vector2f leg{ m_player.getLegs().getPosition()};
 
+
+	// on more room audio, add m_roomBG.setBuffer(''); and m_roomBG.play() for that respective room
 	switch (t_room)
 	{
 	case OUTSIDE:
@@ -921,10 +968,19 @@ int Game::roomCheck(int t_room)
 	}
 	case GREENHOUSE:
 	{
-		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		if ((leg.x > 450 && leg.x < 550) && leg.y > 600 && !m_tools[0].getClicked())
 		{
 			t_room = OUTSIDE;
 			m_player.reset(t_room, GREENHOUSE);
+			m_roomMusic.setBuffer(m_outsideMusic);
+			m_roomMusic.play();
+		}
+		else if ((leg.x > 450 && leg.x < 550) && leg.y > 600 && m_tools[0].getClicked())
+		{
+			t_room = OUTSIDE_NO_DOOR;
+			m_player.reset(t_room, GREENHOUSE);
+			m_roomMusic.setBuffer(m_outsideMusic);
+			m_roomMusic.play();
 		}
 
 		break;
@@ -1010,3 +1066,6 @@ int Game::roomCheck(int t_room)
 
 	return t_room;
 }
+
+
+

@@ -71,9 +71,9 @@ private:
 	sf::Text m_crowBarText;
 	std::string m_crowBarString;
 
-	bool m_haveNote;
-	bool m_haveKey;
-	bool m_haveCrowbar;
+	bool m_haveNote = false;
+	bool m_haveKey = false;
+	bool m_haveCrowbar = false;
 
 	sf::Sound m_voiceline;
 	sf::SoundBuffer m_keyFind;

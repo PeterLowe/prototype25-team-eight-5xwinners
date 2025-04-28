@@ -85,9 +85,20 @@ private:
 	int m_room = OUTSIDE;
 
 	sf::Music m_bgMusic;	// BG Music
-	sf::Music m_outsideMusic; //music for outside areas
 
 	sf::Vector2f m_mousePressed;
+
+	sf::Sound m_roomMusic;
+	sf::SoundBuffer m_outsideMusic;
+	sf::SoundBuffer m_hallMusic;
+	sf::SoundBuffer m_livingMusic;
+	sf::SoundBuffer m_bathMusic;
+	sf::SoundBuffer m_kitchenMusic;
+	sf::SoundBuffer m_bedMusic;
+
+	sf::Sound m_door;
+	sf::SoundBuffer m_doorOneBuffer;
+	sf::SoundBuffer m_doorTwoBuffer;
 };
 
 #endif //!GAME_HPP
