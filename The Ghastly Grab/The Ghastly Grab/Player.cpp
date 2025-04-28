@@ -231,6 +231,7 @@ void Player::bounaryCheck(int t_facing, int t_room)
 	}
 	case BEDROOM_RIGHT:
 	{
+		rightBedroomBounds(t_facing, leg, body);
 		break;
 	}
 	case BATHROOM:
@@ -422,6 +423,41 @@ void Player::kitchenBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_bo
 	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
 }
 
+void Player::rightBedroomBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body)
+{
+	if (t_leg.y < 470 && t_leg.x < 200)
+	{
+		t_leg.x += 5;
+		t_body.x += 5;
+		t_leg.y += 5;
+		t_body.y += 5;
+	}
+
+	if (t_leg.y < 415)
+	{
+		t_leg.y += 5;
+		t_body.y += 5;
+	}
+	else if (t_leg.y > 600)
+	{
+		t_leg.y -= 5;
+		t_body.y -= 5;
+	}
+
+	/*if (t_leg.x < 0 + LEG_WIDTH / 2)
+	{
+		t_leg.x += 5;
+		t_body.x += 5;
+	}*/
+	if (t_leg.x > SCREEN_WIDTH - (LEG_WIDTH * 1.5))
+	{
+		t_leg.x -= 5;
+		t_body.x -= 5;
+	}
+
+	//leftDiaBounds(t_leg, t_body, t_facing);
+	rightDiaBounds(t_leg, t_body, t_facing);
+}
 
 void Player::leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing)
 {
