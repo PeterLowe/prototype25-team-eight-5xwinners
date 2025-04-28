@@ -94,4 +94,8 @@ private:
 	sf::RectangleShape m_invReturnShape;
 	sf::Text m_invReturnText;
 	sf::FloatRect m_invReturnSize;
+
+	int m_totalFrame = 8;
+	float m_frameCounter = 0.0f;
+	float m_frameIncrement = 0.1f;
 };

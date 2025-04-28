@@ -132,6 +132,23 @@ sf::Sprite Menus::getMain()
 	return m_mainSprite;
 }
 
+void Menus::animateMainMenu()
+{
+	int column = 0;
+
+	m_frameCounter += m_frameIncrement;
+
+	column = static_cast<int>(m_frameCounter);
+
+	if (column >= m_totalFrame)
+	{
+		column = 0;
+		m_frameCounter = 0.0f;
+	}
+
+	m_mainSprite.setTextureRect(sf::IntRect(column * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+}
+
 void Menus::helpMenuShapes()
 {
 	m_helpReturn.setFillColor(sf::Color::Blue);

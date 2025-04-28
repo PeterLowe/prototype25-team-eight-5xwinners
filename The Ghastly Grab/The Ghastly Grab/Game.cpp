@@ -127,6 +127,11 @@ void Game::update(sf::Time t_deltaTime)
 	playerMovement();
 	m_roomBG.roomChange(m_room);
 
+	if (m_screen == MAIN)
+	{
+		Menus.animateMainMenu();
+	}
+
 	if (m_screen == INVENTORY)
 	{
 		m_inventory.radioAnimate();
