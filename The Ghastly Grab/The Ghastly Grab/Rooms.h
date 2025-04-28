@@ -32,8 +32,4 @@ private:
 	sf::Texture m_bathroomTexture;
 
 	sf::Sprite m_background;
-
-
-
-
 };

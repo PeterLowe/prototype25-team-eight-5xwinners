@@ -22,6 +22,7 @@ public:
 
 	void bounaryCheck(int t_facing, int t_room);
 	void outsideBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to outside
+	void greenhouseBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body); //movement bounds specific to greenhouse
 	void kitchenBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body); // movement specific to kitchen
 
 	void leftHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to left Hallway
@@ -30,11 +31,6 @@ public:
 
 	void leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
 	void rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
-
-
-
-
-
 
 private:
 	void moveSide();		// move player right or left

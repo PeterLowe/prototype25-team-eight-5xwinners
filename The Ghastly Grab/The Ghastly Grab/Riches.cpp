@@ -46,6 +46,7 @@ void Riches::setupSprite(int t_index)
 		break;
 	case 4:
 		richesTextureRect = { 0, 260 , 64 , 60 };
+		m_richesSprite.setPosition(120, 200);
 		break;
 	case 5:
 		richesTextureRect = { 0 , 320, 70, 64 };
@@ -60,7 +61,8 @@ void Riches::setupSprite(int t_index)
 		break;
 	case 8:
 		richesTextureRect = { 0, 510, 96, 32 };
-		m_richesSprite.setPosition(300, 100);
+		m_richesSprite.setPosition(550, 50);
+		m_richesSprite.setScale(2, 1);
 		break;
 	}
 		

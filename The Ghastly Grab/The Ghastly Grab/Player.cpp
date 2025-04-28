@@ -133,25 +133,33 @@ void Player::reset(int t_room, int t_oldRoom)
 		if (t_oldRoom == HALLWAY_LEFT)
 		{
 			m_sprite.setPosition(10, 250);
-			m_legsRect.setPosition(10+LEFT_TO_LEG, 250 + UP_TO_LEG);
+			m_legsRect.setPosition(10 + LEFT_TO_LEG, 250 + UP_TO_LEG);
 		}
 
 		break;
-
 	}
-		break;
 	case KITCHEN:
+	{
 		break;
+	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
 		break;
+	}
 	case BATHROOM:
+	{
 		m_sprite.setPosition(700, 320);
 		m_legsRect.setPosition(700 + LEFT_TO_LEG, 320 + UP_TO_LEG);
 		break;
+	}
 	}
 }
 
@@ -176,26 +184,41 @@ void Player::bounaryCheck(int t_facing, int t_room)
 		break;
 	}
 	case GREENHOUSE:
+	{
+		greenhouseBounds(t_facing, leg, body);
 		break;
+	}
 	case HALLWAY_LEFT:
+	{
 		leftHallBounds(t_facing, leg, body);
 		break;
+	}
 	case HALLWAY_RIGHT:
+	{
 		rightHallBounds(t_facing, leg, body);
 		break;
+	}
 	case KITCHEN:
 	{
 		kitchenBounds(t_facing, leg, body);
 		break;
 	}
 	case LIVING:
+	{
 		break;
+	}
 	case BEDROOM_LEFT:
+	{
 		break;
+	}
 	case BEDROOM_RIGHT:
+	{
 		break;
+	}
 	case BATHROOM:
+	{
 		break;
+	}
 	}
 
 	m_sprite.setPosition(body);
@@ -234,6 +257,40 @@ void Player::outsideBounds(int t_facing, sf::Vector2f &t_leg, sf::Vector2f &t_bo
 	}
 
 	leftDiaBounds(t_leg, t_body, t_facing);
+	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
+}
+
+void Player::greenhouseBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body)
+{
+	if (t_leg.y < 350)
+		// Keeping player from going above floor
+	{
+		t_leg.y += 5;
+		t_body.y += 5;
+
+	}
+	else if (t_leg.y > 600)
+		// Keeping player from going below invis floor
+	{
+		t_leg.y -= 5;
+		t_body.y -= 5;
+	}
+
+	if (t_leg.x < 0 + LEG_WIDTH / 2)
+		// keeping player from going out of left side of screen
+	{
+		t_leg.x += 5;
+		t_body.x += 5;
+	}
+	else if (t_leg.x > SCREEN_WIDTH - (LEG_WIDTH * 1.5))
+		// keeping player from going out of right side of screen
+	{
+		t_leg.x -= 5;
+		t_body.x -= 5;
+	}
+
+	leftDiaBounds(t_leg, t_body, t_facing);
+	rightDiaBounds(t_leg, t_body, t_facing);
 	// passing updated coords to diagonal bound check BEFORE actually updating the player and THEN changing back
 }
 
@@ -489,8 +546,3 @@ void Player::moveSide()
 
 	m_frame++;
 }
-
-
-
-
-

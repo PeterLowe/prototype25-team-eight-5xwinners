@@ -72,12 +72,12 @@ void Hud::setupText()
 	m_item5.setFont(m_font);
 	m_item5.setCharacterSize(16);
 	m_item5.setFillColor(sf::Color::White);
-	m_item5.setString("placeholder5");
+	m_item5.setString("Power Tool");
 
 	m_item6.setFont(m_font);
 	m_item6.setCharacterSize(16);
 	m_item6.setFillColor(sf::Color::White);
-	m_item6.setString("placeholder6");
+	m_item6.setString("Vase");
 
 	m_item7.setFont(m_font);
 	m_item7.setCharacterSize(16);
@@ -87,7 +87,7 @@ void Hud::setupText()
 	m_item8.setFont(m_font);
 	m_item8.setCharacterSize(16);
 	m_item8.setFillColor(sf::Color::White);
-	m_item8.setString("placeholder8");
+	m_item8.setString("Cards");
 
 	m_item9.setFont(m_font);
 	m_item9.setCharacterSize(16);
