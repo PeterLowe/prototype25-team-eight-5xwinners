@@ -761,10 +761,13 @@ int Game::roomCheck(int t_room)
 			t_room = KITCHEN;
 			m_player.reset(t_room, HALLWAY_RIGHT);
 		}
-		else if (leg.x > 934 && leg.y < 466 ||
-			leg.x > 921 && leg.y < 445 ||
-			leg.x > 908 && leg.y < 424 ||
-			leg.x > 895 && leg.y < 403 ) 
+		else if (leg.y < 487 && leg.y > 382 &&
+			(leg.x + LEG_WIDTH > 948 && leg.y < 487 ||
+			leg.x + LEG_WIDTH > 935 && leg.y < 466 ||
+			leg.x + LEG_WIDTH > 922 && leg.y < 445 ||
+			leg.x + LEG_WIDTH > 909 && leg.y < 424 ||
+			leg.x + LEG_WIDTH > 896 && leg.y < 403 ||
+			leg.x + LEG_WIDTH > 883 && leg.y < 382))
 		{
 			t_room = LIVING;
 			m_player.reset(t_room, HALLWAY_RIGHT);
