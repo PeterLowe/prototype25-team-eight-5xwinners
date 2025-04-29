@@ -37,12 +37,14 @@ public:
 private:
 	void moveSide();		// move player right or left
 	void moveUp();			// function to move character up
+	void moveDown();		// function to move charatcer down
 	int m_frame = 0;		// frame for all animation
 
 	sf::Texture m_texture; //texture for Player
-	sf::Texture m_textureUp;	// texture for player moving down
+	sf::Texture m_textureUp;	// texture for player moving up
 	sf::Texture m_textureRight;	// texture for player moving right
 	sf::Texture m_textureLeft;	// texture for player moving left
+	sf::Texture m_textureDown;	// texture for player moving down
 	sf::Sprite m_sprite; //sprite used to represent Player
 
 	sf::RectangleShape m_legsRect{ {LEG_WIDTH, LEG_HEIGHT} };		// Box to hold legs

@@ -24,7 +24,8 @@ void Inventory::loadImage()
 	}
 
 	m_button.setTexture(m_buttonTexture);
-	m_button.setPosition(SCREEN_WIDTH - 100.0f, SCREEN_HEIGHT - 100.0f);
+	m_button.setPosition(SCREEN_WIDTH - 250.0f, SCREEN_HEIGHT - 250.0f);
+	m_button.setScale(10, 10);
 
 	//radio
 	if (!m_radioTexture.loadFromFile("ASSETS/IMAGES/RADIO_BAR.png"))

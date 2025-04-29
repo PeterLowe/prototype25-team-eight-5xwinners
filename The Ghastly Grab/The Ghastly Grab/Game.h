@@ -60,6 +60,7 @@ private:
 	int roomCheck(int t_room);					// function to chek if player enters/exits a room
 
 	void gameOver();
+	void gameWin();		// function to process game win
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -86,8 +87,11 @@ private:
 	int m_screen = MAIN;
 	int m_room = OUTSIDE;
 
-	float m_time = 0.0f;
+	// timer for window close when game ends
+	float m_time = 0.0f;		
 	float m_timeTarget = 18.0;
+
+	bool m_gameWin = false;
 
 	sf::Music m_bgMusic;	// BG Music
 

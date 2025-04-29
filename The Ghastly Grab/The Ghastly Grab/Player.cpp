@@ -30,6 +30,11 @@ void Player::loadImage()
 		std::cout << "Error with the player_LEFT image file";
 	}
 
+	if (!m_textureDown.loadFromFile("ASSETS/IMAGES/PLAYER_DOWN.png"))
+	{
+		std::cout << "Error with the player_LEFT image file";
+	}
+
 	m_sprite.setScale(2.625f, 3.390625f);
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition({ SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2 - 100});
@@ -67,7 +72,7 @@ void Player::movement(int t_facing, int t_room)
 	}
 	if (t_facing == DOWN)
 	{
-		moveUp();
+		moveDown();
 		pos.y = pos.y + m_speed;
 		legPos.y += m_speed;
 	}
@@ -570,6 +575,34 @@ void Player::moveUp()
 // function to animate player moving up
 {
 	m_sprite.setTexture(m_textureUp);
+	if (m_frame < 8)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });
+	}
+	else if (m_frame < 16)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(32,0,32,64) });
+	}
+	else if (m_frame < 24)
+	{
+		m_sprite.setTextureRect({ sf::IntRect(64,0,32,64) });
+	}
+	else
+	{
+		m_sprite.setTextureRect({ sf::IntRect(96,0,32,64) });
+		if (m_frame > 32)
+		{
+			m_frame = 0;
+		}
+	}
+
+	m_frame++;
+}
+
+void Player::moveDown()
+// function to animate player moving up
+{
+	m_sprite.setTexture(m_textureDown);
 	if (m_frame < 8)
 	{
 		m_sprite.setTextureRect({ sf::IntRect(0,0,32,64) });

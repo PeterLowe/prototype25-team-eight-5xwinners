@@ -124,6 +124,22 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 
+	for (int i = 0; i < MAX_RICHES; i++)
+	{	
+		m_gameWin = true;
+		if (!m_riches[i].getClicked())
+		{
+			std::cout << i << std::endl;
+			m_gameWin = false;
+			break;
+		}
+	}
+
+	if (m_gameWin)
+	{
+		m_screen = WINNING;
+	}
+
 	if (m_screen == GAMEPLAY)
 	{
 		playerMovement();
@@ -144,6 +160,11 @@ void Game::update(sf::Time t_deltaTime)
 	if (m_screen == LOSING)
 	{
 		gameOver();
+	}
+	else if (m_screen == WINNING)
+	{
+		std::cout << "You WON! (Kindly imagine this a beautiful game win screen!)" << std::endl << std::endl;
+		gameWin();
 	}
 	//std::cout << m_screen << std::endl;
 }
@@ -527,8 +548,6 @@ void Game::renderScreens()
 	{
 		renderInventory();
 
-		m_window.draw(Menus.getInvReturn());
-		m_window.draw(Menus.getInvReturnText());
 	}
 	else if (m_screen == GAMEPLAY)
 	{
@@ -724,6 +743,7 @@ bool Game::toolsClick()
 		{
 			m_tools[2].onClick(2);
 			m_inventory.haveShovel();
+			m_screen = LOSING;
 			clicked = true;
 		}
 		else if (crowBar.contains(m_mousePressed))
@@ -1174,11 +1194,26 @@ void Game::gameOver()
 
 	if (m_time >= m_timeTarget)
 	{
-		m_screen = MAIN;
+		m_window.close();
 	}
 
 	m_scare.play();
 	Menus.animateScare();
+	//function call for animation or whatever else you want to do
+}
+
+void Game::gameWin()
+{
+	if (m_time < m_timeTarget)
+	{
+		m_time += 0.1f;
+	}
+
+	if (m_time >= m_timeTarget)
+	{
+		m_window.close();
+	}
+
 	//function call for animation or whatever else you want to do
 }
 
