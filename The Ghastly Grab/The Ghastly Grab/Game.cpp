@@ -129,7 +129,6 @@ void Game::update(sf::Time t_deltaTime)
 		m_gameWin = true;
 		if (!m_riches[i].getClicked())
 		{
-			std::cout << i << std::endl;
 			m_gameWin = false;
 			break;
 		}
