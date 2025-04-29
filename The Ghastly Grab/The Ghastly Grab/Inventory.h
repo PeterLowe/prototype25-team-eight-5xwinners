@@ -78,5 +78,9 @@ private:
 	sf::Sound m_voiceline;
 	sf::SoundBuffer m_keyFind;
 	sf::SoundBuffer m_keyUse;
-	// more buffers when audio comes in
+	sf::SoundBuffer m_noteFind;
+	sf::SoundBuffer m_noteUse;
+	sf::SoundBuffer m_crowbarFind;	
+	sf::SoundBuffer m_crowbarUse; 	// no crowbar 'use' voiceline unfortunately
+	sf::SoundBuffer m_shovelLine;
 };

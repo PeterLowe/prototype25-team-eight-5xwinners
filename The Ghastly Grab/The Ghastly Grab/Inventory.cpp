@@ -119,19 +119,38 @@ void Inventory::keyEffect()
 void Inventory::noteEffect()
 //for sound read out
 {
+	if (m_haveNote)
+	{
+		m_voiceline.setBuffer(m_noteUse);
+	}
+	else
+	{
+		m_voiceline.setBuffer(m_noteFind);
+	}
 
+	m_voiceline.play();
 }
 
 void Inventory::shovelEffect()
 //for sound read out
 {
-
+	m_voiceline.setBuffer(m_shovelLine);
+	m_voiceline.play();
 }
 
 void Inventory::crowBarEffect()
 //for sound read out
 {
+	if (m_haveCrowbar)
+	{
+		m_voiceline.setBuffer(m_crowbarUse);
+	}
+	else
+	{
+		m_voiceline.setBuffer(m_crowbarFind);
+	}
 
+	m_voiceline.play();
 }
 
 void Inventory::loadVoice()
@@ -146,6 +165,33 @@ void Inventory::loadVoice()
 	{
 		std::cout << "key Find voiceline no load"; // error
 	}
+	
+	if (!m_noteUse.loadFromFile("ASSETS\\AUDIO\\noteUse.ogg"))
+	{
+		std::cout << "note use voiceline no load"; // error
+	}
+	
+	if (!m_noteFind.loadFromFile("ASSETS\\AUDIO\\noteFind.ogg"))
+	{
+		std::cout << "note Find voiceline no load"; // error
+	}
+
+	if (!m_crowbarFind.loadFromFile("ASSETS\\AUDIO\\crowbarFind.ogg"))
+	{
+		std::cout << "crowbar Find voiceline no load"; // error
+	}
+	
+	//if (!m_crowbarUse.loadFromFile("ASSETS\\AUDIO\\crowbarUse.ogg"))
+	//{
+	//	std::cout << "crowbar use voiceline no load"; // error
+	//}
+	
+		if (!m_shovelLine.loadFromFile("ASSETS\\AUDIO\\shovelLine.ogg"))
+	{
+		std::cout << "shovel voiceline no load"; // error
+	}
+
+
 }
 
 void Inventory::haveKey()
