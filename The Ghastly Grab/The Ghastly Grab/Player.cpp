@@ -99,16 +99,29 @@ void Player::reset(int t_room, int t_oldRoom)
 	{
 	case OUTSIDE:
 	{
+		// only room that switches to outside is greenhouse
+		m_sprite.setPosition(95, 240);
+		m_legsRect.setPosition(95 + LEFT_TO_LEG, 240 + UP_TO_LEG);
 		break;
 	}
 	case OUTSIDE_NO_DOOR:
 	{
+		if (t_oldRoom == GREENHOUSE)
+		{
+			m_sprite.setPosition(95, 240);
+			m_legsRect.setPosition(95 + LEFT_TO_LEG, 240 + UP_TO_LEG);
+		}
+		else if (t_oldRoom == HALLWAY_LEFT)
+		{
+			m_sprite.setPosition(SCREEN_WIDTH/2 - 50, 200);
+			m_legsRect.setPosition((SCREEN_WIDTH/2) - 50 + LEFT_TO_LEG, 200 + UP_TO_LEG);
+		}
 		break;
 	}
 	case GREENHOUSE:
 	{
-		m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
-		m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
+		m_sprite.setPosition(SCREEN_WIDTH / 2 - 50, 350);
+		m_legsRect.setPosition((SCREEN_WIDTH / 2) -50 + LEFT_TO_LEG, 350 + UP_TO_LEG);
 		break;
 	}
 
@@ -116,17 +129,21 @@ void Player::reset(int t_room, int t_oldRoom)
 	{
 		if (t_oldRoom == OUTSIDE || t_oldRoom == OUTSIDE_NO_DOOR)
 		{
-			m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
+			m_sprite.setPosition(SCREEN_WIDTH / 2 - 50, 350);
 			m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
-			break;
 		}
 		else if (t_oldRoom == HALLWAY_RIGHT)
 		{
 			m_sprite.setPosition(SCREEN_WIDTH - 50 , 250);
 			m_legsRect.setPosition(SCREEN_WIDTH - 50 + LEFT_TO_LEG, 250 + UP_TO_LEG);
-			break;
 		}
-
+		else if (t_oldRoom == BEDROOM_RIGHT)
+		{
+			m_sprite.setPosition(95, 240);
+			m_legsRect.setPosition(95 + LEFT_TO_LEG, 240 + UP_TO_LEG);
+		}
+		
+		break;
 	}
 	case HALLWAY_RIGHT:
 	{
@@ -135,30 +152,44 @@ void Player::reset(int t_room, int t_oldRoom)
 			m_sprite.setPosition(10, 250);
 			m_legsRect.setPosition(10 + LEFT_TO_LEG, 250 + UP_TO_LEG);
 		}
+		else if (t_oldRoom == KITCHEN)
+		{
+			m_sprite.setPosition(300, 160);
+			m_legsRect.setPosition(300 + LEFT_TO_LEG, 160 + UP_TO_LEG);
+		}
+		else if (t_oldRoom == LIVING)
+		{
+			m_sprite.setPosition(800, 233);
+			m_legsRect.setPosition(800 + LEFT_TO_LEG, 233 + UP_TO_LEG);
+		}
 
 		break;
 	}
 	case KITCHEN:
 	{
+		// ONLY BE ENTERED FROM RIGHT HALLWAY
+		m_sprite.setPosition(SCREEN_WIDTH / 2 - 50, 350);
+		m_legsRect.setPosition((SCREEN_WIDTH / 2) - 50 + LEFT_TO_LEG, 350 + UP_TO_LEG);
 		break;
 	}
 	case LIVING:
 	{
+		// ONLY BE ENTERED FROM RIGHT HALLWAY
+		m_sprite.setPosition(SCREEN_WIDTH / 2 - 50, 350);
+		m_legsRect.setPosition((SCREEN_WIDTH / 2) - 50 + LEFT_TO_LEG, 350 + UP_TO_LEG);
 		break;
 	}
 	case BEDROOM_LEFT:
 	{
-		if (t_oldRoom == HALLWAY_LEFT)
+		if (t_oldRoom == BATHROOM)
 		{
-			m_sprite.setPosition(SCREEN_WIDTH / 2, 350);
-			m_legsRect.setPosition((SCREEN_WIDTH / 2) + LEFT_TO_LEG, 350 + UP_TO_LEG);
-			break;
+			m_sprite.setPosition(95, 240);
+			m_legsRect.setPosition(95 + LEFT_TO_LEG, 240 + UP_TO_LEG);
 		}
 		else if (t_oldRoom == BEDROOM_RIGHT)
 		{
-			m_sprite.setPosition(10, 250);
-			m_legsRect.setPosition(10 + LEFT_TO_LEG, 250 + UP_TO_LEG);
-			break;
+			m_sprite.setPosition(SCREEN_WIDTH - 100, 275);
+			m_legsRect.setPosition(SCREEN_WIDTH - 100 + LEFT_TO_LEG, 275 + UP_TO_LEG);
 		}
 		break;
 	}
@@ -166,9 +197,13 @@ void Player::reset(int t_room, int t_oldRoom)
 	{
 		if (t_oldRoom == BEDROOM_LEFT)
 		{
-			m_sprite.setPosition(SCREEN_WIDTH - 50, 250);
-			m_legsRect.setPosition(SCREEN_WIDTH - 50 + LEFT_TO_LEG, 250 + UP_TO_LEG);
-			break;
+			m_sprite.setPosition(50, 275);
+			m_legsRect.setPosition(50 + LEFT_TO_LEG, 275 + UP_TO_LEG);
+		}
+		else if (t_oldRoom == HALLWAY_LEFT)
+		{
+			m_sprite.setPosition(SCREEN_WIDTH / 2 - 50, 350);
+			m_legsRect.setPosition((SCREEN_WIDTH / 2) - 50 + LEFT_TO_LEG, 350 + UP_TO_LEG);
 		}
 		break;
 	}
