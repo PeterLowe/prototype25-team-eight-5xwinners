@@ -4,6 +4,7 @@
 #include <string>
 
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include "Globals.h"
 
 class Menus
@@ -25,6 +26,14 @@ public:
 	void loadMenu();
 	sf::Sprite getMain();
 	void animateMainMenu();
+
+	// Game Over Screen
+	sf::Texture m_scareText;
+	sf::Sprite m_scareSprite;
+
+	void loadScare();
+	sf::Sprite getScare();
+	void animateScare();
 
 	// Temporary for readability
 	void mainMenuText();
@@ -96,6 +105,8 @@ private:
 	sf::FloatRect m_invReturnSize;
 
 	int m_totalFrame = 8;
+	int m_scareFrames = 5;
+	int m_scareRow = 0;
 	float m_frameCounter = 0.0f;
 	float m_frameIncrement = 0.1f;
 };

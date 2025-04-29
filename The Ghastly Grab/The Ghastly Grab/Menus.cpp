@@ -4,6 +4,7 @@
 Menus::Menus() // Default constructor
 {
 	loadMenu();
+	loadScare();
 	mainMenuShapes();
 	mainMenuText();
 
@@ -37,6 +38,39 @@ void Menus::mainMenuShapes()
 	m_creditsDef.setSize(sf::Vector2f(BUT_WIDTH, BUT_HEIGHT));
 	m_creditsDef.setOrigin(BUT_WIDTH / 2, BUT_HEIGHT / 2);
 	m_creditsDef.setPosition(m_creditsPos);
+}
+
+void Menus::loadScare()
+{
+	if (!m_scareText.loadFromFile("ASSETS//IMAGES//scare.png"))
+	{
+		std::cout << "Issue loading scare texture" << std::endl;
+	}
+
+	m_scareSprite.setTexture(m_scareText);
+}
+
+sf::Sprite Menus::getScare()
+{
+	return m_scareSprite;
+}
+
+void Menus::animateScare()
+{
+	int column = 0;
+
+	m_frameCounter += m_frameIncrement;
+
+	column = static_cast<int>(m_frameCounter);
+
+	if (column >= m_scareFrames)
+	{
+		m_scareRow = 1;
+		column = 0;
+		m_frameCounter = 0.0f;
+	}
+
+	m_scareSprite.setTextureRect(sf::IntRect(column * SCREEN_WIDTH, m_scareRow * SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT));
 }
 
 /// Temporary
