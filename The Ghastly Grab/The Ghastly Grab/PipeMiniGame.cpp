@@ -246,8 +246,13 @@ void Pipe::render(sf::RenderWindow& t_window)
 			}	
 		}
 	}
-	t_window.draw(m_player);
+	//t_window.draw(m_player);
 	t_window.display();
+
+	if (m_win == true)
+	{
+		t_window.close();
+	}
 }
 
 void Pipe::update()
@@ -367,6 +372,7 @@ void Pipe::rotate(sf::Vector2f t_pos)
 	}
 
 	checkWater();
+	checkWin();
 }
 
 void Pipe::checkWater()
@@ -610,3 +616,27 @@ void Pipe::checkDirection(int t_posx, int t_posy, bool& t_up, bool& t_right, boo
 	}
 }
 
+void Pipe::checkWin()
+{
+	int count = 0;
+
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (m_grid[i][j] == 61000 ||
+				m_grid[i][j] == 60100 ||
+				m_grid[i][j] == 60010 ||
+				m_grid[i][j] == 60001)
+			{
+				count++;
+			}
+		}
+	}
+
+	if (count == 20)
+	{
+		m_win = true;
+	}
+	std::cout << count << std::endl;
+}
