@@ -28,6 +28,8 @@ public:
 	void leftHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to left Hallway
 	void rightHallBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);	// movement specific to right Hallway
 
+	void rightBedroomBounds(int t_facing, sf::Vector2f& t_leg, sf::Vector2f& t_body);
+
 
 	void leftDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);
 	void rightDiaBounds(sf::Vector2f& t_leg, sf::Vector2f& t_body, int t_facing);

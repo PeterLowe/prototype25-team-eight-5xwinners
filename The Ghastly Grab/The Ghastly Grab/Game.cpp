@@ -140,6 +140,11 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_inventory.radioAnimate();
 	}
+
+	if (m_screen == LOSING)
+	{
+		gameOver();
+	}
 	//std::cout << m_screen << std::endl;
 }
 
@@ -585,6 +590,11 @@ void Game::gamePlayClick()
 	else 
 	{
 		m_meter.onClick();
+
+		if (m_meter.getFilled() == 10)
+		{
+			m_screen = LOSING;
+		}
 	}
 }
 
@@ -1101,5 +1111,18 @@ int Game::roomCheck(int t_room)
 	return t_room;
 }
 
+void Game::gameOver()
+{
+	if (m_time < m_timeTarget)
+	{
+		m_time += 0.1f;
+	}
 
+	if (m_time >= m_timeTarget)
+	{
+		m_screen = MAIN;
+	}
+
+	//function call for animation or whatever else you want to do
+}
 
