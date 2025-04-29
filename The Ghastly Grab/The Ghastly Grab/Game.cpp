@@ -482,6 +482,15 @@ void Game::setupAudio()
 		std::cout << "door 2 no load"; // error
 	}
 
+	// Gameover Screen Scare Audio
+	if (!m_scareBuffer.loadFromFile("ASSETS//AUDIO//final_scream.ogg"))
+	{
+		std::cout << "Final Scream audio failed to load" << std::endl; // error
+	}
+
+	m_scare.setBuffer(m_scareBuffer);
+	m_scare.setVolume(20.0f);
+
 	m_roomMusic.setBuffer(m_outsideMusic);
 
 	m_bgMusic.setVolume(20.f);
@@ -535,7 +544,8 @@ void Game::renderScreens()
 	}
 	else if (m_screen == LOSING)
 	{
-
+		m_window.clear(sf::Color::Black);
+		m_window.draw(Menus.getScare());
 	}
 	else if (m_screen == WINNING)
 	{
@@ -1167,6 +1177,8 @@ void Game::gameOver()
 		m_screen = MAIN;
 	}
 
+	m_scare.play();
+	Menus.animateScare();
 	//function call for animation or whatever else you want to do
 }
 

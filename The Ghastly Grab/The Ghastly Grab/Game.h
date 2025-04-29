@@ -104,6 +104,9 @@ private:
 	sf::Sound m_door;
 	sf::SoundBuffer m_doorOneBuffer;
 	sf::SoundBuffer m_doorTwoBuffer;
+
+	sf::Sound m_scare;
+	sf::SoundBuffer m_scareBuffer;
 };
 
 #endif //!GAME_HPP
