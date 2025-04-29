@@ -320,8 +320,16 @@ void Game::renderTools()
 	}
 	case GREENHOUSE:
 	{
-		m_window.draw(m_tools[2].getBody());
-		m_window.draw(m_tools[3].getBody());
+		if (!m_tools[2].getClicked())
+		{
+			m_window.draw(m_tools[2].getBody());
+		}
+	
+		if (!m_tools[3].getClicked())
+		{
+			m_window.draw(m_tools[3].getBody());
+		}
+
 		break;
 	}
 	case HALLWAY_LEFT:
@@ -1013,6 +1021,11 @@ int Game::roomCheck(int t_room)
 			t_room = BEDROOM_RIGHT;
 			m_player.reset(t_room, HALLWAY_LEFT);
 		}
+		else if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		{
+			t_room = OUTSIDE_NO_DOOR;
+			m_player.reset(t_room, HALLWAY_LEFT);
+		}
 		break;
 	}
 	case HALLWAY_RIGHT:
@@ -1098,7 +1111,7 @@ int Game::roomCheck(int t_room)
 	}
 	case BATHROOM:
 	{
-		if ((leg.x > 450 && leg.x < 550) && leg.y > 600)
+		if ((leg.x > 750 && leg.x < 850) && leg.y > 600)
 		{
 			t_room = BEDROOM_LEFT;
 			m_player.reset(t_room, BATHROOM);

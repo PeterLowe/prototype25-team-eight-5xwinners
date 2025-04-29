@@ -30,7 +30,7 @@ void Tools::setupSprite(int t_num)
 	case 2:
 	{
 		m_toolsSprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
-		m_toolsSprite.setPosition(170, 190);
+		m_toolsSprite.setPosition(250, 436);
 		break;
 	}
 	case 3:
