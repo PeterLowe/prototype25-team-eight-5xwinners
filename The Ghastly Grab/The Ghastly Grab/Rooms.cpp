@@ -55,6 +55,11 @@ void Rooms::loadBackgrounds()
 		std::cout << "error with BATHROOM image file";
 	}
 
+	if (!m_livingTexture.loadFromFile("ASSETS/IMAGES/LIVING_ROOM.png"))
+	{
+		std::cout << "error with lIVING image file";
+	}
+
 	//load alternative rooms
 	if (!m_outsideNoDoorTexture.loadFromFile("ASSETS/IMAGES/Outside_no_door.png"))
 	{

@@ -258,6 +258,7 @@ void Player::bounaryCheck(int t_facing, int t_room)
 	}
 	case LIVING:
 	{
+		kitchenBounds(t_facing, leg, body);
 		break;
 	}
 	case BEDROOM_LEFT:

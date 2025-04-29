@@ -223,6 +223,14 @@ void Game::renderRiches()
 	}
 	case LIVING:
 	{
+		if (!m_riches[5].getClicked())
+		{
+			m_window.draw(m_riches[5].getBody());
+		}
+		if (!m_riches[7].getClicked())
+		{
+			m_window.draw(m_riches[7].getBody());
+		}
 		break;
 	}
 	case BEDROOM_LEFT:
@@ -763,7 +771,7 @@ bool Game::richesClick()
 		if (powrTool.contains(m_mousePressed))
 		{
 			m_riches[4].onClick();
-			Hud.itemObtained(4);
+			Hud.itemObtained(5);
 			clicked = true;
 		}
 
@@ -783,9 +791,9 @@ bool Game::richesClick()
 	}
 	case HALLWAY_RIGHT:
 	{
-		sf::FloatRect saber = m_riches[6].getBody().getGlobalBounds();
-		if (saber.contains(m_mousePressed) && !m_riches[6].getClicked())
-			// if mouse is on saber AND saber itself is NOT clicked
+		sf::FloatRect coat = m_riches[6].getBody().getGlobalBounds();
+		if (coat.contains(m_mousePressed) && !m_riches[6].getClicked())
+			// if mouse is on coat AND saber itself is NOT clicked
 		{
 			m_riches[6].onClick();
 			clicked = true;
@@ -799,6 +807,20 @@ bool Game::richesClick()
 	}
 	case LIVING:
 	{
+		sf::FloatRect vase = m_riches[5].getBody().getGlobalBounds();
+		sf::FloatRect cards = m_riches[7].getBody().getGlobalBounds();
+		if (vase.contains(m_mousePressed) && !m_riches[5].getClicked())
+		{
+			m_riches[5].onClick();
+			Hud.itemObtained(6);
+			clicked = true;
+		}
+		else if (cards.contains(m_mousePressed) && !m_riches[7].getClicked())
+		{
+			m_riches[7].onClick();
+			Hud.itemObtained(8);
+			clicked = true;
+		}
 		break;
 	}
 	case BEDROOM_LEFT:
@@ -1051,6 +1073,9 @@ int Game::roomCheck(int t_room)
 		{
 			t_room = LIVING;
 			m_player.reset(t_room, HALLWAY_RIGHT);
+			std::cout << "!*!*!*!" << std::endl;
+			std::cout << "The bounds for this screen is not complete. Kindly assume it is" << std::endl;
+			std::cout << "!*!*!*!" << std::endl;
 		}
 		break;
 	}
@@ -1106,6 +1131,9 @@ int Game::roomCheck(int t_room)
 		{
 			t_room = BEDROOM_LEFT;
 			m_player.reset(t_room, BEDROOM_RIGHT);
+			std::cout << "!*!*!*!" << std::endl;
+			std::cout << "The bounds for this screen is not complete. Kindly assume it is" << std::endl;
+			std::cout << "!*!*!*!" << std::endl;
 		}
 		break;
 	}
@@ -1115,6 +1143,9 @@ int Game::roomCheck(int t_room)
 		{
 			t_room = BEDROOM_LEFT;
 			m_player.reset(t_room, BATHROOM);
+			std::cout << "!*!*!*!" << std::endl;
+			std::cout << "The bounds for this screen is not complete. Kindly assume it is" << std::endl;
+			std::cout << "!*!*!*!" << std::endl << std::endl;
 		}
 		break;
 	}
