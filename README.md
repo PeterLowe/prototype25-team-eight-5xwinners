@@ -15,7 +15,7 @@ All SFX are Foley or nature sounds. All art assets were also made by hand. The m
 
 # Gameplay Video and Screenshots
 
-# [Gameplay Video](https://youtu.be/JBdtCAIBeHI)
+# [Gameplay Video](https://youtu.be/Lpe4zJwd1KQ)
 
 <img width="1134" height="904" alt="image" src="https://github.com/user-attachments/assets/313943e5-170a-48af-9aca-3eaf0b94ce26" />
 
